@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+</head>
+<body>
+    <nav>
+        <div class="nav-wrapper" id="navbarclass">
+          <a [routerLink]="['/main']" class="brand-logo">
+            <img src="../../../assets/imagenes/medicine.png" width="50px" height="50px" class="logo">
+          </a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a >Solicitud</a></li>
+            <li><a >Registro de pacientes</a></li>
+            <li></li>
+          </ul>
+        </div>
+      </nav>
+
+    <!-- Modal Structure -->
+    <main class="table mt-4">
+      <section class="table__header" aling="center">
+          <h1>Transfuciones</h1>
+      </section>
+
+      <section class="table__body">
+          <table>
+              <thead>
+                  <tr>
+                      <th>Idsolicitud</th>
+                      <th>Idpaciente</th>
+                      <th>fecha</th>
+                  </tr>
+              </thead>
+              <tbody>
+                <tr class="active-row" *ngFor="let tranfucion of tranfucion" >
+                  <td>{{tranfucion.idsolicitud}}</td>
+                  <td>{{tranfucion.idpaciente}}<i class="material-icons" (click)="visualizarPaciente(tranfucion.idpaciente);preparar();">info</i></td>
+                  <td>{{tranfucion.fecha}}</td>
+              </tr>
+              </tbody>
+              <a (click)="preparar()"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-send-plus-fill" viewBox="0 0 16 16" style="color: black;">
+                <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 1.59 2.498C8 14 8 13 8 12.5a4.5 4.5 0 0 1 5.026-4.47L15.964.686Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z"/>
+                <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-3.5-2a.5.5 0 0 0-.5.5v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 0 0 1 0v-1h1a.5.5 0 0 0 0-1h-1v-1a.5.5 0 0 0-.5-.5Z"/>
+              </svg></a>
+          </table>
+      </section>
+  </main>
+
+       <div id="mymodal" class="modal" >
+        <div class="modal-dialog">
+           <div class="modal-content">
+           <div class="modal-header">
+             <h4 class="modal-title">Informacion Transfuciones</h4>
+           </div>
+           <div class="modal-body">
+            <div class="container" id="formulario">
+                
+                  <div class="col-3">
+                    <label for="idpaciente" class="form-label">Id paciente</label>
+                    <input disabled type="text" id="idpaciente" class="email" [(ngModel)]="personas.idpaciente"  name="idpersona" placeholder="nombre del paicente">
+                </div>
+                  <div class="col-3">
+                      <label for="tipodesangre" class="form-label">Tipo de sangre</label>
+                      <input disabled type="text" id="tipodesangre" class="email" [(ngModel)]="personas.tipodesangre" name="nombrepaciente" placeholder="tipo de sangre del paicente">
+                  </div>
+                  <div class="col-2">
+                    <label for="nombrepersona" class="form-label">Nombre del paciente</label>
+                    <input disabled type="text" id="nombrepersona" class="email"  name="tipodesangre" [(ngModel)]="personas.nombre" placeholder="Nombre del paciente" />
+                </div>
+                  <div  class="col-3">
+                      <label for="genero">Genero de la persona</label>
+                      <input disabled type="text" id="genero" class="email" name="edad" [(ngModel)]="personas.genero"  placeholder="Genero del paciente">
+                  </div>
+                  <div class="col-2">
+                    <label for="edad">Edad del paciente</label>
+                    <input disabled type="text" id="edad" class="email" [(ngModel)]="personas.edad" name="genero" placeholder="Genero del paciente">
+                  </div>
+            </div>
+              <div class="buttonSelect">
+                <a  class=" modal-action modal-close waves-effect waves-green btn-flat">Cerrar</a>
+             </div>
+           </div>
+           </div>
+        </div>
+       </div>
+   
+  </body>
+</html>

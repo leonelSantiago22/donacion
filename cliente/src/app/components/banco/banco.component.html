@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banco</title>
+</head>
+<body>
+    
+  <nav>
+    <div class="nav-wrapper" style="background-color: cadetblue;">
+      <a  [routerLink]="['/enfermera']" class="brand-logo">Logo</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a [routerLink]="['/enfermera']">Inicio</a></li>
+      </ul>
+    </div>
+  </nav>
+    <div class="container">
+    <table class="mt-3">
+        <thead>
+          <tr>
+              <th>Idbanco</th>
+              <th>Nombre</th>
+              <th>Direccion</th>
+              <th>Contacto</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr class="active-row" *ngFor="let banco of banco">
+                <td>{{banco.idbanco}}</td>
+                <td>{{banco.nombre}}</td>
+                <td>{{banco.direccion}}</td>  
+                <td>{{banco.numTelefonico}}</td>
+                <a (click)="listarInventarioBanco(banco.idbanco);preparar();"><i class="material-icons prefix" style="color: black; width: 30px; height: 30px; ">remove_red_eye</i></a>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="mymodal" class="modal" >
+      <div class="modal-dialog">
+         <div class="modal-content">
+         <div class="modal-header">
+           <h4 class="modal-title">Almacenes</h4>
+
+         </div>
+         <div class="modal-body">
+          <div class="container" id="formulario">
+            <table class="mt-3">
+              <thead>
+                <tr>
+                    <th>Idbanco</th>
+                    <th>Nombre</th>
+                    <th>Direccion</th>
+                    <th>Fecha de donacion</th>
+                    <th>IDregistro</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <tr class="active-row" *ngFor="let bancos of bancos2">
+                      <td>{{bancos.idbanco}}</td>
+                      <td>{{bancos.nombre}}</td>
+                      <td>{{bancos.iddonacion}}</td>
+                      <td>{{bancos.fecha_donacion}}</td>  
+                      <td>{{bancos.idregistro}}</td>
+                    </tr>
+              </tbody>
+            </table>
+          </div>
+            <div class="buttonSelect">
+              <a class=" modal-action modal-close waves-effect waves-green btn-flat">Cerrar</a>  
+             </div>
+         </div>
+         </div>
+      </div>
+     </div>
+</body>
+</html>

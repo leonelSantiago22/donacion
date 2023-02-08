@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="main.component.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css">
+</head>
+<body>
+  <!-- 
+    <div class="container" >
+        <div class="tutorial">
+          <ul>
+            <li (click)="changeDonadores()">Registro donador</li>
+            <li (click)="changePaciente()">Registro paciente</li>
+            <li (click)="changeSolicitud()">Solicitudes</li>
+            <li [routerLink]="['/login']">Salir</li>
+          </ul>
+          <div class="slider" >
+            <div aling="center">
+              <img src="../../../assets/imagenes/img.jpg" width="100%" height="100%" >
+            </div>
+          </div>
+          <div class="information">
+            <p>Menu para seleccionar las diferentes tareas</p>
+          </div>
+        </div>
+      </div>
+  -->
+  <input type="checkbox" id="nav-toggle">
+      <div class="sidebar">
+        <div class="sidebar-brand">
+          <h2><span  class="material-icons">healing</span><span>Menu</span></h2>
+        </div>
+
+        <div class="sidebar-menu">
+          <ul>
+            
+            <li>
+              <a [routerLink]="['/donadores']" class="active"><span  class="material-icons">people</span><span>Donadores</span></a>
+            
+            </li>
+            <li>
+              <a [routerLink]="['/solicitud']" ><span  class="material-icons">unarchive</span><span>Solicitudes</span></a>
+              
+            </li>
+            <li>
+              <a [routerLink]="['/paciente']" ><span  class="material-icons">person</span><span>Pacientes</span></a>
+            </li> 
+            <li>
+              <a [routerLink]="['/transfuciones']" ><span  class="material-icons">favorite</span><span>Transfuciones</span></a>
+            </li>
+            <li>
+              <a [routerLink]="['/login']" ><span  class="material-icons">exit_to_app</span><span>Salir</span></a>
+            </li>
+          </ul>
+            
+           
+        </div>
+      </div>
+      <div class="main-content">
+        <header>
+          <h2>
+            <label for="nav-toggle">
+              <span  class="material-icons">menu</span>
+            </label>
+            Donacion
+          </h2>
+        </header>
+        <main>
+          <section class="table__header">
+            <h1>Solicitudes</h1>
+        </section>
+  
+        <section class="table__body">
+          <h2>Solicitudes en proceso</h2>
+            <table>
+                <thead>
+                  <th>Idsolicitud</th>
+                  <th>Idbanco</th>
+                  <th>Fecha</th>
+                  <th>Estado</th>
+                  <th>Idhospital</th>
+                  <th>Numero de trabajador</th>
+                </thead>
+                <tbody>
+                  <tr class="active-row" *ngFor="let solicitud of solicitud">
+                    <td *ngIf="(solicitud.estado ==1)">{{solicitud.idsolicitud}}</td>
+                    <td *ngIf="(solicitud.estado ==1)">{{solicitud.idbanco}}</td>
+                    <td *ngIf="(solicitud.estado ==1)">{{solicitud.fecha}}</td>
+                    <td *ngIf="(solicitud.estado ==1)">{{solicitud.estado}}</td>
+                    <td *ngIf="(solicitud.estado ==1)">{{solicitud.idhospital}}</td>
+                    <td *ngIf="(solicitud.estado ==1)">{{solicitud.numero_trabajador}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+        </main>
+      </div>
+</body>
+</html>
