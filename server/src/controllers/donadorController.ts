@@ -46,6 +46,20 @@ class DonadorController
         const resp = await pool.query("INSERT INTO donador set ?", [req.body]); //recibira los parametros por el body
         res.json(resp);
     }
+    public async createDP(req: Request, res: Response ): Promise<void>
+    {
+        console.log(req.params);
+        const {nombre, edad, genero, tipodesangre} = req.body;
+        const setIdPersona = await pool.query("SET @idpersona = 0;");
+        const insertPersona = await pool.query("INSERT INTO persona(nombre, edad, genero) VALUES(?, ?, ?);", [nombre, edad, genero]);
+        const setId = await pool.query(" SET @idpersona = LAST_INSERT_ID();");
+        const getIdPersona = await pool.query("SELECT @idpersona as idpersona;");
+        const idpersona = getIdPersona[0].idpersona;
+        const resp2 = await pool.query(`INSERT INTO donador (tipodesangre, idpersona)VALUES ("${tipodesangre}",${idpersona});`);
+        res.json({setIdPersona,insertPersona,setId, getIdPersona,resp2});
+
+
+    }
     public async delete(req: Request, res: Response ): Promise<void>
     {
         const { iddonador } = req.params;

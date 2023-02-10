@@ -16,15 +16,19 @@ declare var $: any;
 })
 export class DonadoresComponent {
   donador : any;
-  donadores = new Donador();
-  personas = new Persona();
+  donadores:any;
+  personas:any;
   idpersona:any;
   constructor(private  donadorService: DonadorService, private personaService: PersonaService,private router: Router){
     this.listarDonadores();
     $('.mymodal').modal();
   
   }
-  
+  ngOnInit()
+  {
+    this.donadores = new Donador();
+    this.personas = new Persona();
+  }
   eliminarDonador(iddonador:any){
     console.log("eliminar categoria "+iddonador)
     this.donadorService.deleteDonadores(iddonador).subscribe((resCategorias: any) => {
@@ -63,22 +67,7 @@ export class DonadoresComponent {
       },
     (err: any) => console.error(err)
     );
-    this.personaService.listPersonaMax().subscribe((resDonadores: any) => {
-      console.log(resDonadores); 
-      console.log(resDonadores[0].idpersona);
-      
-    },
-      (err: any) => console.error(err)
-    );
-
-    /*
-    this.donadorService.insertarDonador(this.donadores).subscribe((resPaciente: any) => {
-      console.log(resPaciente);
-      this.donador = resPaciente;
-  },
-      (err: any) => console.error(err)
-    );*/
-    
+   
   }
 
   listOnePaciente(idpaciente:any, idpersona:any)

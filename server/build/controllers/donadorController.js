@@ -60,6 +60,19 @@ class DonadorController {
             res.json(resp);
         });
     }
+    createDP(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            console.log(req.params);
+            const { nombre, edad, genero, tipodesangre } = req.body;
+            const setIdPersona = yield database_1.default.query("SET @idpersona = 0;");
+            const insertPersona = yield database_1.default.query("INSERT INTO persona(nombre, edad, genero) VALUES(?, ?, ?);", [nombre, edad, genero]);
+            const setId = yield database_1.default.query(" SET @idpersona = LAST_INSERT_ID();");
+            const getIdPersona = yield database_1.default.query("SELECT @idpersona as idpersona;");
+            const idpersona = getIdPersona[0].idpersona;
+            const resp2 = yield database_1.default.query(`INSERT INTO donador (tipodesangre, idpersona)VALUES ("${tipodesangre}",${idpersona});`);
+            res.json({ setIdPersona, insertPersona, setId, getIdPersona, resp2 });
+        });
+    }
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { iddonador } = req.params;
