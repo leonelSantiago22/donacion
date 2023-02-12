@@ -62,15 +62,26 @@ class DonadorController {
     }
     createDP(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log("Create Dp");
             console.log(req.params);
             const { nombre, edad, genero, tipodesangre } = req.body;
             const setIdPersona = yield database_1.default.query("SET @idpersona = 0;");
             const insertPersona = yield database_1.default.query("INSERT INTO persona(nombre, edad, genero) VALUES(?, ?, ?);", [nombre, edad, genero]);
             const setId = yield database_1.default.query(" SET @idpersona = LAST_INSERT_ID();");
-            const getIdPersona = yield database_1.default.query("SELECT @idpersona as idpersona;");
-            const idpersona = getIdPersona[0].idpersona;
+            const getIdPersona = yield database_1.default.query("SELECT idpersona as idp from persona where idpersona = (select MAX(idpersona) from persona);");
+            const idpersona = getIdPersona[0].idp;
             const resp2 = yield database_1.default.query(`INSERT INTO donador (tipodesangre, idpersona)VALUES ("${tipodesangre}",${idpersona});`);
             res.json({ setIdPersona, insertPersona, setId, getIdPersona, resp2 });
+        });
+    }
+    actualizarDP(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            console.log(req.params);
+            const { nombre, edad, genero, tipodesangre } = req.body;
+            const { iddonador } = req.params;
+            const updatePersona = yield database_1.default.query("UPDATE persona SET nombre=?, edad=?, genero=? WHERE idpersona=?", [nombre, edad, genero, req.params.idpersona]);
+            const updateDonador = yield database_1.default.query(`UPDATE donador SET tipodesangre=? WHERE iddonador=${iddonador};`, [tipodesangre]);
+            res.json({ updatePersona, updateDonador });
         });
     }
     delete(req, res) {

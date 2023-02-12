@@ -1,1 +1,77 @@
-<p>donacion works!</p>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donaciones</title>
+</head>
+<body>
+  <app-navegacionempleado></app-navegacionempleado>
+        <!-- Modal Structure -->
+    <main class="table mt-4">
+        <section class="table__header" aling="center">
+            <h1>Donaciones</h1>
+            <p>Solo el administrador puede borrar las donaciones</p>
+        </section>
+  
+        <section class="table__body">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Iddonacion</th>
+                        <th>iddonador</th>
+                        <th>Banco</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  <tr class="active-row"   *ngFor = "let donacion of donacion " >
+                    <td>{{donacion.iddonacion}}</td>
+                    <td>{{donacion.iddonador}}</td>
+                    <td>{{donacion.banco}}</td>
+                    <td><a><i class="material-icons">delete_forever</i></a>
+                        <a><i class="material-icons" (click)="visualizarInformacion(donacion.banco);">remove_red_eye</i></a>
+                        <a><i class="material-icons prefix">edit</i></a></td>  
+                </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <div id="mymodal" class="modal" >
+      <div class="modal-dialog">
+         <div class="modal-content">
+         <div class="modal-header">
+           <h4 class="modal-title">Informacion Donadores</h4>
+         </div>
+         <div class="modal-body">
+          <div class="container" id="formulario">
+              
+                <div class="col-3">
+                  <label for="idpersona" class="form-label">ID persona</label>
+                  <input disabled type="text" id="idpersona" class="email" [(ngModel)]="bancos.idbanco" name="idpersona" placeholder="Id del paciente">
+              </div>
+                <div class="col-3">
+                    <label for="nombredonador" class="form-label"> Nombre del donador</label>
+                    <input disabled type="text" id="nombredonador" class="email" [(ngModel)]="bancos.nombre" name="nombrepaciente" placeholder="nombre del paicente">
+                </div>
+                <div class="col-2">
+                  <label for="tipodesangre" class="form-label">Tipo De sangre del paciente</label>
+                  <input disabled type="text" id="tipodesangre" class="email" [(ngModel)]="bancos.direccion"  name="tipodesangre" placeholder="tipo de sangre" />
+              </div>
+                <div  class="col-3">
+                    <label for="edadpersona">Edad del donador:</label>
+                    <input disabled type="text" id="edadpersona" class="email" [(ngModel)]="bancos.numTelefonico" name="edad" placeholder="Edad del paciente">
+                </div>
+          </div>
+            <div class="buttonSelect">
+              <a class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+              </div>
+         </div>
+         </div>
+      </div>
+     </div>
+
+</body>
+</html>

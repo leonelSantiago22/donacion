@@ -56,6 +56,28 @@ class PacienteController
         }
         res.status(404).json({'mensaje': 'Cliente no encontrado'});
     }
+    public async createPP(req: Request, res: Response ): Promise<void>
+    {
+        console.log("Create Dp");
+        console.log(req.params);
+        const {nombre, edad, genero, tipodesangre} = req.body;
+        const setIdPersona = await pool.query("SET @idpersona = 0;");
+        const insertPersona = await pool.query("INSERT INTO persona(nombre, edad, genero) VALUES(?, ?, ?);", [nombre, edad, genero]);
+        const setId = await pool.query(" SET @idpersona = LAST_INSERT_ID();");
+        const getIdPersona = await pool.query("SELECT idpersona as idp from persona where idpersona = (select MAX(idpersona) from persona);");
+        const idpersona = getIdPersona[0].idp;
+        const resp2 = await pool.query(`INSERT INTO paciente (tipodesangre, idpersona)VALUES ("${tipodesangre}",${idpersona});`);
+        res.json({setIdPersona,insertPersona,setId, getIdPersona,resp2});
+    }
+    public async actualizarPP(req: Request, res: Response ): Promise<void>
+    {
+    console.log(req.params);
+    const {nombre, edad, genero, tipodesangre} = req.body;
+    const {idpaciente} = req.params;
+    const updatePersona = await pool.query("UPDATE persona SET nombre=?, edad=?, genero=? WHERE idpersona=?", [nombre, edad, genero, req.params.idpersona]);
+    const updateDonador = await pool.query(`UPDATE paciente SET tipodesangre=? WHERE idpaciente=${idpaciente};`,[tipodesangre]);
+    res.json({updatePersona, updateDonador});
+    }
     public async create(req: Request, res: Response ): Promise<void>
     {
         console.log(req);

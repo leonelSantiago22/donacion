@@ -7,19 +7,7 @@
     
 </head>
 <body>
-    <nav>
-        <div class="nav-wrapper" id="navbarclass">
-          <a [routerLink]="['/main']" class="brand-logo">
-            <img src="../../../assets/imagenes/medicine.png" width="50px" height="50px" class="logo">
-          </a>
-          <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a (click)="changeSolicitud()">Solicitud</a></li>
-            <li><a (click)="changePaciente()">Registro de pacientes</a></li>
-            <li></li>
-          </ul>
-        </div>
-      </nav>
-
+    <app-navegacionempleado></app-navegacionempleado>
     <!-- Modal Structure -->
     <main class="table mt-4">
       <section class="table__header" aling="center">
@@ -42,11 +30,11 @@
                   <td>{{donador.tipodesangre}}</td>
                   <td>{{donador.idpersona}}</td>
                   <td><a (click)="eliminarDonador(donador.iddonador)"><i class="material-icons">delete_forever</i></a>
-                      <a (click)="visualizarDonador(donador.iddonador, donador.idpersona) "><i class="material-icons ">remove_red_eye</i></a>
-                      <a (click)="preparar()" ><i class="material-icons prefix">edit</i></a></td>  
+                      <a (click)="visualizarDonador(donador.iddonador, donador.idpersona); preparar2() "><i class="material-icons ">remove_red_eye</i></a>
+                      <a (click)="preparar2()" ><i class="material-icons prefix">edit</i></a></td>  
               </tr>
               </tbody>
-              <a (click)="preparar()"><i class="material-icons">person_add</i></a>
+              <a (click)="clear();preparar();"><i class="material-icons">person_add</i></a>
           </table>
       </section>
   </main>
@@ -62,11 +50,11 @@
                 
                   <div class="col-3">
                     <label for="idpersona" class="form-label">ID persona</label>
-                    <input disabled type="text" id="idpersona" class="email" [(ngModel)]="personas.idpersona" name="idpersona" placeholder="nombre del paicente">
+                    <input disabled type="text" id="idpersona" class="email" [(ngModel)]="donadores.idpersona" name="idpersona" placeholder="Id del paciente">
                 </div>
                   <div class="col-3">
                       <label for="nombredonador" class="form-label"> Nombre del donador</label>
-                      <input type="text" id="nombredonador" class="email" [(ngModel)]="personas.nombre" name="nombrepaciente" placeholder="nombre del paicente">
+                      <input type="text" id="nombredonador" class="email" [(ngModel)]="donadores.nombre" name="nombrepaciente" placeholder="nombre del paicente">
                   </div>
                   <div class="col-2">
                     <label for="tipodesangre" class="form-label">Tipo De sangre del paciente</label>
@@ -74,16 +62,54 @@
                 </div>
                   <div  class="col-3">
                       <label for="edadpersona">Edad del donador:</label>
-                      <input type="text" id="edadpersona" class="email" [(ngModel)]="personas.edad" name="edad" placeholder="Edad del paciente">
+                      <input type="text" id="edadpersona" class="email" [(ngModel)]="donadores.edad" name="edad" placeholder="Edad del paciente">
                   </div>
                   <div class="col-2">
-                    <label for="generopersona"></label>
-                    <input type="text" id="generopersona" class="email" [(ngModel)]="personas.genero" name="genero" placeholder="Genero del paciente">
+                    <label for="generopersona">Genero</label>
+                    <input type="text" id="generopersona" class="email" [(ngModel)]="donadores.genero" name="genero" placeholder="Genero del paciente">
                   </div>
             </div>
               <div class="buttonSelect">
                 <a (click)="static()" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
                 <a (click)="agregarDonador()" class=" modal-action modal-close waves-effect waves-grey btn-flat">Agregar</a>
+             </div>
+           </div>
+           </div>
+        </div>
+       </div>
+
+       <div id="mymodal2" class="modal" >
+        <div class="modal-dialog">
+           <div class="modal-content">
+           <div class="modal-header">
+             <h4 class="modal-title">Informacion Donadores</h4>
+           </div>
+           <div class="modal-body">
+            <div class="container" id="formulario">
+                
+                  <div class="col-3">
+                    <label for="idpersona" class="form-label">ID persona</label>
+                    <input disabled type="text" id="idpersona" class="email" [(ngModel)]="donadores.idpersona" name="idpersona" placeholder="nombre del paicente">
+                </div>
+                  <div class="col-3">
+                      <label for="nombredonador" class="form-label"> Nombre del donador</label>
+                      <input type="text" id="nombredonador" class="email" [(ngModel)]="donadores.nombre" name="nombrepaciente" placeholder="nombre del paicente">
+                  </div>
+                  <div class="col-2">
+                    <label for="tipodesangre" class="form-label">Tipo De sangre del paciente</label>
+                    <input type="text" id="tipodesangre" class="email" [(ngModel)]="donadores.tipodesangre"  name="tipodesangre" placeholder="tipo de sangre" />
+                </div>
+                  <div  class="col-3">
+                      <label for="edadpersona">Edad del donador:</label>
+                      <input type="text" id="edadpersona" class="email" [(ngModel)]="donadores.edad" name="edad" placeholder="Edad del paciente">
+                  </div>
+                  <div class="col-2">
+                    <label for="generopersona"></label>
+                    <input type="text" id="generopersona" class="email" [(ngModel)]="donadores.genero" name="genero" placeholder="Genero del paciente">
+                  </div>
+            </div>
+              <div class="buttonSelect">
+                <a (click)="static()" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
                 <a (click)="actualizarDonador()" class=" modal-action modal-close waves-effect waves-grey btn-flat">Actualizar</a>
              </div>
            </div>

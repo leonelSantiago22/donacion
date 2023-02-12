@@ -19,7 +19,8 @@ import { RegistrosComponent } from './components/registros/registros.component';
 import { PersonaComponent } from './components/persona/persona.component';
 import { BancoComponent } from './components/banco/banco.component';
 import { SolicitudesAdministradoComponent } from './components/solicitudes-administrado/solicitudes-administrado.component';
-
+import { NavegacionencargadoComponent } from './components/navegacionencargado/navegacionencargado.component';
+import { NavegacionempleadoComponent } from './components/navegacionempleado/navegacionempleado.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +38,9 @@ import { SolicitudesAdministradoComponent } from './components/solicitudes-admin
     RegistrosComponent,
     PersonaComponent,
     BancoComponent,
-    SolicitudesAdministradoComponent
+    SolicitudesAdministradoComponent,
+    NavegacionencargadoComponent,
+    NavegacionempleadoComponent
   ],
   imports: [
     BrowserModule,

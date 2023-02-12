@@ -17,11 +17,11 @@ export class PacienteService {
   }
   updatePaciente(paciente:any)
   {
-    return this.http.put(`${environment.API_URI}/api/paciente/update/`+paciente.idpaciente,paciente); 
+    return this.http.put(`${environment.API_URI}/api/paciente/actualizar/`+paciente.idpaciente+"/"+paciente.idpersona,paciente); 
   }
   insertPaciente(paciente:any)
   {
-    return this.http.post(`${environment.API_URI}/api/paciente/`,paciente);
+    return this.http.post(`${environment.API_URI}/api/paciente/create/`,paciente);
   }
   listOne(idpaciente:any, idpersona:any)
   {
@@ -31,4 +31,5 @@ export class PacienteService {
   {
     return this.http.get(`${environment.API_URI}/api/paciente/list/`+idpaciente);
   }
+
 }

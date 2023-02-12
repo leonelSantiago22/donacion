@@ -48,17 +48,25 @@ class DonadorController
     }
     public async createDP(req: Request, res: Response ): Promise<void>
     {
+        console.log("Create Dp");
         console.log(req.params);
         const {nombre, edad, genero, tipodesangre} = req.body;
         const setIdPersona = await pool.query("SET @idpersona = 0;");
         const insertPersona = await pool.query("INSERT INTO persona(nombre, edad, genero) VALUES(?, ?, ?);", [nombre, edad, genero]);
         const setId = await pool.query(" SET @idpersona = LAST_INSERT_ID();");
-        const getIdPersona = await pool.query("SELECT @idpersona as idpersona;");
-        const idpersona = getIdPersona[0].idpersona;
+        const getIdPersona = await pool.query("SELECT idpersona as idp from persona where idpersona = (select MAX(idpersona) from persona);");
+        const idpersona = getIdPersona[0].idp;
         const resp2 = await pool.query(`INSERT INTO donador (tipodesangre, idpersona)VALUES ("${tipodesangre}",${idpersona});`);
         res.json({setIdPersona,insertPersona,setId, getIdPersona,resp2});
-
-
+    }
+    public async actualizarDP(req: Request, res: Response ): Promise<void>
+    {
+    console.log(req.params);
+    const {nombre, edad, genero, tipodesangre} = req.body;
+    const {iddonador} = req.params;
+    const updatePersona = await pool.query("UPDATE persona SET nombre=?, edad=?, genero=? WHERE idpersona=?", [nombre, edad, genero, req.params.idpersona]);
+    const updateDonador = await pool.query(`UPDATE donador SET tipodesangre=? WHERE iddonador=${iddonador};`,[tipodesangre]);
+    res.json({updatePersona, updateDonador});
     }
     public async delete(req: Request, res: Response ): Promise<void>
     {

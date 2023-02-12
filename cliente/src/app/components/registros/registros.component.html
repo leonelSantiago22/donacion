@@ -1,1 +1,39 @@
-<p>registros works!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <app-navegacionencargado></app-navegacionencargado>
+    <main class="table mt-4">
+        <section class="table__header" aling="center">
+            <h1>Donadores</h1>
+        </section>
+  
+        <section class="table__body">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Idbanco</th>
+                        <th>fecha de donacion</th>
+                        <th>Iddonacion</th>
+                        <th>idregistro</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  <tr class="active-row" *ngFor="let registro of registro">
+                    <td>{{registro.idbanco}}</td>
+                    <td>{{registro.fecha_donacion}}</td>
+                    <td>{{registro.iddonacion}}</td>
+                    <td>{{registro.idregistro}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+</body>
+</html>

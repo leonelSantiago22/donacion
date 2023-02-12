@@ -8,18 +8,7 @@
     <title>Pacientes</title>
 </head>
 <body>
-    <nav>
-        <div class="nav-wrapper" id="navbarclass">
-          <a [routerLink]="['/main']" class="brand-logo">
-            <img src="../../../assets/imagenes/medicine.png" width="50px" height="50px" class="logo">
-          </a>
-          <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a (click)="changeDonadores()">Donadores</a></li>
-            <li><a (click)="changeSolicitud()">solicitud de sangre</a></li>
-            <li></li>
-          </ul>
-        </div>
-      </nav>
+  <app-navegacionempleado></app-navegacionempleado>
 <div class="container">
     <table class="styled-table mt-3" align="center" style="margin: 0px auto;">
         <thead>
@@ -48,6 +37,7 @@
         
     </table>
   </div>
+
     <div id="mymodal" class="modal" >
       <div class="modal-dialog">
          <div class="modal-content">
@@ -59,32 +49,34 @@
               
                 <div class="col-3">
                   <label for="idpaciente" class="form-label">Id paciente</label>
-                  <input disabled type="text" id="idpaciente" class="email" [(ngModel)]="pacienteVar.idpaciente"  name="idpersona" placeholder="nombre del paicente">
+                  <input disabled  type="text" id="idpaciente" class="email" [(ngModel)]="pacienteVar.idpaciente"  name="idpersona" placeholder="nombre del paicente">
               </div>
                 <div class="col-3">
                     <label for="tipodesangre" class="form-label">Tipo de sangre</label>
-                    <input disabled type="text" id="tipodesangre" class="email" [(ngModel)]="pacienteVar.tipodesangre" name="nombrepaciente" placeholder="tipo de sangre del paicente">
+                    <input  type="text" id="tipodesangre" class="email" [(ngModel)]="pacienteVar.tipodesangre" name="nombrepaciente" placeholder="tipo de sangre del paicente">
                 </div>
                 <div class="col-2">
                   <label for="nombrepersona" class="form-label">Nombre del paciente</label>
-                  <input disabled type="text" id="nombrepersona" class="email"  name="tipodesangre" [(ngModel)]="personas.nombre" placeholder="Nombre del paciente" />
+                  <input  type="text" id="nombrepersona" class="email"  name="tipodesangre" [(ngModel)]="pacienteVar.nombre" placeholder="Nombre del paciente" />
               </div>
                 <div  class="col-3">
                     <label for="genero">Genero de la persona</label>
-                    <input disabled type="text" id="genero" class="email" name="edad" [(ngModel)]="personas.genero"  placeholder="Genero del paciente">
+                    <input  type="text" id="genero" class="email" name="edad" [(ngModel)]="pacienteVar.genero"  placeholder="Genero del paciente">
                 </div>
                 <div class="col-2">
                   <label for="edad">Edad del paciente</label>
-                  <input disabled type="text" id="edad" class="email" [(ngModel)]="personas.edad" name="genero" placeholder="Genero del paciente">
+                  <input  type="text" id="edad" class="email" [(ngModel)]="pacienteVar.edad" name="genero" placeholder="Genero del paciente">
                 </div>
           </div>
             <div class="buttonSelect">
               <a  class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+              <a  class=" modal-action modal-close waves-effect waves-green btn-flat"(click)="actualizarPaciente();">Actualizar</a>
            </div>
          </div>
          </div>
       </div>
      </div>
+
     <div id="mymodal2" class="modal" >
       <div class="modal-dialog">
          <div class="modal-content">
@@ -96,7 +88,7 @@
               
                 <div class="col-3">
                   <label for="idpaciente" class="form-label">Id paciente</label>
-                  <input  type="text" id="idpaciente" class="email" [(ngModel)]="pacienteVar.idpaciente"  name="idpersona" placeholder="nombre del paicente">
+                  <input disabled  type="text" id="idpaciente" class="email" [(ngModel)]="pacienteVar.idpaciente"  name="idpersona" placeholder="Id del paciente">
               </div>
                 <div class="col-3">
                     <label for="tipodesangre" class="form-label">Tipo de sangre</label>
@@ -104,20 +96,20 @@
                 </div>
                 <div class="col-2">
                   <label for="nombrepersona" class="form-label">Nombre del paciente</label>
-                  <input  type="text" id="nombrepersona" class="email"  name="tipodesangre" [(ngModel)]="personas.nombre" placeholder="Nombre del paciente" />
+                  <input  type="text" id="nombrepersona" class="email"  name="tipodesangre" [(ngModel)]="pacienteVar.nombre" placeholder="Nombre del paciente" />
               </div>
                 <div  class="col-3">
                     <label for="genero">Genero de la persona</label>
-                    <input  type="text" id="genero" class="email" name="edad" [(ngModel)]="personas.genero"  placeholder="Genero del paciente">
+                    <input  type="text" id="genero" class="email" name="edad" [(ngModel)]="pacienteVar.genero"  placeholder="Genero del paciente">
                 </div>
                 <div class="col-2">
                   <label for="edad">Edad del paciente</label>
-                  <input  type="text" id="edad" class="email" [(ngModel)]="personas.edad" name="genero" placeholder="Genero del paciente">
+                  <input  type="text" id="edad" class="email" [(ngModel)]="pacienteVar.edad" name="genero" placeholder="Edad del paciente">
                 </div>
           </div>
             <div class="buttonSelect">
               <a  class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
-              <a  class=" modal-action modal-close waves-effect waves-green btn-flat">Agregar</a>
+              <a  class=" modal-action modal-close waves-effect waves-green btn-flat" (click)="agregarPaciente();">Agregar</a>
            </div>
          </div>
          </div>

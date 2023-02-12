@@ -18,7 +18,7 @@ export class DonadoresComponent {
   donador : any;
   donadores:any;
   personas:any;
-  idpersona:any;
+
   constructor(private  donadorService: DonadorService, private personaService: PersonaService,private router: Router){
     this.listarDonadores();
     $('.mymodal').modal();
@@ -52,22 +52,21 @@ export class DonadoresComponent {
     this.donadorService.listOne(iddonador, idpaciente).subscribe((resClientes: any) => {
       console.log(resClientes);
       this.donadores=resClientes;
-      this.personas = resClientes;
   },
       (err: any) => console.error(err)
     );
-    this.preparar();
   }
   agregarDonador()
   {
       //primero insertamos a la persona
-    this.personaService.agregarPersona(this.personas).subscribe((resDonadores: any) => {
-        console.log(resDonadores);
-        this.personas = resDonadores;
-      },
-    (err: any) => console.error(err)
-    );
-   
+      console.log(this.donadores);
+      this.donadorService.insertarDonador(this.donadores).subscribe((resClientes: any) => {
+        console.log(resClientes);
+        this.donadores=resClientes;
+    },
+        (err: any) => console.error(err)
+      );
+    this.listarDonadores();
   }
 
   listOnePaciente(idpaciente:any, idpersona:any)
@@ -82,16 +81,12 @@ export class DonadoresComponent {
   }
   actualizarDonador()
   {
-    this.donadorService.updateDonadores(this.donadores).subscribe((resPaciente: any) => {
-      console.log(resPaciente);
-      this.donadores = resPaciente;
+    
+    this.donadorService.updateDonadores(this.donadores).subscribe((resClientes: any) => {
+      console.log(resClientes);
+      this.donadores=resClientes;
+
   },
-      (err: any) => console.error(err)
-    );
-    this.personaService.updatePersona(this.personas).subscribe((resPersona: any) => {
-      console.log(resPersona);
-      this.personas = resPersona;
-     },
       (err: any) => console.error(err)
     );
     this.listarDonadores();
@@ -101,6 +96,10 @@ export class DonadoresComponent {
   {
     console.log("clear");
     this.donadores.nombre = "";
+    this.donadores.idpersona = "";
+    this.donadores.tipodesangre = "";
+    this.donadores.genero = "";
+    this.donadores.edad = "";
   } 
   changePaciente()
     {
@@ -119,5 +118,11 @@ export class DonadoresComponent {
             dismissible: false
       });
       $('#mymodal').modal('open');
+    }
+    preparar2(){
+      $('#mymodal2').modal({
+            dismissible: false
+      });
+      $('#mymodal2').modal('open');
     }
 }

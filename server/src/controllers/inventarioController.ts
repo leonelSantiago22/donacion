@@ -7,7 +7,7 @@ class InventarioController
     public async list(req:Request,res:Response): Promise<void>
     {
         console.log(req.params);
-        const consulta = 'SELECT * FROM inventario';
+        const consulta = 'SELECT * FROM inventarioglobal';
         console.log(consulta);
         const respuesta = await pool.query(consulta);
         console.log(respuesta);

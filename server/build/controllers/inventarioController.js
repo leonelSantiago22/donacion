@@ -18,7 +18,7 @@ class InventarioController {
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             console.log(req.params);
-            const consulta = 'SELECT * FROM inventario';
+            const consulta = 'SELECT * FROM inventarioglobal';
             console.log(consulta);
             const respuesta = yield database_1.default.query(consulta);
             console.log(respuesta);

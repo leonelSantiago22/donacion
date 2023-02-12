@@ -17,15 +17,11 @@ export class DonadorService {
   }
   updateDonadores(donadores:any)
   {
-    let donadores1 = {
-      'tipodesangre':donadores.tipodesangre,
-      'idpersona': donadores.idpersona
-    }
-    return this.http.put(`${environment.API_URI}/api/donador/update/`+donadores.iddonador,donadores1);   
+    return this.http.put(`${environment.API_URI}/api/donador/update/`+donadores.iddonador+"/"+donadores.idpersona,donadores);   
   }
   insertarDonador(donadores:any)
   {
-    return this.http.post(`${environment.API_URI}/api/donador/`,donadores);
+    return this.http.post(`${environment.API_URI}/api/donador/create/`,donadores);
   }
   listOne(iddonador:any, idpersona:any)
   {

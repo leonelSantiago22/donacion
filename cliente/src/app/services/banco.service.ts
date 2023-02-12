@@ -15,4 +15,8 @@ export class BancoService {
   {
     return this.http.get(`${environment.API_URI}/api/banco/inventario/`+idbanco);
   }
+  listOneBanco(idbanco:any)
+  {
+    return this.http.get(`${environment.API_URI}/api/banco/`+idbanco);
+  }
 }
