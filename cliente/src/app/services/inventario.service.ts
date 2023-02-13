@@ -15,4 +15,8 @@ export class InventarioService {
   {
     return this.http.get(`${environment.API_URI}/api/registro`);
   }
+  listarBolsas()
+  {
+    return this.http.get(`${environment.API_URI}/api/bolsa`);
+  }
 }

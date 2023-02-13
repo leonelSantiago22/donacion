@@ -3,6 +3,7 @@ import { DonacionService } from 'src/app/services/donacion.service';
 import { DonadorService } from 'src/app/services/donador.service';
 import { BancoService } from 'src/app/services/banco.service';
 import { Bancos } from 'src/app/models/banco';
+import { Donador } from 'src/app/models/donador';
 declare var $ : any;
 @Component({
   selector: 'app-donacion',
@@ -12,13 +13,15 @@ declare var $ : any;
 export class DonacionComponent {
   donacion:any;
   bancos:any;
-  constructor(private donacionService: DonacionService, private bancoService:BancoService)
+  donador:any;
+  constructor(private donacionService: DonacionService, private bancoService:BancoService, private donadoreService : DonacionService)
   {
     this.listarDonaciones();
   }
   ngOnInit()
   {
     this.bancos =  new Bancos();
+    this.donador = new Donador();
   }
   listarDonaciones()
   {
@@ -38,7 +41,7 @@ export class DonacionComponent {
   {
     this.bancoService.listOneBanco(idbanco).subscribe((resBanco: any) => {
       console.log(resBanco);
-      this.bancos=resBanco
+      this.bancos=resBanco;
   },
       (err: any) => console.error(err)
     );

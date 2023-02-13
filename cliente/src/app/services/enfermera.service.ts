@@ -13,19 +13,18 @@ export class EnfermeraService {
   }
   deleteEnfermera(numero_trabajador: any)
   {
-    return this.http.delete(`${environment.API_URI}/api/enfermera/`+numero_trabajador); 
+    return this.http.delete(`${environment.API_URI}/api/enfermera/delete/`+numero_trabajador); 
   }
   agregarEnfermera(enfermera:any)
   {
-    return this.http.post(`${environment.API_URI}/api/enfermera/`,enfermera);
+    return this.http.post(`${environment.API_URI}/api/enfermera/create/`,enfermera);
   }
-  listOneEnfermera(numero_trabajador:any)
+  listOneEnfermera(numero_trabajador:any,idpersona:any)
   {
-    return this.http.get(`${environment.API_URI}/api/enfermera/list/`+numero_trabajador);
+    return this.http.get(`${environment.API_URI}/api/enfermera/list/`+numero_trabajador+"/"+idpersona);
   }
   updateEnfermera(enfermera:any)
   {
-    return this.http.put(`${environment.API_URI}/api/enfermera/update/`+enfermera.numero_trabajador,enfermera); 
-  
+    return this.http.put(`${environment.API_URI}/api/enfermera/updates/`+enfermera.numero_trabajador+"/"+enfermera.idpersona,enfermera); 
   }
 }

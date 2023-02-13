@@ -12,12 +12,18 @@ declare var  $:any;
 })
 export class TransfucionesComponent {
   tranfucion: any;
-  tranfuciones = new Transfucion();
-  pacienteVar = new Paciente();
-  personas = new Paciente();
+  transfuciones:any;
+  pacienteVar:any;
+  personas :any;
   constructor (private tranfucionService : TransfucinesService, private pacienteService : PacienteService) 
   {
     this.listarTransfuciones();
+  }
+  ngOnInit()
+  {
+    this.transfuciones = new Transfucion();
+    this.pacienteVar = new Paciente();
+    this.personas = new Paciente();
   }
   listarTransfuciones()
   {
@@ -28,6 +34,16 @@ export class TransfucionesComponent {
       (err: any) => console.error(err)
     );
   }
+  agregarTransfucion()
+  {
+    this.tranfucionService.agregarTransfucion(this.transfuciones).subscribe((resTransfucion: any) => {
+      console.log(resTransfucion);
+      this.transfuciones=resTransfucion;
+  },
+      (err: any) => console.error(err)
+    );
+  }
+  
   visualizarPaciente(idpaciente:any)
   {
     this.pacienteService.listOnepaciente(idpaciente).subscribe((resClientes: any) => {
@@ -44,4 +60,11 @@ export class TransfucionesComponent {
     });
     $('#mymodal').modal('open');
   }
+  prepararTransfucion()
+  {
+    $('#mymodalTransfucion').modal({
+      dismissible: false
+      });
+      $('#mymodalTransfucion').modal('open');
+  } 
 }

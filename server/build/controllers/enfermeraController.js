@@ -56,6 +56,20 @@ class EnfermeraController {
             res.status(404).json({ 'mensaje': 'Trabajador no encontrado' });
         });
     }
+    listOneCatersioano(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            console.log(req.params);
+            const { numero_trabajador, idpersona } = req.params;
+            const consulta = `SELECT enfermera.numero_trabajador,enfermera.idhospital,enfermera.idpersona,persona.nombre,persona.edad,persona.genero,enfermera.password FROM enfermera,persona WHERE enfermera.numero_trabajador = ${numero_trabajador} and persona.idpersona = ${idpersona} and enfermera.idpersona = ${idpersona}`;
+            console.log(consulta);
+            const respuesta = yield database_1.default.query(consulta);
+            if (respuesta.length > 0) {
+                res.json(respuesta[0]);
+                return;
+            }
+            res.status(404).json({ 'mensaje': 'Trabajador no encontrado' });
+        });
+    }
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             console.log(req);
@@ -76,6 +90,31 @@ class EnfermeraController {
             console.log(req.params);
             const resp = yield database_1.default.query("UPDATE enfermera set ? WHERE numero_trabajador = ?", [req.body, numero_trabajador]);
             res.json(resp);
+        });
+    }
+    createDP(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            console.log("Create Dp");
+            console.log(req.params);
+            const { nombre, edad, genero, idhospital, password } = req.body;
+            const setIdPersona = yield database_1.default.query("SET @idpersona = 0;");
+            const insertPersona = yield database_1.default.query("INSERT INTO persona(nombre, edad, genero) VALUES(?, ?, ?);", [nombre, edad, genero]);
+            const setId = yield database_1.default.query(" SET @idpersona = LAST_INSERT_ID();");
+            const getIdPersona = yield database_1.default.query("SELECT idpersona as idp from persona where idpersona = (select MAX(idpersona) from persona);");
+            const idpersona = getIdPersona[0].idp;
+            const resp2 = yield database_1.default.query(`INSERT INTO enfermera (numero_trabajador,idhospital ,idpersona,password)VALUES (NULL,${idhospital},${idpersona},"${password}");`);
+            res.json({ setIdPersona, insertPersona, setId, getIdPersona, resp2 });
+        });
+    }
+    actualizarDP(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            console.log(req.params);
+            const { nombre, edad, genero, idhospital, password } = req.body;
+            const { numero_trabajador } = req.params;
+            const updatePersona = yield database_1.default.query("UPDATE persona SET nombre=?, edad=?, genero=? WHERE idpersona=?", [nombre, edad, genero, req.params.idpersona]);
+            const updateDonador = yield database_1.default.query(`UPDATE enfermera SET idhospital=${idhospital},password="${password}" WHERE numero_trabajador=${numero_trabajador};`);
+            console.log(updateDonador);
+            res.json({ updatePersona, updateDonador });
         });
     }
 }

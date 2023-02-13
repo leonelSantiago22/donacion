@@ -60,10 +60,10 @@ export class PacienteComponent {
     this.pacienteService.insertPaciente(this.pacienteVar).subscribe((resClientes: any) => {
       console.log(resClientes);
       this.pacienteVar=resClientes;
+      this.listarPacientes();
   },
       (err: any) => console.error(err)
     );
-    this.listarPacientes();
   } 
 
   listOnePaciente(idpaciente:any, idpersona:any)

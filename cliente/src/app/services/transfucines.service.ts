@@ -14,6 +14,9 @@ export class TransfucinesService {
   listSolicitudes()
   {
     return this.http.get(`${environment.API_URI}/api/transfucion`);
-  
+  }
+  agregarTransfucion(transfucion:any)
+  {
+    return this.http.post(`${environment.API_URI}/api/transfucion/`,transfucion);
   }
 }

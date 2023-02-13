@@ -57,7 +57,7 @@ class HospitalController {
         return __awaiter(this, void 0, void 0, function* () {
             const { idhospital } = req.params;
             console.log(req.params);
-            const resp = yield database_1.default.query("UPDATE enfermera set ? WHERE idhospital = ?", [req.body, idhospital]);
+            const resp = yield database_1.default.query("UPDATE hospital set ? WHERE idhospital = ?", [req.body, idhospital]);
             res.json(resp);
         });
     }

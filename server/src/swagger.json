@@ -41,7 +41,20 @@
         ,
         {
             "name": "Enfermera",
-            "description": "Enfermera"
+            "description": "Enfermeras"
+        }
+        ,
+        {
+            "name": "Hospitales",
+            "description": "Hospitales en donde trabajan las enfermeras"
+        },
+        {
+            "name": "Donacion",
+            "description": "Donde se registran las donaciones"
+        },
+        {
+            "name": "Transfuciones",
+            "description": "Enfermeras"
         }
         
     ],
@@ -1218,6 +1231,62 @@
                     }
                 }
             }
+        },"/api/hospital": {
+            "get": {
+                "tags": [
+                    "Hospitales"
+                ],
+                "summary": "Listado de todos los hospitales disponibles",
+                "description": "<p>Servicio que devuelve la información detallada de cada hospital registrado</p><p>&nbsp;</p><p><em><strong>¿Cuáles son los clientes?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                [
+                                    [{"idhospital":2,
+                                    "Nombre":"Hospital del nino y de la mujer",
+                                    "Direccion":"Av. Porfirio diaz, no. 3, Tlalpan, estado de mexico"}
+                                    ]
+                                ]
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Hospital"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido",
+                        "tags": [
+                            "Hospitales"
+                        ]
+                    }
+                }
+            }
+        },
+        "/api/hospital/delete/{idhospital}":{
+            "delete":{
+                "summary":"Eliminar a un hospital de la base de datos",
+                "description":"<p>Servicio que Elimina un hospital</p><p>&nbsp;</p><p><em><strong>¿Cuál es ese producto?</strong></em></p>",
+                "consumes":["application/json"],
+                "produces":["application/json"],
+                "parameters":[
+                    {
+                        "name":"idhospital",
+                        "in":"path",
+                        "description":"Ingrese el Id del hospital",
+                        "required":true,
+                        "default":1
+                    }
+                ],
+                "tags":["Hospitales"],
+                "responses":{
+                    "200":{
+                        "description":"servicio OK"
+                }
+            }
+            }
+
         }
     },
     "definitions": {

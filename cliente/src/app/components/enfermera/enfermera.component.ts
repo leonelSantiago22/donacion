@@ -15,10 +15,12 @@ export class EnfermeraComponent {
   enfermera:any;
   enfermeras:any;
   personas:any;
+  enfermerasAgregar:any;
   ngOnInit() 
   {
     this.personas = new Persona();
     this.enfermeras = new Enfermera();
+    this.enfermerasAgregar = new Enfermera();
   }  
   constructor(private enfermeraService: EnfermeraService, private router: Router, private personaServices : PersonaService){
     this.listarEnfermeras();
@@ -32,16 +34,42 @@ export class EnfermeraComponent {
       (err: any) => console.error(err)
     );
   }
-  updateEnfermera()
+ eliminarEnfermera(numero_trabajador:any)
+ {
+  this.enfermeraService.deleteEnfermera(numero_trabajador).subscribe((resEnfermera: any) => {
+    console.log(resEnfermera);
+    this.enfermeras=resEnfermera;
+    this.listarEnfermeras();
+    },
+    (err: any) => console.error(err)
+  );
+ }
+  visualizarEnfermera(numero_trabajador:any,idpersona:any)
   {
-    console.log("enfermera");
-  }
-  visualizarEnfermera(numero_trabajador:any)
-  {
-    this.enfermeraService.listOneEnfermera(numero_trabajador).subscribe((resEnfermera: any) => {
+    this.enfermeraService.listOneEnfermera(numero_trabajador,idpersona).subscribe((resEnfermera: any) => {
       console.log(resEnfermera);
       this.enfermeras=resEnfermera;
-  },
+      },
+      (err: any) => console.error(err)
+    );
+  }
+  actualizarEnfermera()
+  {
+    this.enfermeraService.updateEnfermera(this.enfermeras).subscribe((resEnfermera: any) => {
+      console.log(resEnfermera);
+      this.enfermeras = resEnfermera;
+      this.listarEnfermeras();
+      },
+      (err: any) => console.error(err)
+    );
+  }
+  agregarEnfermera()
+  {
+    this.enfermeraService.agregarEnfermera(this.enfermerasAgregar).subscribe((resEnfermera: any) => {
+      console.log(resEnfermera);
+      this.enfermeras = resEnfermera;
+      this.listarEnfermeras();
+      },
       (err: any) => console.error(err)
     );
   }
@@ -49,22 +77,22 @@ export class EnfermeraComponent {
   {
     this.personaServices.listOnePersona(idpersona).subscribe((resPersona: any) => {
       console.log(resPersona);
-      this.personas=resPersona;
+      this.enfermeras=resPersona;
   },
       (err: any) => console.error(err)
     );
   }
-  preparar(){
-    $('#mymodal2').modal({
+  prepararModificar(){
+    $('#mymodalModificar').modal({
           dismissible: false
     });
-    $('#mymodal2').modal('open');
+    $('#mymodalModificar').modal('open');
   }
-  preparar2(){
-    $('#mymodal').modal({
+  prepararAgregar(){
+    $('#mymodalAgregar').modal({
           dismissible: false
     });
-    $('#mymodal').modal('open');
+    $('#mymodalAgregar').modal('open');
   }
   static()
     {

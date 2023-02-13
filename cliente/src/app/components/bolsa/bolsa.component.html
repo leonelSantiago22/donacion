@@ -8,5 +8,35 @@
 </head>
 <body>
     <app-navegacionencargado></app-navegacionencargado>
+    <div class="container">
+        <main class="table mt-4">
+          <section class="table__header" aling="center">
+              <h1>Bolsas de sangre</h1>
+          </section>
+    
+          <section class="table__body">
+              <table>
+                  <thead>
+                      <tr>
+                          <th>Id</th>
+                          <th>Nombre</th>
+                          <th>Direccion</th>
+                          <th>Accciones</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="active-row" *ngFor = "let bolsa of bolsa ">
+                      <td>{{bolsa.idbolsa}}</td>
+                      <td>{{bolsa.cantidad}}</td>
+                      <td>{{bolsa.tipodesangre}}</td>
+                      <td>{{bolsa.iddonacion}}</td>
+                  </tr>
+                  </tbody>
+          
+              </table>
+          </section>
+      </main>
+    </div>
+  
 </body>
 </html>

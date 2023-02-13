@@ -11,4 +11,8 @@ export class DonacionService {
   {
      return this.http.get(`${environment.API_URI}/api/donacion`);
   }
+  agregarDonacion(donacion:any)
+  {
+    return this.http.post(`${environment.API_URI}/api/donacion/`,donacion);
+  }
 }

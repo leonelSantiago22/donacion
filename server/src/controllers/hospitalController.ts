@@ -43,7 +43,7 @@ class HospitalController
     {
         const { idhospital } = req.params;
         console.log(req.params);
-        const resp = await pool.query("UPDATE enfermera set ? WHERE idhospital = ?", [req.body, idhospital]);
+        const resp = await pool.query("UPDATE hospital set ? WHERE idhospital = ?", [req.body, idhospital]);
         res.json(resp);
     }
 }

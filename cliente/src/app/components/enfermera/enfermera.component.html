@@ -25,47 +25,63 @@
           <tbody>
             <tr class="active-row" *ngFor="let enfermera of enfermera">
                 <td>{{enfermera.numero_trabajador}}</td>
-                <td>{{enfermera.idpersona}}<a (click)="visualizarPersona(enfermera.idpersona); preparar();"> <i class="material-icons" style="color: black;">visibility</i></a></td>
+                <td>{{enfermera.idpersona}} </td>
                 <td>{{enfermera.idhospital}}</td>
                 <td>{{enfermera.password}}</td>
                     <td>
-                    <a (click)="visualizarEnfermera(enfermera.numero_trabajador); preparar2();"><i class="material-icons" style="color: darkcyan;" width="36px" height ="36px">create</i></a>
-                    <a><i class="material-icons"style="color: darkcyan;" width="36px" height ="36px"></i></a>
-                </td>  
+                    <a (click)="visualizarEnfermera(enfermera.numero_trabajador,enfermera.idpersona); prepararModificar();"><i class="material-icons" style="color: darkcyan;" width="36px" height ="36px">create</i></a>
+                    <a (click)="eliminarEnfermera(enfermera.numero_trabajador);"><i class="material-icons">delete_forever</i></a>
+                  </td>  
             </tr> 
+            <a (click)="prepararAgregar();"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" style="color: black;"  fill="currentColor" class="bi bi-person-fill-add" viewBox="0 0 16 16">
+              <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0Zm-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+              <path d="M2 13c0 1 1 1 1 1h5.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.544-3.393C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4Z"/>
+            </svg></a>
           </tbody>
       </table>
     </div>
    
-      <div id="mymodal2" class="modal" >
+      <div id="mymodalModificar" class="modal" >
         <div class="modal-dialog">
            <div class="modal-content">
            <div class="modal-header">
-             <h4 class="modal-title">Informacion Enfermera</h4>
+             <h4 class="modal-title">Modificar Enfermera</h4>
            </div>
            <div class="modal-body">
             <div class="container" id="formulario">
                 
                   <div class="col-3">
-                    <label for="idpersona" class="form-label">idpersona</label>
-                    <input disabled  type="text" id="idpersona" [(ngModel)]="personas.idpersona"  class="email" name="idpersona">
+                    <label for="numero_trabajador" class="form-label">Numero de trabajador(ra)</label>
+                    <input disabled  type="text" id="numero_trabajador" [(ngModel)]="enfermeras.numero_trabajador"  class="email" name="idpersona">
                 </div>
                   <div class="col-3">
-                      <label for="nombre" class="form-label">Nombre</label>
-                      <input  type="text" id="nombre" class="email" [(ngModel)]="personas.nombre"   name="nombrepaciente" placeholder="tipo de sangre del paicente">
+                      <label for="idhospital" class="form-label">id Hospital</label>
+                      <input  type="text" id="idhospital" class="email" [(ngModel)]="enfermeras.idhospital"   name="nombrepaciente" placeholder="tipo de sangre del paicente">
                   </div>
                   <div class="col-2">
-                    <label for="edad" class="form-label">Nombre del paciente</label>
-                    <input  type="text" id="edad" class="email"  [(ngModel)]="personas.edad"  name="edad" placeholder="Nombre del paciente" />
+                    <label for="edad" class="form-label">Edad de la enfermera</label>
+                    <input  type="text" id="edad" class="email"  [(ngModel)]="enfermeras.edad"  name="edad" placeholder="Nombre del paciente" />
                 </div>
                   <div  class="col-3">
-                      <label for="genero">Genero de la persona</label>
-                      <input  type="text" id="genero" class="email" name="genero" [(ngModel)]="personas.genero"  placeholder="Genero del paciente">
+                      <label for="nombre">Nombre de la enfermera</label>
+                      <input  type="text" id="nombre" class="email" name="nombre" [(ngModel)]="enfermeras.nombre"  placeholder="">
                   </div>
-
+                  <div  class="col-3">
+                    <label for="genero">Genero de la enfermera</label>
+                    <input  type="text" id="genero" class="email" name="nombre" [(ngModel)]="enfermeras.genero"  placeholder="">
+                </div>
+                <div  class="col-3">
+                  <label for="idpersona">idcomopersona</label>
+                  <input  type="text" id="idpersona" class="email" name="nombre" [(ngModel)]="enfermeras.idpersona"  placeholder="">
+              </div>
+              <div  class="col-3">
+                <label for="password">Contrasena de acceso</label>
+                <input  type="text" id="password" class="email" name="nombre" [(ngModel)]="enfermeras.password"  placeholder="">
+              </div>
             </div>
               <div class="buttonSelect">
                 <a  class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+                <a  class=" modal-action modal-close waves-effect waves-green btn-flat" (click)="actualizarEnfermera();">Actualizar</a>
              </div>
            </div>
            </div>
@@ -73,7 +89,7 @@
        </div>
 
 
-       <div id="mymodal" class="modal" >
+       <div id="mymodalAgregar" class="modal" >
         <div class="modal-dialog">
            <div class="modal-content">
            <div class="modal-header">
@@ -82,27 +98,39 @@
            <div class="modal-body">
             <div class="container" id="formulario">
                 
-                  <div class="col-3">
-                    <label for="numero_empleado" class="form-label">Num de empleado</label>
-                    <input disabled  type="text" id="numero_empleado" [(ngModel)]="enfermeras.numero_trabajador"  class="email" name="numero_empleado">
-                </div>
-                  <div class="col-3">
-                      <label for="idhospital" class="form-label">idhospital</label>
-                      <input  type="text" id="idhospital" class="email" [(ngModel)]="enfermeras.idhospital"   name="idhospital" placeholder="tipo de sangre del paicente">
-                  </div>
-                  <div class="col-2">
-                    <label for="edad" class="form-label">Idpersona</label>
-                    <input  type="text" id="edad" class="email"  [(ngModel)]="enfermeras.idpersona"  name="edad" placeholder="Nombre del paciente" />
-                </div>
-                  <div  class="col-3">
-                      <label for="password">Contrasena</label>
-                      <input  type="text" id="password" class="email" name="password" [(ngModel)]="enfermeras.password"  placeholder="Genero del paciente">
-                  </div>
+              <div class="col-3">
+                <label for="numero_trabajador" class="form-label">Numero de trabajador(ra)</label>
+                <input disabled  type="text" id="numero_trabajador" [(ngModel)]="enfermerasAgregar.numero_trabajador"  class="email" name="idpersona">
+            </div>
+              <div class="col-3">
+                  <label for="idhospital" class="form-label">id Hospital</label>
+                  <input  type="number" id="idhospital" class="email" [(ngModel)]="enfermerasAgregar.idhospital"   name="idhospital" placeholder="Id del hospital donde trabaja">
+              </div>
+              <div class="col-2">
+                <label for="edad" class="form-label">Edad de la enfermera</label>
+                <input  type="text" id="edad" class="email"  [(ngModel)]="enfermerasAgregar.edad"  name="edad" placeholder="Edad de la enfermra" />
+            </div>
+              <div  class="col-3">
+                  <label for="nombre">Nombre de la enfermera</label>
+                  <input  type="text" id="nombre" class="email" name="nombre" [(ngModel)]="enfermerasAgregar.nombre"  placeholder="Nombre de la enfermera">
+              </div>
+              <div  class="col-3">
+                <label for="genero">Genero de la enfermera</label>
+                <input  type="text" id="genero" class="email" name="nombre" [(ngModel)]="enfermerasAgregar.genero"  placeholder="Genero de la enfermera">
+            </div>
+            <div  class="col-3">
+              <label for="idpersona">idcomopersona</label>
+              <input  disabled type="text" id="idpersona" class="email" name="nombre" [(ngModel)]="enfermerasAgregar.idpersona"  placeholder="El id de persona se genera en automatico">
+          </div>
+          <div  class="col-3">
+            <label for="password">Contrasena de acceso</label>
+            <input  type="text" id="password" class="email" name="nombre" [(ngModel)]="enfermerasAgregar.password"  placeholder="Contrasena de acceso">
+          </div>
 
             </div>
               <div class="buttonSelect">
                 <a  class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
-                <a  class=" modal-action modal-close waves-effect waves-green btn-flat">Actualizar</a>
+                <a  class=" modal-action modal-close waves-effect waves-green btn-flat"(click)="agregarEnfermera();">Agregar</a>
              </div>
            </div>
            </div>

@@ -7,19 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    <nav>
-        <div class="nav-wrapper" id="navbar" >
-          <a [routerLink]="['/enfermera']" class="brand-logo"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
-            <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5Z"/>
-          </svg></a>
-          <ul class="right hide-on-med-and-down">
-            <li><a href="sass.html"><i class="material-icons">search</i></a></li>
-            <li><a href="badges.html"><i class="material-icons">view_module</i></a></li>
-            <li><a href="collapsible.html"><i class="material-icons">refresh</i></a></li>
-            <li><a href="mobile.html"><i class="material-icons">more_vert</i></a></li>
-          </ul>
-        </div>
-      </nav>
+    <app-navegacionencargado></app-navegacionencargado>
       <div class="container">
       <main class="table mt-4">
         <section class="table__header" aling="center">
@@ -30,7 +18,7 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Id</th>
+                        <th>Idhospital</th>
                         <th>Nombre</th>
                         <th>Direccion</th>
                         <th>Accciones</th>
@@ -38,15 +26,14 @@
                 </thead>
                 <tbody>
                   <tr class="active-row" *ngFor = "let hospital of hospital ">
-                    <td>{{hospital.idhospita}}</td>
+                    <td>{{hospital.idhospital}}</td>
                     <td>{{hospital.Nombre}}</td>
                     <td>{{hospital.Direccion}}</td>
-                    <td><a ><i class="material-icons">delete_forever</i></a>
-                        <a ><i class="material-icons ">remove_red_eye</i></a>
-                        <a ><i class="material-icons prefix">edit</i></a></td>  
-                </tr>
+                    <td><a ><i class="material-icons" (click)="eliminarHospital(hospital.idhospital);">delete_forever</i></a>
+                        <a ><i class="material-icons"(click)="visualizarHospital(hospital.idhospital);prepararModificarHospital();">remove_red_eye</i></a>
+                         </tr>
                 </tbody>
-                <a ><svg xmlns="http://www.w3.org/2000/svg" width="26" style="color: black;" height="26" fill="currentColor" class="bi bi-hospital-fill" viewBox="0 0 16 16">
+                <a (click)="prepararAgregarHospital();"><svg xmlns="http://www.w3.org/2000/svg" width="26" style="color: black;" height="26" fill="currentColor" class="bi bi-hospital-fill" viewBox="0 0 16 16">
                   <path d="M6 0a1 1 0 0 0-1 1v1a1 1 0 0 0-1 1v4H1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h6v-2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5V16h6a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1h-3V3a1 1 0 0 0-1-1V1a1 1 0 0 0-1-1H6Zm2.5 5.034v1.1l.953-.55.5.867L9 7l.953.55-.5.866-.953-.55v1.1h-1v-1.1l-.953.55-.5-.866L7 7l-.953-.55.5-.866.953.55v-1.1h1ZM2.25 9h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 2 9.75v-.5A.25.25 0 0 1 2.25 9Zm0 2h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5a.25.25 0 0 1 .25-.25ZM2 13.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5ZM13.25 9h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5a.25.25 0 0 1 .25-.25ZM13 11.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5Zm.25 1.75h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5a.25.25 0 0 1 .25-.25Z"/>
                 </svg></a>
             </table>
@@ -54,5 +41,67 @@
     </main>
   </div>
 
+  <div id="mymodalModificar" class="modal" >
+    <div class="modal-dialog">
+       <div class="modal-content">
+       <div class="modal-header">
+         <h4 class="modal-title">Informacion Donadores</h4>
+       </div>
+       <div class="modal-body">
+        <div class="container" id="formulario">
+            
+              <div class="col-3">
+                <label for="idpersona" class="form-label">ID del hospital</label>
+                <input disabled type="text" id="idpersona" class="email" [(ngModel)]="hospitales.idhospital" name="idhospital" placeholder="Id del hospital">
+            </div>
+              <div class="col-3">
+                  <label for="nombredonador" class="form-label"> Nombre del hospital</label>
+                  <input  type="text" id="nombredonador" class="email" [(ngModel)]="hospitales.Nombre" name="nombre" placeholder="Direccion del lugar">
+              </div>
+              <div class="col-2">
+                <label for="tipodesangre" class="form-label">Direccion</label>
+                <input  type="text" id="tipodesangre" class="email" [(ngModel)]="hospitales.Direccion"  name="direccion" placeholder="Direccion" />
+            </div>
+      
+        </div>
+          <div class="buttonSelect">
+            <a class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+            <a class=" modal-action modal-close waves-effect waves-green btn-flat" (click)="actualizarHospital();">Actualizar</a>
+            </div>
+       </div>
+       </div>
+    </div>
+   </div>
+
+   <div id="mymodalAgregarHospital" class="modal" >
+    <div class="modal-dialog">
+       <div class="modal-content">
+       <div class="modal-header">
+         <h4 class="modal-title">Informacion Donadores</h4>
+       </div>
+       <div class="modal-body">
+        <div class="container" id="formulario">
+            
+          <div class="col-3">
+            <label for="idpersona" class="form-label">ID del hospital</label>
+            <input disabled type="text" id="idpersona" class="email" [(ngModel)]="agregarHospitales.idhospital" name="idpersona" placeholder="Id del hospital">
+        </div>
+          <div class="col-3">
+              <label for="nombredonador" class="form-label"> Nombre del hospital</label>
+              <input  type="text" id="nombredonador" class="email" [(ngModel)]="agregarHospitales.Nombre" name="nombrepaciente" placeholder="nombre del hospital">
+          </div>
+          <div class="col-2">
+            <label for="tipodesangre" class="form-label">Direccion</label>
+            <input  type="text" id="tipodesangre" class="email" [(ngModel)]="agregarHospitales.Direccion"  name="tipodesangre" placeholder="Direccion del hospital" />
+        </div>
+        </div>
+          <div class="buttonSelect">
+            <a class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+            <a class=" modal-action modal-close waves-effect waves-green btn-flat"(click)="agregarHospital();">Agregar</a>
+            </div>
+       </div>
+       </div>
+    </div>
+   </div>
 </body>
 </html>

@@ -13,8 +13,11 @@ class EnfermeraRoutes {
         this.router.get('/', enfermeraController_1.enfermeraController.list);
         this.router.delete('/delete/:numero_trabajador', enfermeraController_1.enfermeraController.delete);
         this.router.post('/', enfermeraController_1.enfermeraController.create);
+        this.router.post('/create/', enfermeraController_1.enfermeraController.createDP);
+        this.router.put('/updates/:numero_trabajador/:idpersona', enfermeraController_1.enfermeraController.actualizarDP);
         this.router.put('/update/:numero_trabajador', enfermeraController_1.enfermeraController.update);
         this.router.get('/list/:numero_trabajador', enfermeraController_1.enfermeraController.listOne);
+        this.router.get('/list/:numero_trabajador/:idpersona', enfermeraController_1.enfermeraController.listOneCatersioano);
     }
 }
 exports.enfermeraRoutes = new EnfermeraRoutes();
