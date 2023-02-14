@@ -10,9 +10,9 @@ class BancoRoutes {
     }
     config() {
         this.router.get('/', bancoController_1.bancoController.list);
-        this.router.delete('/delete/:idsolicitud', bancoController_1.bancoController.delete);
+        this.router.delete('/delete/:idbanco', bancoController_1.bancoController.delete);
         this.router.post('/', bancoController_1.bancoController.create);
-        this.router.put('/update/:idsolicitud', bancoController_1.bancoController.update);
+        this.router.put('/update/:idbanco', bancoController_1.bancoController.update);
         this.router.get('/:idbanco', bancoController_1.bancoController.listOne);
         this.router.get('/inventario/:idbanco', bancoController_1.bancoController.listBancodonaciones);
     }

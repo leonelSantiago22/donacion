@@ -21,15 +21,15 @@ class BancoController
     }
     public async delete(req: Request, res: Response ): Promise<void>
     {
-        const { idsolicitud } = req.params;
-        const resp = await pool.query(`DELETE FROM banco WHERE idbanco= ${idsolicitud}`);
+        const { idbanco } = req.params;
+        const resp = await pool.query(`DELETE FROM banco WHERE idbanco= ${idbanco}`);
         res.json(resp);
     }
     public async update(req: Request, res: Response ): Promise<void>
     {
-        const { id } = req.params;
+        const { idbanco } = req.params;
         console.log(req.params);
-        const resp = await pool.query("UPDATE banco set ? WHERE idbanco = ?", [req.body, id]);
+        const resp = await pool.query("UPDATE banco set ? WHERE idbanco = ?", [req.body, idbanco]);
         res.json(resp);
     }
     public async listOne(req: Request, res: Response): Promise <void>

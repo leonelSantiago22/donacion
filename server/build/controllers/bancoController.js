@@ -34,16 +34,16 @@ class BancoController {
     }
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { idsolicitud } = req.params;
-            const resp = yield database_1.default.query(`DELETE FROM banco WHERE idbanco= ${idsolicitud}`);
+            const { idbanco } = req.params;
+            const resp = yield database_1.default.query(`DELETE FROM banco WHERE idbanco= ${idbanco}`);
             res.json(resp);
         });
     }
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { id } = req.params;
+            const { idbanco } = req.params;
             console.log(req.params);
-            const resp = yield database_1.default.query("UPDATE banco set ? WHERE idbanco = ?", [req.body, id]);
+            const resp = yield database_1.default.query("UPDATE banco set ? WHERE idbanco = ?", [req.body, idbanco]);
             res.json(resp);
         });
     }
