@@ -1287,7 +1287,380 @@
             }
             }
 
+        },
+        "/api/hospital/update/{idhospital}":{
+            "put":{
+                "summary":"Modificar los datos de un hospital",
+                "description":"<p>Servicio que modifica la información de una persona</p><p>&nbsp;</p><p><em><strong>¿Cuál es ese producto?</strong></em></p>",
+                "consumes":["application/json"],
+                "produces":["application/json"],
+                "parameters":[
+                    {
+                        "name":"idhospital",
+                        "in":"path",
+                        "description":"Ingrese el del hospital",
+                        "required":true,
+                        "default":1
+                    },
+                    {
+                        "name":"Hospital",
+                        "in":"body",
+                        "description":"Ingrese la info del hospital",
+                        "required":true,
+                        "schema":{"$ref":"#/definitions/Hospital"}
+                    }
+                ],
+                "tags":["Hospitales"],
+                "responses":{
+                    "200":{
+                        "description":"servicio OK"
+                }
+            }
+            }
+        },"/api/hospital/": {
+            "post": {
+                "tags": [
+                    "Hospitales"
+                ],
+                "summary": "Listado de todos las Personaa",
+                "description": "<p>Servicio que devuelve la información detallada de todas las persona que estan registradas </p><p>&nbsp;</p><p><em><strong>¿Cuáles son los clientes?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                [{"idhospital":2,
+                                "Nombre":"Hospital del nino y de la mujer",
+                                "Direccion":"Av. Porfirio diaz, no. 3, Tlalpan, estado de mexico"}]
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Hospital"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido",
+                        "tags": [
+                            "Hospital"
+                        ]
+                    }
+                }
+            }
+        },
+        "/api/enfermera/delete/{numero_trabajador}":{
+            "delete":{
+                "summary":"Eliminar a una enfermera de la base de datos",
+                "description":"<p>Servicio que Elimina una enfermera</p><p>&nbsp;</p><p><em><strong>¿Cuál es ese producto?</strong></em></p>",
+                "consumes":["application/json"],
+                "produces":["application/json"],
+                "parameters":[
+                    {
+                        "name":"idenfermera",
+                        "in":"path",
+                        "description":"Ingrese el numero de trabajador de la enfermera ",
+                        "required":true,
+                        "default":1
+                    }
+                ],
+                "tags":["Enfermera"],
+                "responses":{
+                    "200":{
+                        "description":"servicio OK"
+                }
+            }
+            }
+
+        },
+        "/api/enfermera/update/{numero_trabajador}":{
+            "put":{
+                "summary":"Modificar los datos de una enfermera",
+                "description":"<p>Servicio que modifica la información de una enfermra</p><p>&nbsp;</p><p><em><strong>¿Cuál es ese producto?</strong></em></p>",
+                "consumes":["application/json"],
+                "produces":["application/json"],
+                "parameters":[
+                    {
+                        "name":"numero_trabajador",
+                        "in":"path",
+                        "description":"Ingrese el numero del trabajador",
+                        "required":true,
+                        "default":1
+                    },
+                    {
+                        "name":"Enfermera",
+                        "in":"body",
+                        "description":"Ingrese la info de la enfermera",
+                        "required":true,
+                        "schema":{"$ref":"#/definitions/Enfermeras"}
+                    }
+                ],
+                "tags":["Enfermera"],
+                "responses":{
+                    "200":{
+                        "description":"servicio OK"
+                }
+            }
+            }
+        },"/api/enfermera/": {
+            "post": {
+                "tags": [
+                    "Enfermera"
+                ],
+                "summary": "Listado de todos las enfermeras",
+                "description": "<p>Ingresa los datos de la enfermera </p><p>&nbsp;</p><p><em><strong>¿Cuáles son los clientes?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                [{"numero_trabajador":1,"idhospital":2,"idpersona":61,"password":"password"},{"numero_trabajador":234312,"idhospital":2,"idpersona":7,"password":"holamundos"},{"numero_trabajador":234314,"idhospital":2,"idpersona":61,"password":"password"}]
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Enfermeras"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido",
+                        "tags": [
+                            "Enfermera"
+                        ]
+                    }
+                }
+            }
+        },"/api/donacion": {
+            "get": {
+                "tags": [
+                    "Donacion"
+                ],
+                "summary": "Listado de todas las donaciones realizadas",
+                "description": "<p>Servicio que devuelve la información detallada de cada donaicon</p><p>&nbsp;</p><p><em><strong>¿Cuáles son los clientes?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                [
+                                    [{"iddonacion":13,"iddonador":2,"banco":2},{"iddonacion":14,"iddonador":2,"banco":1},{"iddonacion":15,"iddonador":22,"banco":1}]
+                                ]
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Donacion"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido",
+                        "tags": [
+                            "Donaciones"
+                        ]
+                    }
+                }
+            }
+        },
+        "/api/donacion/delete/{iddonacion}":{
+            "delete":{
+                "summary":"Eliminar una donacion en este caso no es recomendable pero de todos modos se hace",
+                "description":"<p>Servicio que Elimina  un donacion</p><p>&nbsp;</p><p><em><strong>¿Cuál es ese producto?</strong></em></p>",
+                "consumes":["application/json"],
+                "produces":["application/json"],
+                "parameters":[
+                    {
+                        "name":"iddonacion",
+                        "in":"path",
+                        "description":"Ingrese el Id de la donacion:",
+                        "required":true,
+                        "default":1
+                    }
+                ],
+                "tags":["Donacion"],
+                "responses":{
+                    "200":{
+                        "description":"servicio OK"
+                }
+            }
+            }
+
+        },
+        "/api/donacion/update/{idhospital}":{
+            "put":{
+                "summary":"Modificar los datos de una donacion",
+                "description":"<p>Servicio que modifica la información de una donacion</p><p>&nbsp;</p><p><em><strong>¿Cuál es ese producto?</strong></em></p>",
+                "consumes":["application/json"],
+                "produces":["application/json"],
+                "parameters":[
+                    {
+                        "name":"iddonacion",
+                        "in":"path",
+                        "description":"Ingrese el de la donacion",
+                        "required":true,
+                        "default":1
+                    },
+                    {
+                        "name":"Hospital",
+                        "in":"body",
+                        "description":"Ingrese la info de la donacion",
+                        "required":true,
+                        "schema":{"$ref":"#/definitions/Donaciones"}
+                    }
+                ],
+                "tags":["Donacion"],
+                "responses":{
+                    "200":{
+                        "description":"servicio OK"
+                }
+            }
+            }
+        },"/api/donacion/": {
+            "post": {
+                "tags": [
+                    "Donacion"
+                ],
+                "summary": "Ingresa una donacion",
+                "description": "<p>Ingresa una donacion </p><p>&nbsp;</p><p><em><strong>¿Cuáles son los clientes?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                [{"iddonacion":13,"iddonador":2,"banco":2},{"iddonacion":14,"iddonador":2,"banco":1},{"iddonacion":15,"iddonador":22,"banco":1}]
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/donaciones"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido",
+                        "tags": [
+                            "Donaciones"
+                        ]
+                    }
+                }
+            }
+        },"/api/transfucion": {
+            "get": {
+                "tags": [
+                    "Transfuciones"
+                ],
+                "summary": "Listado de todas las transfuciones hechas",
+                "description": "<p>Servicio que devuelve la información detallada de cada Transfucion realizada</p><p>&nbsp;</p><p><em><strong>¿Cuáles son los clientes?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                [
+                                    [{"idsolicitud":2,
+                                    "idpaciente":"Paciente primero",
+                                    "fecha":"12/10/2022"}
+                                    ]
+                                ]
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Transfucion"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido",
+                        "tags": [
+                            "Transfucion"
+                        ]
+                    }
+                }
+            }
+        },
+        "/api/transfucion/delete/{idsolicitud}":{
+            "delete":{
+                "summary":"Eliminar una transfucion de nuevo no es recomendable pero se hace por el trabajo",
+                "description":"<p>Servicio que Elimina una donacion</p><p>&nbsp;</p><p><em><strong>¿Cuál es ese producto?</strong></em></p>",
+                "consumes":["application/json"],
+                "produces":["application/json"],
+                "parameters":[
+                    {
+                        "name":"idsolicitud",
+                        "in":"path",
+                        "description":"Ingrese el Id dela solicitud",
+                        "required":true,
+                        "default":1
+                    }
+                ],
+                "tags":["Transfuciones"],
+                "responses":{
+                    "200":{
+                        "description":"servicio OK"
+                }
+            }
+            }
+
+        },
+        "/api/transfucion/update/{idsolicitud}":{
+            "put":{
+                "summary":"Modificar los datos de una transfucion",
+                "description":"<p>Servicio que modifica la información de una transfucion</p><p>&nbsp;</p><p><em><strong>¿Cuál es ese producto?</strong></em></p>",
+                "consumes":["application/json"],
+                "produces":["application/json"],
+                "parameters":[
+                    {
+                        "name":"idsolicitud",
+                        "in":"path",
+                        "description":"Ingrese el id de la solicitud",
+                        "required":true,
+                        "default":1
+                    },
+                    {
+                        "name":"Transfuciones",
+                        "in":"body",
+                        "description":"Ingrese la info de la transfucion",
+                        "required":true,
+                        "schema":{"$ref":"#/definitions/Transfucion"}
+                    }
+                ],
+                "tags":["Transfuciones"],
+                "responses":{
+                    "200":{
+                        "description":"servicio OK"
+                }
+            }
+            }
+        },"/api/transfucion/": {
+            "post": {
+                "tags": [
+                    "Transfuciones"
+                ],
+                "summary": "Ingresa una transfucion",
+                "description": "<p>Servicio que devuelve la información detallada de todas las persona que estan registradas </p><p>&nbsp;</p><p><em><strong>¿Cuáles son los clientes?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                [{"idsolicitud":2,
+                                "idpaciente":"Paciente primero",
+                                "fecha":"12/10/2022"}
+                                ]
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Transfucion"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido",
+                        "tags": [
+                            "Transfucion"
+                        ]
+                    }
+                }
+            }
         }
+
+
+
+
+
+
+
     },
     "definitions": {
         "Donadores": {
