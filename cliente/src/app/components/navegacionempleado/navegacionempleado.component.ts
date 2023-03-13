@@ -9,6 +9,7 @@ import { Donacion } from 'src/app/models/donacion';
 import { DonacionService } from 'src/app/services/donacion.service';
 import { TransfucinesService } from 'src/app/services/transfucines.service';
 import { Transfucion } from 'src/app/models/transfucion';
+import { ComunicacionService } from 'src/app/services/comunicacion.service';
 declare var $ : any;
 @Component({
   selector: 'app-navegacionempleado',
@@ -19,13 +20,21 @@ export class NavegacionempleadoComponent {
   solicitudes :any;
   pacienteVar : any;
   donadores :any;
+  opcionActual : any; //para identificar las opciones entre componentes
+    // 0 = solicitud
+    //1 = paciente;
+    //2 = donador; 
+    //3 = donacion;
+    //4 = transfucion;
+    
   donacion : any;
   transfuciones:any;
   constructor(private solicitudService: SolicitudService,
     private pacienteService : PacienteService,
     private donadorService: DonadorService,
     private donacionService:DonacionService,
-    private transfucionService : TransfucinesService)
+    private transfucionService : TransfucinesService,
+    private comunicacionService: ComunicacionService)
   {
     
   }
@@ -46,6 +55,7 @@ export class NavegacionempleadoComponent {
     this.solicitudService.agregarSolicitud(this.solicitudes).subscribe((resSolcitud: any) => {
       console.log(resSolcitud);
       this.solicitudes = resSolcitud;
+      this.enviarMensaje(0);
   },
       (err: any) => console.error(err)
     );
@@ -63,6 +73,7 @@ export class NavegacionempleadoComponent {
     this.pacienteService.insertPaciente(this.pacienteVar).subscribe((resPaciente: any) => {
       console.log(resPaciente);
       this.pacienteVar=resPaciente;
+      this.enviarMensaje(1);
   },
       (err: any) => console.error(err)
     );
@@ -81,6 +92,7 @@ export class NavegacionempleadoComponent {
       this.donadorService.insertarDonador(this.donadores).subscribe((resClientes: any) => {
         console.log(resClientes);
         this.donadores=resClientes;
+        this.enviarMensaje(2);
     },
         (err: any) => console.error(err)
       );
@@ -99,6 +111,7 @@ export class NavegacionempleadoComponent {
     this.donacionService.agregarDonacion(this.donacion).subscribe((resDonacion: any) => {
       console.log(resDonacion);
       this.donacion=resDonacion;
+      this.enviarMensaje(3);
   },
       (err: any) => console.error(err)
     ); 
@@ -115,6 +128,7 @@ export class NavegacionempleadoComponent {
     this.transfucionService.agregarTransfucion(this.transfuciones).subscribe((resTransfucion: any) => {
       console.log(resTransfucion);
       this.transfuciones=resTransfucion;
+     this.enviarMensaje(4);
   },
       (err: any) => console.error(err)
     );
@@ -126,4 +140,9 @@ export class NavegacionempleadoComponent {
       });
       $('#mymodalTransfucion').modal('open');
   } 
+  enviarMensaje(componente: number)
+    {
+      let opciones={"componente" :componente};
+      this.comunicacionService.enviar(opciones);
+    }
 }

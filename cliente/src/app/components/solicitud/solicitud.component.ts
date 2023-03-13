@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { SolicitudService } from 'src/app/services/solicitud.service';
 import { Router } from '@angular/router';
 import { Solicitud } from 'src/app/models/solicitud';
+import { ComunicacionService } from 'src/app/services/comunicacion.service';
 declare var  $:any;
 @Component({
   selector: 'app-solicitud',
@@ -11,9 +12,19 @@ declare var  $:any;
 export class SolicitudComponent {
   solicitud:any;
   solicitudes:any;
-  constructor(private solicitudService :SolicitudService,private router: Router)
+  constructor(private solicitudService :SolicitudService,private router: Router,
+    private comunicacionService : ComunicacionService)
   {
-    this.listarSolicitudes();
+    this.comunicacionService.observador$.subscribe(
+      (msg) =>
+      {
+        if(msg.componente == 0)
+        {
+          this.listarSolicitudes();
+        }
+      }
+      );
+      this.listarSolicitudes();
   }
   ngOnInit()
   {

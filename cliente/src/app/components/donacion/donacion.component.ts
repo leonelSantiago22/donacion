@@ -4,6 +4,7 @@ import { DonadorService } from 'src/app/services/donador.service';
 import { BancoService } from 'src/app/services/banco.service';
 import { Bancos } from 'src/app/models/banco';
 import { Donador } from 'src/app/models/donador';
+import { ComunicacionService } from 'src/app/services/comunicacion.service';
 declare var $ : any;
 @Component({
   selector: 'app-donacion',
@@ -14,9 +15,19 @@ export class DonacionComponent {
   donacion:any;
   bancos:any;
   donador:any;
-  constructor(private donacionService: DonacionService, private bancoService:BancoService, private donadoreService : DonacionService)
+  constructor(private donacionService: DonacionService, private bancoService:BancoService, private donadoreService : DonacionService,
+    private comunicacionService : ComunicacionService)
   {
     this.listarDonaciones();
+    this.comunicacionService.observador$.subscribe(
+      (msg) =>
+      {
+        if(msg.componente == 3)
+        {
+          this.listarDonaciones();
+        }
+      }
+      );
   }
   ngOnInit()
   {

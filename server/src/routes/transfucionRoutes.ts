@@ -3,6 +3,7 @@ import pool from '../database';
 import { Router } from 'express';
 
 import { transfucionController } from '../controllers/tranfucionController';
+import { validarToken } from '../middleware/auth';
 class TransfucionRoutes
 {
     public router:  Router = Router();
@@ -11,11 +12,11 @@ class TransfucionRoutes
         this.config();
     }
     config(): void{
-        this.router.get('/', transfucionController.list);
-        this.router.delete('/delete/:idsolicitud/:idpaciente', transfucionController.delete);
-        this.router.post('/', transfucionController.create);
-        this.router.put('/update/:id/:id2', transfucionController.update);
-        this.router.get('/:idtransfucion/:idpaciente', transfucionController.listOne);
+        this.router.get('/',validarToken, transfucionController.list);
+        this.router.delete('/delete/:idsolicitud/:idpaciente',validarToken, transfucionController.delete);
+        this.router.post('/',validarToken, transfucionController.create);
+        this.router.put('/update/:id/:id2',validarToken, transfucionController.update);
+        this.router.get('/:idtransfucion/:idpaciente',validarToken, transfucionController.listOne);
     }
 }
 

@@ -2,6 +2,8 @@ import {Request,Response} from 'express';
 import pool from '../database';
 import { Router } from 'express';
 import { bancoController } from '../controllers/bancoController';
+import { validarToken } from '../middleware/auth';
+
 class BancoRoutes
 {
     public router:  Router = Router();
@@ -10,12 +12,12 @@ class BancoRoutes
         this.config();
     }
     config(): void{
-        this.router.get('/', bancoController.list);
-        this.router.delete('/delete/:idbanco', bancoController.delete);
-        this.router.post('/', bancoController.create);
-        this.router.put('/update/:idbanco', bancoController.update);
-        this.router.get('/:idbanco', bancoController.listOne);
-        this.router.get('/inventario/:idbanco', bancoController.listBancodonaciones);
+        this.router.get('/',validarToken, bancoController.list);
+        this.router.delete('/delete/:idbanco',validarToken, bancoController.delete);
+        this.router.post('/',validarToken, bancoController.create);
+        this.router.put('/update/:idbanco',validarToken, bancoController.update);
+        this.router.get('/:idbanco',validarToken, bancoController.listOne);
+        this.router.get('/inventario/:idbanco',validarToken, bancoController.listBancodonaciones);
     }
 }
 

@@ -1,6 +1,8 @@
 import { json } from 'body-parser';
 import {Request,response,Response} from 'express';
 import pool from '../database';
+import { validarToken } from '../middleware/auth';
+
 
 class BancoController
 {

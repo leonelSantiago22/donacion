@@ -4,6 +4,7 @@ import { TransfucinesService } from 'src/app/services/transfucines.service';
 import { PacienteService } from 'src/app/services/paciente.service';
 import { Persona } from 'src/app/models/persona';
 import { Paciente } from 'src/app/models/paciente';
+import { ComunicacionService } from 'src/app/services/comunicacion.service';
 declare var  $:any;
 @Component({
   selector: 'app-transfuciones',
@@ -15,9 +16,19 @@ export class TransfucionesComponent {
   transfuciones:any;
   pacienteVar:any;
   personas :any;
-  constructor (private tranfucionService : TransfucinesService, private pacienteService : PacienteService) 
+  constructor (private tranfucionService : TransfucinesService, private pacienteService : PacienteService,
+    private comunicacionService : ComunicacionService) 
   {
     this.listarTransfuciones();
+    this.comunicacionService.observador$.subscribe(
+      (msg) =>
+      {
+        if(msg.componente == 4)
+        {
+          this.listarTransfuciones();
+        }
+      }
+      );
   }
   ngOnInit()
   {

@@ -2,6 +2,8 @@ import {Request,Response} from 'express';
 import pool from '../database';
 import { Router } from 'express';
 import { donadorController } from '../controllers/donadorController';
+import { validarToken } from '../middleware/auth';
+validarToken
 class DonadorRoutes
 {
     public router:  Router = Router();
@@ -11,14 +13,14 @@ class DonadorRoutes
     }
     config(): void
     {
-        this.router.get('/', donadorController.list);
-        this.router.delete('/delete/:iddonador', donadorController.delete);
-        this.router.post('/', donadorController.create);
-        this.router.post('/create/', donadorController.createDP);
-        this.router.put('/update/:iddonador', donadorController.update);
-        this.router.put('/update/:iddonador/:idpersona', donadorController.actualizarDP);
-        this.router.get('/:iddonador', donadorController.listOne);
-        this.router.get('/:iddonador/:idpersona', donadorController.listOneCartesiano);
+        this.router.get('/',validarToken, donadorController.list);
+        this.router.delete('/delete/:iddonador',validarToken, donadorController.delete);
+        this.router.post('/',validarToken, donadorController.create);
+        this.router.post('/create/',validarToken, donadorController.createDP);
+        this.router.put('/update/:iddonador',validarToken, donadorController.update);
+        this.router.put('/update/:iddonador/:idpersona',validarToken, donadorController.actualizarDP);
+        this.router.get('/:iddonador',validarToken, donadorController.listOne);
+        this.router.get('/:iddonador/:idpersona',validarToken, donadorController.listOneCartesiano);
     }
 }
 

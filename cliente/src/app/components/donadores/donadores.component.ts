@@ -7,6 +7,7 @@ import { PersonaService } from 'src/app/services/persona.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {  OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ComunicacionService } from 'src/app/services/comunicacion.service';
 
 declare var $: any;
 @Component({
@@ -19,10 +20,20 @@ export class DonadoresComponent {
   donadores:any;
   personas:any;
 
-  constructor(private  donadorService: DonadorService, private personaService: PersonaService,private router: Router){
-    this.listarDonadores();
+  constructor(private  donadorService: DonadorService, private personaService: PersonaService,private router: Router,
+    private comunicacionService :ComunicacionService){
+      this.listarDonadores();
     $('.mymodal').modal();
-  
+    this.comunicacionService.observador$.subscribe(
+      (msg) =>
+      {
+        if(msg.componente == 2)
+        {
+          this.listarDonadores();
+        }
+      }
+      );
+      
   }
   ngOnInit()
   {

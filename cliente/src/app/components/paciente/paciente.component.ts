@@ -3,6 +3,7 @@ import { PacienteService } from 'src/app/services/paciente.service';
 import { Paciente } from 'src/app/models/paciente'; 
 import { PersonaService } from 'src/app/services/persona.service';
 import { Router } from '@angular/router';
+import { ComunicacionService } from 'src/app/services/comunicacion.service';
 declare var  $:any;
 @Component({
   selector: 'app-paciente',
@@ -12,8 +13,18 @@ declare var  $:any;
 export class PacienteComponent {
   paciente :any;
  pacienteVar :any;
-  constructor(private pacienteService: PacienteService, private personaService: PersonaService, private router: Router){
+  constructor(private pacienteService: PacienteService, private personaService: PersonaService, private router: Router,
+    private comunicacionService : ComunicacionService){
       this.listarPacientes();
+      this.comunicacionService.observador$.subscribe(
+        (msg) =>
+        {
+          if(msg.componente == 1)
+          {
+            this.listarPacientes();
+          }
+        }
+        );
   }
   listarPacientes()
   {

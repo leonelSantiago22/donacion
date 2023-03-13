@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { usuarioController } from "../controllers/usuarioController";
+import { validarToken } from "../middleware/auth";
 
 class UsuarioRoutes {
     public router: Router = Router();
@@ -7,7 +8,7 @@ class UsuarioRoutes {
         this.config();
     }
     config() : void {
-        this.router.get('/', usuarioController.list);
+        this.router.get('/',validarToken, usuarioController.list);
     }
 }
 

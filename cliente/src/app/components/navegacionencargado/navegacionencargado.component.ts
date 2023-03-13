@@ -5,6 +5,7 @@ import { BancoService } from 'src/app/services/banco.service';
 import { Hospital } from 'src/app/models/hospital';
 import { Enfermera } from 'src/app/models/enfermera';
 import { Bancos } from 'src/app/models/banco';
+import { ComunicacionService } from 'src/app/services/comunicacion.service';
 declare var $ : any;
 @Component({
   selector: 'app-navegacionencargado',
@@ -15,9 +16,11 @@ export class NavegacionencargadoComponent {
   agregarHospitales : any;
   enfermerasAgregar:any;
   bancosAgregar : any;
+  opcionActual : any;
   constructor(private hospitalService:HospitalService,
               private enfermeraService:EnfermeraService,
-              private bancoService:BancoService)
+              private bancoService:BancoService,
+              private comunicacionService : ComunicacionService)
       {}
 
       //elementos para hospital
@@ -25,6 +28,7 @@ export class NavegacionencargadoComponent {
       {
         this.hospitalService.agregarHospital(this.agregarHospitales).subscribe((resHospital: any) => {
           console.log(resHospital);
+          this.opcionActual = 0 ;
       },
           (err: any) => console.error(err)
         );
@@ -76,5 +80,9 @@ export class NavegacionencargadoComponent {
           });
           $('#mymodalAgregarBanco').modal('open');
         }
-        
+        enviarMensaje(index:any,opcion:any)
+          {
+            let opciones={"indice" :index,"opcion":opcion,"filtro":this.opcionActual};
+            this.comunicacionService.enviar(opciones);
+          }
 }

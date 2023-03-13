@@ -2,6 +2,7 @@ import {Request,Response} from 'express';
 import pool from '../database';
 import { Router } from 'express';
 import { pacienteController } from '../controllers/pacienteRoutes';
+import { validarToken } from '../middleware/auth';
 
 class PacienteRoutes
 {
@@ -11,15 +12,15 @@ class PacienteRoutes
         this.config();
     }
     config(): void{
-        this.router.get('/', pacienteController.list);
-        this.router.delete('/delete/:idpaciente', pacienteController.delete);
-        this.router.post('/', pacienteController.create);
-        this.router.post('/create/', pacienteController.createPP);
-        this.router.put('/update/:idpaciente', pacienteController.update);
-        this.router.put('/actualizar/:idpaciente/:idpersona', pacienteController.actualizarPP);
-        this.router.get('/:idpaciente', pacienteController.listOne);
-        this.router.get('/list/:idpaciente', pacienteController.listOnepaciente);
-        this.router.get('/:idpaciente/:idpersona', pacienteController.listOneCartesiano);
+        this.router.get('/',validarToken, pacienteController.list);
+        this.router.delete('/delete/:idpaciente',validarToken, pacienteController.delete);
+        this.router.post('/',validarToken, pacienteController.create);
+        this.router.post('/create/',validarToken, pacienteController.createPP);
+        this.router.put('/update/:idpaciente',validarToken, pacienteController.update);
+        this.router.put('/actualizar/:idpaciente/:idpersona',validarToken, pacienteController.actualizarPP);
+        this.router.get('/:idpaciente',validarToken, pacienteController.listOne);
+        this.router.get('/list/:idpaciente',validarToken, pacienteController.listOnepaciente);
+        this.router.get('/:idpaciente/:idpersona',validarToken, pacienteController.listOneCartesiano);
     }
 }
 
