@@ -14,12 +14,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.enfermeraController = void 0;
 const database_1 = __importDefault(require("../database"));
+const bcryptjs_1 = __importDefault(require("bcryptjs"));
 class EnfermeraController {
     verificar(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             console.log(req.body);
-            const consulta = `SELECT numero_trabajador FROM enfermera WHERE numero_trabajador="${req.body.numero_trabajador}" and password="${req.body.password}"`;
-            console.log(consulta);
+            const consulta = `SELECT password FROM enfermera WHERE numero_trabajador="${req.body.numero_trabajador}"`;
+            // Si la contraseña no coincide, envía un mensaje de error
             const respuesta = yield database_1.default.query(consulta);
             if (respuesta.length == 0) {
                 console.log("null");
@@ -27,7 +28,14 @@ class EnfermeraController {
                 return;
             }
             else {
-                res.json(respuesta[0]);
+                const passwordMatches = bcryptjs_1.default.compareSync(req.body.password, respuesta[0].password);
+                if (!passwordMatches) {
+                    console.log("null");
+                    res.json(null);
+                }
+                else {
+                    res.json(respuesta[0]);
+                }
                 return;
             }
         });
@@ -96,6 +104,11 @@ class EnfermeraController {
         return __awaiter(this, void 0, void 0, function* () {
             console.log("Create Dp");
             console.log(req.params);
+            const salt = yield bcryptjs_1.default.genSalt(10);
+            req.body.password = yield bcryptjs_1.default.hash(req.body.password, salt);
+            console.log(req.body.password);
+            let prueba = yield bcryptjs_1.default.compare("holota", req.body.password);
+            console.log(prueba);
             const { nombre, edad, genero, idhospital, password } = req.body;
             const setIdPersona = yield database_1.default.query("SET @idpersona = 0;");
             const insertPersona = yield database_1.default.query("INSERT INTO persona(nombre, edad, genero) VALUES(?, ?, ?);", [nombre, edad, genero]);
@@ -115,6 +128,11 @@ class EnfermeraController {
             const updateDonador = yield database_1.default.query(`UPDATE enfermera SET idhospital=${idhospital},password="${password}" WHERE numero_trabajador=${numero_trabajador};`);
             console.log(updateDonador);
             res.json({ updatePersona, updateDonador });
+        });
+    }
+    validarPassword(password, newPassword) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield bcryptjs_1.default.compare(password, newPassword);
         });
     }
 }

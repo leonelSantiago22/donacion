@@ -1,22 +1,33 @@
 import { json } from 'body-parser';
 import {Request,response,Response} from 'express';
 import pool from '../database';
+import bcrypt from 'bcryptjs';
 
 class EnfermeraController
 {
     public async verificar(req:Request, res:Response): Promise<void>
     {
         console.log(req.body)
-        const consulta = `SELECT numero_trabajador FROM enfermera WHERE numero_trabajador="${req.body.numero_trabajador }" and password="${req.body.password}"`;
-        console.log(consulta);
+        const consulta = `SELECT password FROM enfermera WHERE numero_trabajador="${req.body.numero_trabajador }"`;
+
+        
+  // Si la contraseña no coincide, envía un mensaje de error
+   
+
         const respuesta = await pool.query(consulta);
         if (respuesta.length == 0) {
             console.log("null");
             res.json(null );
             return ;
         }else{
-
-          res.json( respuesta[0] );
+            const passwordMatches = bcrypt.compareSync(req.body.password, respuesta[0].password);
+            if (!passwordMatches) {
+                console.log("null");
+                res.json(null);
+                
+            }else{
+            res.json( respuesta[0] );
+            }
           return;
         }
     }
@@ -78,6 +89,12 @@ class EnfermeraController
     {
         console.log("Create Dp");
         console.log(req.params);
+        const salt = await bcrypt.genSalt(10);
+        req.body.password = await bcrypt.hash(req.body.password, salt);
+        console.log(req.body.password)
+        let prueba = await bcrypt.compare("holota", req.body.password);
+        console.log(prueba);
+        
         const {nombre, edad, genero,idhospital,password} = req.body;
         const setIdPersona = await pool.query("SET @idpersona = 0;");
         const insertPersona = await pool.query("INSERT INTO persona(nombre, edad, genero) VALUES(?, ?, ?);", [nombre, edad, genero]);
@@ -96,6 +113,10 @@ class EnfermeraController
             const updateDonador = await pool.query(`UPDATE enfermera SET idhospital=${idhospital},password="${password}" WHERE numero_trabajador=${numero_trabajador};`);
             console.log(updateDonador);
             res.json({updatePersona, updateDonador});
+    }
+    public async validarPassword(password:string, newPassword:string): Promise<boolean>
+    {
+        return await bcrypt.compare(password,newPassword);
     }
 }
 
