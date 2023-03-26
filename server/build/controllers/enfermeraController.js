@@ -40,6 +40,22 @@ class EnfermeraController {
             }
         });
     }
+    verificarCorreo(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            console.log(req.body);
+            const consulta = `SELECT numero_trabajador FROM enfermera WHERE numero_trabajador="${req.body.numero_trabajador}" and correo = "${req.body.correo}"`;
+            const respuesta = yield database_1.default.query(consulta);
+            if (respuesta.length == 0) {
+                console.log("null");
+                res.json(null);
+                return;
+            }
+            else {
+                res.json(respuesta[0]);
+                return;
+            }
+        });
+    }
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             console.log(req.params);
@@ -109,13 +125,13 @@ class EnfermeraController {
             console.log(req.body.password);
             let prueba = yield bcryptjs_1.default.compare("holota", req.body.password);
             console.log(prueba);
-            const { nombre, edad, genero, idhospital, password } = req.body;
+            const { nombre, edad, genero, idhospital, password, correo } = req.body;
             const setIdPersona = yield database_1.default.query("SET @idpersona = 0;");
             const insertPersona = yield database_1.default.query("INSERT INTO persona(nombre, edad, genero) VALUES(?, ?, ?);", [nombre, edad, genero]);
             const setId = yield database_1.default.query(" SET @idpersona = LAST_INSERT_ID();");
             const getIdPersona = yield database_1.default.query("SELECT idpersona as idp from persona where idpersona = (select MAX(idpersona) from persona);");
             const idpersona = getIdPersona[0].idp;
-            const resp2 = yield database_1.default.query(`INSERT INTO enfermera (numero_trabajador,idhospital ,idpersona,password)VALUES (NULL,${idhospital},${idpersona},"${password}");`);
+            const resp2 = yield database_1.default.query(`INSERT INTO enfermera (numero_trabajador,idhospital ,idpersona,password,correo)VALUES (NULL,${idhospital},${idpersona},"${password}","${correo}");`);
             res.json({ setIdPersona, insertPersona, setId, getIdPersona, resp2 });
         });
     }

@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 //importamos el servicio
 import { UsuarioService } from '../../services/usuario.service';
 import { Enfermera } from "../../models/enfermera";
+import { CorreoServiceService } from 'src/app/services/correo-service.service';
+declare var $ :any;
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -13,7 +15,7 @@ import { Enfermera } from "../../models/enfermera";
 export class LoginComponent {
   //creamos la varible
   enfermera = new Enfermera();
-  constructor(private usuarioService: UsuarioService, private router: Router) {
+  constructor(private usuarioService: UsuarioService, private router: Router, private correoService : CorreoServiceService) {
 
   }
   verificarEnfermera() {
@@ -50,4 +52,18 @@ export class LoginComponent {
       (err: any) => console.error(err)
     );
   }
+  prepararAgregar(){
+    $('#modalCambiarContrasenya').modal({
+          dismissible: false
+    });
+    $('#modalCambiarContrasenya').modal('open');
+  }
+  cambiarContrasenya() {
+    console.log(this.enfermera);
+
+    this.correoService.enviarCorreoRecuperarContrasenya(this.enfermera).subscribe((resUsuario: any) => {
+      console.log(resUsuario);
+    }, (err: any) => console.error(err));
+  }
+
 }

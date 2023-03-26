@@ -14,11 +14,46 @@
     <div class="login">
         <form class="custom-form" method="post">
             <h1>Iniciar Sesión</h1>
-            <input [(ngModel)]="enfermera.numero_trabajador" type="number" name="numerodetrabajador" id="numero_trabajador_input" placeholder="numero_trabajador" autocomplete="off">
-            <input  [(ngModel)]="enfermera.password" type="password" name="password" id="password" placeholder="password" autocomplete="off">
+            <input [(ngModel)]="enfermera.numero_trabajador" type="number" name="numerodetrabajador"
+                id="numero_trabajador_input" placeholder="numero_trabajador" autocomplete="off">
+            <input [(ngModel)]="enfermera.password" type="password" name="password" id="password" placeholder="password"
+                autocomplete="off">
             <button type="submit" (click)="verificarEnfermera()">LOGIN</button>
+            <a (click) = "prepararAgregar();">Olvidé mi contraseña!</a>
         </form>
     </div>
 </body>
+
+<div id="modalCambiarContrasenya" class="modal">
+    <div class="modal-content">
+        <div class="row" style="margin-bottom: 0px !important;">
+            <div class="col s12">
+                <h5 class="center">Recuperar contraseña</h5>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom: 0px !important;">
+            <div class="col s12">
+                <p>Revisa tu correo electrónico,revisa el correo no deseado.</p>
+            </div>
+        </div>
+        <div style="border: .5px solid #78909c; padding: 10px;">
+            <div class="row">
+                <div class="col s12">
+                    <label>Correo electrónico</label>
+                    <input [(ngModel)]="enfermera.correo" required type="email"  placeholder="Ingresa el correo con el que tienes registrado">
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s6 center">
+                    <a (click) = "cambiarContrasenya();" class=" modal-action modal-close waves-effect waves-green btn-flat">Enviar</a>
+                </div>
+                <div class="col s6 center">
+                    <a  class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 </html>

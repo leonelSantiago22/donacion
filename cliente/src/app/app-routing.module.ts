@@ -14,6 +14,7 @@ import { RegistrosComponent } from './components/registros/registros.component';
 import { PersonaComponent } from './components/persona/persona.component';
 import { DonacionComponent } from './components/donacion/donacion.component';
 import { BancoComponent } from './components/banco/banco.component';
+import { RecuperacionComponent } from './components/recuperacion/recuperacion.component';
 import { SolicitudesAdministradoComponent } from './components/solicitudes-administrado/solicitudes-administrado.component';
 const routes: Routes = [
   {
@@ -82,6 +83,11 @@ const routes: Routes = [
     path:'donacion',
     component: DonacionComponent
   },
+  {
+    path:'recuperacion',
+    component: RecuperacionComponent
+  },
+  
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

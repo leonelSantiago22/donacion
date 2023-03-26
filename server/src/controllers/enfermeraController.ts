@@ -8,12 +8,8 @@ class EnfermeraController
     public async verificar(req:Request, res:Response): Promise<void>
     {
         console.log(req.body)
-        const consulta = `SELECT password FROM enfermera WHERE numero_trabajador="${req.body.numero_trabajador }"`;
-
-        
+        const consulta = `SELECT password FROM enfermera WHERE numero_trabajador="${req.body.numero_trabajador }"`;  
   // Si la contraseña no coincide, envía un mensaje de error
-   
-
         const respuesta = await pool.query(consulta);
         if (respuesta.length == 0) {
             console.log("null");
@@ -29,6 +25,20 @@ class EnfermeraController
             res.json( respuesta[0] );
             }
           return;
+        }
+    }
+    public async verificarCorreo(req:Request, res:Response): Promise<void>
+    {
+        console.log(req.body)
+        const consulta = `SELECT numero_trabajador FROM enfermera WHERE numero_trabajador="${req.body.numero_trabajador }" and correo = "${req.body.correo}"`;  
+        const respuesta = await pool.query(consulta);
+        if (respuesta.length == 0) {
+            console.log("null");
+            res.json(null );
+            return ;
+        }else{
+            res.json( respuesta[0] );
+            return;
         }
     }
     public async list(req:Request,res:Response): Promise<void>
@@ -95,13 +105,13 @@ class EnfermeraController
         let prueba = await bcrypt.compare("holota", req.body.password);
         console.log(prueba);
         
-        const {nombre, edad, genero,idhospital,password} = req.body;
+        const {nombre, edad, genero,idhospital,password, correo} = req.body;
         const setIdPersona = await pool.query("SET @idpersona = 0;");
         const insertPersona = await pool.query("INSERT INTO persona(nombre, edad, genero) VALUES(?, ?, ?);", [nombre, edad, genero]);
         const setId = await pool.query(" SET @idpersona = LAST_INSERT_ID();");
         const getIdPersona = await pool.query("SELECT idpersona as idp from persona where idpersona = (select MAX(idpersona) from persona);");
         const idpersona = getIdPersona[0].idp;
-        const resp2 = await pool.query(`INSERT INTO enfermera (numero_trabajador,idhospital ,idpersona,password)VALUES (NULL,${idhospital},${idpersona},"${password}");`);
+        const resp2 = await pool.query(`INSERT INTO enfermera (numero_trabajador,idhospital ,idpersona,password,correo)VALUES (NULL,${idhospital},${idpersona},"${password}","${correo}");`);
         res.json({setIdPersona,insertPersona,setId, getIdPersona,resp2});
     }
     public async actualizarDP(req: Request, res: Response ): Promise<void>

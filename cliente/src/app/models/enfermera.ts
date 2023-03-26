@@ -6,6 +6,7 @@ export class Enfermera {
   nombre?: string;
   edad?:number;
   genero?:string;
+  correo?:string;
    constructor() {
 
   }
