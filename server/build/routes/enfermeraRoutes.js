@@ -12,6 +12,7 @@ class EnfermeraRoutes {
     config() {
         this.router.post('/verificar', auth_1.validarToken, enfermeraController_1.enfermeraController.verificar);
         this.router.get('/', auth_1.validarToken, enfermeraController_1.enfermeraController.list);
+        this.router.get('/max/', auth_1.validarToken, enfermeraController_1.enfermeraController.obtenerMax);
         this.router.delete('/delete/:numero_trabajador', auth_1.validarToken, enfermeraController_1.enfermeraController.delete);
         this.router.post('/', auth_1.validarToken, enfermeraController_1.enfermeraController.create);
         this.router.post('/create/', auth_1.validarToken, enfermeraController_1.enfermeraController.createDP);

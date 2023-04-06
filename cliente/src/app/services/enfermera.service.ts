@@ -13,6 +13,10 @@ export class EnfermeraService {
   {
     return this.http.get(`${environment.API_URI}/api/enfermera`,{headers:headers});
   }
+  maxima()
+  {
+    return this.http.get(`${environment.API_URI}/api/enfermera/max/`,{headers:headers});
+  }
   deleteEnfermera(numero_trabajador: any)
   {
     return this.http.delete(`${environment.API_URI}/api/enfermera/delete/`+numero_trabajador,{headers:headers}); 

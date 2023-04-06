@@ -22,6 +22,7 @@ export class EnfermeraComponent {
   enfermerasAgregar: any;
   imgPrincipal: any;
   fileToUpload: any;
+  numero_trabajador : any;
   ngOnInit() {
     this.personas = new Persona();
     this.enfermeras = new Enfermera();
@@ -35,8 +36,10 @@ export class EnfermeraComponent {
     private correoService: CorreoServiceService
   ) {
     this.listarEnfermeras();
+    this.maxima();
   }
   listarEnfermeras() {
+    this.maxima();
     this.enfermeraService.listEnfermera().subscribe(
       (resEnfermera: any) => {
         console.log(resEnfermera);
@@ -79,6 +82,7 @@ export class EnfermeraComponent {
   agregarEnfermera() {
     this.enfermeraService.agregarEnfermera(this.enfermerasAgregar).subscribe(
       (resEnfermera: any) => {
+        console.log(resEnfermera.getIdPersona[0].idp);
         console.log(resEnfermera);
         this.enfermeras = resEnfermera;
         this.listarEnfermeras();
@@ -91,6 +95,15 @@ export class EnfermeraComponent {
       (resPersona: any) => {
         console.log(resPersona);
         this.enfermeras = resPersona;
+      },
+      (err: any) => console.error(err)
+    );
+  }
+  maxima() {
+    this.enfermeraService.maxima().subscribe(
+      (resEnfermera: any) => {
+        console.log(resEnfermera.validar);
+        this.numero_trabajador = resEnfermera.validar;
       },
       (err: any) => console.error(err)
     );
@@ -113,14 +126,13 @@ export class EnfermeraComponent {
   
   cargandoImagen(files: any, carpeta: any) {
     console.log(files.files[0]);
-
     this.imgPrincipal = null;
     this.fileToUpload = files.files[0];
     let imgPromise = this.getFileBlob(this.fileToUpload);
     imgPromise.then((blob) => {
       console.log(blob);
 
-      this.imagenesService.guardarImagen(345, blob, carpeta).subscribe(
+      this.imagenesService.guardarImagen(this.numero_trabajador+1, blob, carpeta).subscribe(
         (res: any) => {
           this.imgPrincipal = blob;
         },
@@ -141,11 +153,11 @@ export class EnfermeraComponent {
     });
   }
   dameNombre(numero_trabajador: any) {
-    console.log('hola');
 
-    return this.liga + '/perfil/' + numero_trabajador + '.jpg';
+    return this.liga + '/img/perfil/' + numero_trabajador + '.jpg';
   }
   onImgError(event: any) {
-    event.target.src = this.liga + '/perfil/0.png';
+    console.log();
+    event.target.src = this.liga + 'img/perfil/345.jpg';
   }
 }

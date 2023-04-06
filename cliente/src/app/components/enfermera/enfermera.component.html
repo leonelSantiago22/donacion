@@ -15,6 +15,7 @@
     <table class="stripted" >
         <thead>
             <tr>
+              <th>Foto</th>
               <th >Numero de empleado</th>
               <th >Idpersona</th>
               <th >Hospital</th>
@@ -25,6 +26,7 @@
           </thead>
           <tbody>
             <tr class="active-row" *ngFor="let enfermera of enfermera">
+                <td><img [src]="dameNombre(enfermera.numero_trabajador)" (error)="onImgError($event)" alt=""></td>
                 <td>{{enfermera.numero_trabajador}}</td>
                 <td>{{enfermera.idpersona}} </td>
                 <td>{{enfermera.idhospital}}</td>

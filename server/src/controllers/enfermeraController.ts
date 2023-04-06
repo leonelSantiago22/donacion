@@ -27,6 +27,18 @@ class EnfermeraController
           return;
         }
     }
+
+    public async obtenerMax(req:Request, res:Response): Promise<void>
+    {
+        console.log(req.body)
+        const consulta = `SELECT MAX(numero_trabajador) as validar FROM enfermera`;  
+        const respuesta = await pool.query(consulta);
+        res.json( respuesta[0] );
+        console.log(respuesta[0].validar);
+        return respuesta[0].validar;
+    }
+
+    
     public async verificarCorreo(req:Request, res:Response): Promise<void>
     {
         console.log(req.body)
@@ -41,6 +53,7 @@ class EnfermeraController
             return;
         }
     }
+
     public async list(req:Request,res:Response): Promise<void>
     {
         console.log(req.params);

@@ -53,13 +53,10 @@ class Server {
       const file = req.body.src;
       const name = req.body.id;
       const binaryData = Buffer.from(
-        file.replace(/^data:image\/[a-z]+;base64,/, ""),
-        "base64"
-      ).toString("binary");
+        file.replace(/^data:image\/[a-z]+;base64,/, ""),"base64").toString("binary");
       fs.writeFile(
         `${__dirname}/img/perfil/` + name + ".jpg",
         binaryData,
-
         "binary",
         (err) => {
           console.log(err);

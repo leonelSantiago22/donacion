@@ -40,6 +40,16 @@ class EnfermeraController {
             }
         });
     }
+    obtenerMax(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            console.log(req.body);
+            const consulta = `SELECT MAX(numero_trabajador) as validar FROM enfermera`;
+            const respuesta = yield database_1.default.query(consulta);
+            res.json(respuesta[0]);
+            console.log(respuesta[0].validar);
+            return respuesta[0].validar;
+        });
+    }
     verificarCorreo(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             console.log(req.body);
