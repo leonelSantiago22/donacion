@@ -17,8 +17,9 @@ const morgan_1 = __importDefault(require("morgan"));
 const cors_1 = __importDefault(require("cors"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const dotenv_1 = __importDefault(require("dotenv"));
+const fs_1 = __importDefault(require("fs"));
 const database_1 = __importDefault(require("./database"));
-const correoAcceso = require('./correoAcceso');
+const correoAcceso = require("./correoAcceso");
 class Server {
     constructor() {
         this.queryProfesor = (decodificado) => {
@@ -38,25 +39,27 @@ class Server {
     }
     config() {
         this.app.use(express_1.default.urlencoded({
-            limit: '50mb', parameterLimit: 100000, extended: false
+            limit: "50mb",
+            parameterLimit: 100000,
+            extended: false,
         }));
-        this.app.use(express_1.default.json({ limit: '50mb' }));
-        this.app.set('port', process.env.PORT || 3001);
-        this.app.use((0, morgan_1.default)('dev'));
+        this.app.use(express_1.default.json({ limit: "50mb" }));
+        this.app.set("port", process.env.PORT || 3001);
+        this.app.use((0, morgan_1.default)("dev"));
         this.app.use((0, cors_1.default)());
         this.app.use(express_1.default.urlencoded({ extended: false }));
     }
     routes() {
-        this.app.post('/enviarCorreoRecuperarContrasenya', (req, res) => {
+        this.app.post("/enviarCorreoRecuperarContrasenya", (req, res) => {
             console.log("mandando el correo");
             correoAcceso(req.body);
         });
-        this.app.post('/decodificarMail', (req, res) => __awaiter(this, void 0, void 0, function* () {
+        this.app.post("/decodificarMail", (req, res) => __awaiter(this, void 0, void 0, function* () {
             let decodificado;
             try {
-                decodificado = jsonwebtoken_1.default.verify(req.body.token, process.env.TOKEN_SECRET || 'prueba');
+                decodificado = jsonwebtoken_1.default.verify(req.body.token, process.env.TOKEN_SECRET || "prueba");
                 console.log(decodificado);
-                const result1 = yield this.queryProfesor(decodificado);
+                const result1 = (yield this.queryProfesor(decodificado));
                 console.log(result1);
                 if (result1.length == 0)
                     res.json(0);
@@ -67,10 +70,19 @@ class Server {
                 res.json(0);
             }
         }));
+        this.app.post("/uploadImagen", (req, res) => {
+            const file = req.body.src;
+            const name = req.body.id;
+            const binaryData = Buffer.from(file.replace(/^data:image\/[a-z]+;base64,/, ""), "base64").toString("binary");
+            fs_1.default.writeFile(`${__dirname}/img/perfil/` + name + ".jpg", binaryData, "binary", (err) => {
+                console.log(err);
+            });
+            res.json({ fileName: name + ".jpg" });
+        });
     }
     start() {
-        this.app.listen(this.app.get('port'), () => {
-            console.log(`Listening on port ${this.app.get('port')}`);
+        this.app.listen(this.app.get("port"), () => {
+            console.log(`Listening on port ${this.app.get("port")}`);
         });
     }
 }

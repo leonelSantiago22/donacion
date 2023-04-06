@@ -20,8 +20,8 @@ message = {
     bcc: "",
     subject: "Probando ando",
     attachment: [
-        { data: `¡¡Buenos dias !!
-        <a href="http://localhost:4200/recuperar/${token}" >ACEPTAR</a>
+        { data: `Recupera tu contrasena de la plataforma de donacion
+        <a href="http://localhost:4200/recuperacion/${token}" >ACEPTAR</a>
         <br><br>
         `, alternative: true }
     ]

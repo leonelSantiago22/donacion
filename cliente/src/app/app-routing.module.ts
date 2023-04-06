@@ -84,7 +84,7 @@ const routes: Routes = [
     component: DonacionComponent
   },
   {
-    path:'recuperacion',
+    path:'recuperacion/:token',
     component: RecuperacionComponent
   },
   

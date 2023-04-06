@@ -271,3 +271,17 @@ main.table {
    width: 2rem;
    height: auto;
  }
+ input[type="file"] {
+  display: none;
+}
+.imagenes {
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.imagenes:hover {
+  background-color: #0062cc;
+}

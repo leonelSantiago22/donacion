@@ -1,59 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="login.component.css" rel="stylesheet" type="text/css">
     <title>Document</title>
 </head>
-
 <body>
+    <div class="login-wrap">
+        <div class="login-html">
+            <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Iniciar sesión</label>
+            <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab"></label>
+            <div class="login-form">
+                <div class="sign-in-htm">
+                    <div class="group">
+                        <label for="user"  class="label">Numero de trabajador</label>
+                        <input id="user" [(ngModel)]="enfermera.numero_trabajador" placeholder="Numero de trabajador" type="text" class="input" >
+                    </div>
+                    <div class="group">
+                        <label for="pass" class="label">Contrsena</label>
+                        <input id="pass" type="password" class="input" data-type="password" [(ngModel)]="enfermera.password"  name="password"  placeholder="password"autocomplete="off">
+                    </div>
+                    <div class="group">
+                        <input type="submit" class="button" value="Ingresar" (click)="verificarEnfermera()">
+                    </div>
+                    <div class="hr"></div>
+                    <div class="foot-lnk">
+                        <a (click) = "prepararAgregar();">Olvidaste tu contrasena?</a>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
 
-    <div class="login">
-        <form class="custom-form" method="post">
-            <h1>Iniciar Sesión</h1>
-            <input [(ngModel)]="enfermera.numero_trabajador" type="number" name="numerodetrabajador"
-                id="numero_trabajador_input" placeholder="numero_trabajador" autocomplete="off">
-            <input [(ngModel)]="enfermera.password" type="password" name="password" id="password" placeholder="password"
-                autocomplete="off">
-            <button type="submit" (click)="verificarEnfermera()">LOGIN</button>
-            <a (click) = "prepararAgregar();">Olvidé mi contraseña!</a>
-        </form>
+    <div id="modalCambiarContrasenya" class="modal">
+        <div class="modal-content">
+            <div class="row" style="margin-bottom: 0px !important;">
+                <div class="col s12">
+                    <h5 class="center">Recuperar contraseña</h5>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 0px !important;">
+                <div class="col s12">
+                    <p>Revisa tu correo electrónico,revisa el correo no deseado.</p>
+                </div>
+            </div>
+            <div style="border: .5px solid #78909c; padding: 10px;">
+                <div class="row">
+                    <div class="col s12">
+                        <label>Correo electrónico</label>
+                        <input [(ngModel)]="enfermera.correo" required type="email"  placeholder="Ingresa el correo con el que tienes registrado">
+    
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s6 center">
+                        <a (click) = "cambiarContrasenya();" class=" modal-action modal-close waves-effect waves-green btn-flat">Enviar</a>
+                    </div>
+                    <div class="col s6 center">
+                        <a  class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
-
-<div id="modalCambiarContrasenya" class="modal">
-    <div class="modal-content">
-        <div class="row" style="margin-bottom: 0px !important;">
-            <div class="col s12">
-                <h5 class="center">Recuperar contraseña</h5>
-            </div>
-        </div>
-        <div class="row" style="margin-bottom: 0px !important;">
-            <div class="col s12">
-                <p>Revisa tu correo electrónico,revisa el correo no deseado.</p>
-            </div>
-        </div>
-        <div style="border: .5px solid #78909c; padding: 10px;">
-            <div class="row">
-                <div class="col s12">
-                    <label>Correo electrónico</label>
-                    <input [(ngModel)]="enfermera.correo" required type="email"  placeholder="Ingresa el correo con el que tienes registrado">
-
-                </div>
-            </div>
-            <div class="row">
-                <div class="col s6 center">
-                    <a (click) = "cambiarContrasenya();" class=" modal-action modal-close waves-effect waves-green btn-flat">Enviar</a>
-                </div>
-                <div class="col s6 center">
-                    <a  class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 </html>

@@ -138,10 +138,10 @@ class EnfermeraController {
     actualizarDP(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             console.log(req.params);
-            const { nombre, edad, genero, idhospital, password } = req.body;
+            const { nombre, edad, genero, idhospital, password, correo } = req.body;
             const { numero_trabajador } = req.params;
             const updatePersona = yield database_1.default.query("UPDATE persona SET nombre=?, edad=?, genero=? WHERE idpersona=?", [nombre, edad, genero, req.params.idpersona]);
-            const updateDonador = yield database_1.default.query(`UPDATE enfermera SET idhospital=${idhospital},password="${password}" WHERE numero_trabajador=${numero_trabajador};`);
+            const updateDonador = yield database_1.default.query(`UPDATE enfermera SET idhospital=${idhospital},password="${password}", correo ="${correo}" WHERE numero_trabajador=${numero_trabajador};`);
             console.log(updateDonador);
             res.json({ updatePersona, updateDonador });
         });

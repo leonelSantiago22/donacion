@@ -117,10 +117,10 @@ class EnfermeraController
     public async actualizarDP(req: Request, res: Response ): Promise<void>
     {
             console.log(req.params);
-            const {nombre, edad, genero,idhospital,password} = req.body;
+            const {nombre, edad, genero,idhospital,password,correo} = req.body;
             const {numero_trabajador} = req.params;
             const updatePersona = await pool.query("UPDATE persona SET nombre=?, edad=?, genero=? WHERE idpersona=?", [nombre, edad, genero, req.params.idpersona]);
-            const updateDonador = await pool.query(`UPDATE enfermera SET idhospital=${idhospital},password="${password}" WHERE numero_trabajador=${numero_trabajador};`);
+            const updateDonador = await pool.query(`UPDATE enfermera SET idhospital=${idhospital},password="${password}", correo ="${correo}" WHERE numero_trabajador=${numero_trabajador};`);
             console.log(updateDonador);
             res.json({updatePersona, updateDonador});
     }

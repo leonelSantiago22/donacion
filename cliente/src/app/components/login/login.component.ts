@@ -60,7 +60,6 @@ export class LoginComponent {
   }
   cambiarContrasenya() {
     console.log(this.enfermera);
-
     this.correoService.enviarCorreoRecuperarContrasenya(this.enfermera).subscribe((resUsuario: any) => {
       console.log(resUsuario);
     }, (err: any) => console.error(err));

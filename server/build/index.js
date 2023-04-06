@@ -28,6 +28,7 @@ class Server {
         this.app = (0, express_1.default)();
         this.config();
         this.routes();
+        this.app.use(express_1.default.static(__dirname + "/img"));
         this.app.use('/documentacion', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swagger_json_1.default));
     }
     config() {

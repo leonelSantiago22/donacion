@@ -14,4 +14,5 @@ export class CorreoServiceService {
     let dato = { "token": token };
     return this.http.post(`${environment.API_URI_CORREOS}/decodificarMail`, dato);
   }
+  
 }
