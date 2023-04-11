@@ -13,6 +13,7 @@ class Server {
     this.app = express();
     this.config();
     this.routes();
+    this.app.use(express.static(__dirname + "/img"));
   }
   config(): void {
     this.app.use(
@@ -51,17 +52,23 @@ class Server {
     });
     this.app.post("/uploadImagen", (req, res) => {
       const file = req.body.src;
+      const carpeta = req.body.carpeta;
       const name = req.body.id;
+      console.log(carpeta, name);
+
       const binaryData = Buffer.from(
-        file.replace(/^data:image\/[a-z]+;base64,/, ""),"base64").toString("binary");
+        file.replace(/^data:image\/[a-z]+;base64,/, ""),
+        "base64"
+      ).toString("binary");
       fs.writeFile(
-        `${__dirname}/img/perfil/` + name + ".jpg",
+        `${__dirname}/img/` + carpeta + "/" + name + ".jpg",
         binaryData,
         "binary",
         (err) => {
           console.log(err);
         }
       );
+
       res.json({ fileName: name + ".jpg" });
     });
   }

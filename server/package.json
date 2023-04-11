@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc -w",
-    "dev": "nodemon ./build/index.js",
-    "correo": "nodemon ./build/app.js"
+    "dev": "nodemon src/build/index.js",
+    "correo": "nodemon src/build/app.js"
   },
   "keywords": [],
   "author": "",

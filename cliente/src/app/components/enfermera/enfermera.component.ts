@@ -17,7 +17,7 @@ declare var $: any;
 export class EnfermeraComponent {
   enfermera: any;
   enfermeras: any;
-  liga: string = environment.API_URI_IMAGENES;
+  liga:string = environment.API_URI_IMAGENES;
   personas: any;
   enfermerasAgregar: any;
   imgPrincipal: any;
@@ -152,12 +152,11 @@ export class EnfermeraComponent {
       reader.readAsDataURL(file);
     });
   }
-  dameNombre(numero_trabajador: any) {
-
-    return this.liga + '/img/perfil/' + numero_trabajador + '.jpg';
+  noFoundImage(event: any) {
+    event.target.src = this.liga + '/perfil/345.jpg';
   }
-  onImgError(event: any) {
-    console.log();
-    event.target.src = this.liga + 'img/perfil/345.jpg';
+  dameNombre(id: any) {
+    console.log('hola');
+    return this.liga + '/perfil/' + id + '.jpg';
   }
 }

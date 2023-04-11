@@ -1,6 +1,11 @@
 import express, { Application } from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
+
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+import fs from "fs";
+import pool from "./database";
 import indexRoutes from './routes/indexRoutes';
 import usuarioRoutes from './routes/usuarioRoutes';
 import swagger_ui_express from 'swagger-ui-express';
@@ -50,6 +55,22 @@ class Server {
         this.app.use('/api/enfermera', enfermeraRoutes);
         this.app.use('/api/administrador', administradorRoutes);
         this.app.use('/api/hospital', hospitalRoutes);
+        this.app.post("/uploadImagen", (req, res) => {
+          const file = req.body.src;
+          const name = req.body.id;
+          const carpeta = req.body.carpeta;
+          const binaryData = Buffer.from(
+            file.replace(/^data:image\/[a-z]+;base64,/, ""),"base64").toString("binary");
+          fs.writeFile(
+            `${__dirname}/img/` + carpeta + "/" + name + ".jpg",
+            binaryData,
+            "binary",
+            (err) => {
+              console.log(err);
+            }
+          );
+          res.json({ fileName: name + ".jpg" });
+        });
     }
     start() : void {
         this.app.listen(this.app.get('port'), () => {

@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const morgan_1 = __importDefault(require("morgan"));
 const cors_1 = __importDefault(require("cors"));
+const fs_1 = __importDefault(require("fs"));
 const indexRoutes_1 = __importDefault(require("./routes/indexRoutes"));
 const usuarioRoutes_1 = __importDefault(require("./routes/usuarioRoutes"));
 const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
@@ -54,6 +55,16 @@ class Server {
         this.app.use('/api/enfermera', enfermeraRoutes_1.default);
         this.app.use('/api/administrador', administradorRoutes_1.default);
         this.app.use('/api/hospital', hospitalRoutes_1.default);
+        this.app.post("/uploadImagen", (req, res) => {
+            const file = req.body.src;
+            const name = req.body.id;
+            const carpeta = req.body.carpeta;
+            const binaryData = Buffer.from(file.replace(/^data:image\/[a-z]+;base64,/, ""), "base64").toString("binary");
+            fs_1.default.writeFile(`${__dirname}/img/` + carpeta + "/" + name + ".jpg", binaryData, "binary", (err) => {
+                console.log(err);
+            });
+            res.json({ fileName: name + ".jpg" });
+        });
     }
     start() {
         this.app.listen(this.app.get('port'), () => {
