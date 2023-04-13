@@ -8,6 +8,7 @@ import { Persona } from 'src/app/models/persona';
 import { environment } from 'src/app/environments/environment';
 import { CorreoServiceService } from 'src/app/services/correo-service.service';
 import { ImagenesService } from 'src/app/services/imagenes.service';
+import { ExcelService } from 'src/app/services/excel.service';
 declare var $: any;
 @Component({
   selector: 'app-enfermera',
@@ -33,7 +34,8 @@ export class EnfermeraComponent {
     private router: Router,
     private personaServices: PersonaService,
     private imagenesService: ImagenesService,
-    private correoService: CorreoServiceService
+    private correoService: CorreoServiceService,
+    private excelService : ExcelService
   ) {
     this.listarEnfermeras();
     this.maxima();
@@ -159,4 +161,10 @@ export class EnfermeraComponent {
     console.log('hola');
     return this.liga + '/perfil/' + id + '.jpg';
   }
+  exportAsXLSX()
+  {
+    let element = document.getElementById("tabla");
+    this.excelService.exportAsExcelFile(element, 'sample');
+  }
+
 }

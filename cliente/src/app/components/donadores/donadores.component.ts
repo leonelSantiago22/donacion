@@ -8,6 +8,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {  OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ComunicacionService } from 'src/app/services/comunicacion.service';
+import { ExcelService } from 'src/app/services/excel.service';
+import { environment } from 'src/app/environments/environment';
 
 declare var $: any;
 @Component({
@@ -19,9 +21,12 @@ export class DonadoresComponent {
   donador : any;
   donadores:any;
   personas:any;
-
-  constructor(private  donadorService: DonadorService, private personaService: PersonaService,private router: Router,
-    private comunicacionService :ComunicacionService){
+  liga:string = environment.API_URI_IMAGENES;
+  constructor(private  donadorService: DonadorService, 
+    private personaService: PersonaService,
+    private router: Router,
+    private comunicacionService :ComunicacionService,
+    private excelService:ExcelService){
       this.listarDonadores();
     $('.mymodal').modal();
     this.comunicacionService.observador$.subscribe(
@@ -136,4 +141,10 @@ export class DonadoresComponent {
       });
       $('#mymodal2').modal('open');
     }
+    exportAsXLSX()
+    {
+      let element = document.getElementById("tabla");
+      this.excelService.exportAsExcelFile(element, 'sample');
+    }
+  
 }

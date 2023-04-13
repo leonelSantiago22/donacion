@@ -5,6 +5,8 @@ import { BancoService } from 'src/app/services/banco.service';
 import { Bancos } from 'src/app/models/banco';
 import { Donador } from 'src/app/models/donador';
 import { ComunicacionService } from 'src/app/services/comunicacion.service';
+import { ExcelService } from 'src/app/services/excel.service';
+import { environment } from 'src/app/environments/environment';
 declare var $ : any;
 @Component({
   selector: 'app-donacion',
@@ -15,8 +17,13 @@ export class DonacionComponent {
   donacion:any;
   bancos:any;
   donador:any;
-  constructor(private donacionService: DonacionService, private bancoService:BancoService, private donadoreService : DonacionService,
-    private comunicacionService : ComunicacionService)
+  liga:string = environment.API_URI_IMAGENES;
+  
+  constructor(private donacionService: DonacionService, 
+    private bancoService:BancoService, 
+    private donadoreService : DonacionService,
+    private comunicacionService : ComunicacionService,
+    private excelService: ExcelService)
   {
     this.listarDonaciones();
     this.comunicacionService.observador$.subscribe(
@@ -63,5 +70,10 @@ export class DonacionComponent {
       dismissible: false
     });
     $('#mymodal').modal('open');
+  }
+  exportAsXLSX()
+  {
+    let element = document.getElementById('tablaDonaciones');
+    this.excelService.exportAsExcelFile(element, 'sample');
   }
 }

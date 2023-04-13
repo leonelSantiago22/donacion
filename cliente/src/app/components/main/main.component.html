@@ -59,10 +59,10 @@
           <section class="table__header">
             <h1>Solicitudes</h1>
         </section>
-  
+  <div id="tablaMain">
         <section class="table__body">
           <h2>Solicitudes en proceso</h2>
-            <table>
+            <table >
                 <thead>
                   <th>Idsolicitud</th>
                   <th>Idbanco</th>
@@ -80,9 +80,12 @@
                     <td *ngIf="(solicitud.estado ==1)">{{solicitud.idhospital}}</td>
                     <td *ngIf="(solicitud.estado ==1)">{{solicitud.numero_trabajador}}</td>
                 </tr>
+                <a (click)="exportAsXLSX()"><img src="{{liga}}/excel.png" style="width: 64px; height: 32px; display:inline;"></a>
+          
                 </tbody>
             </table>
         </section>
+      </div>
         </main>
       </div>
 </body>
