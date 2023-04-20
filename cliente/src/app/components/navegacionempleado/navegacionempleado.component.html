@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <nav>
+    <div class="nav-wrapper" id="navbarclass">
+      <a [routerLink]="['/main']" class="brand-logo">
+        <img src="../../../assets/imagenes/medicine.png" width="50px" height="50px" class="logo">
+      </a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li> <a class='dropdown-trigger' href='#' data-target='dropdownSolicitud'>Solicitud</a></li>
+        <li> <a class='dropdown-trigger' href='#' data-target='dropdownPaciente'>Paciente</a></li>
+        <li> <a class='dropdown-trigger' href='#' data-target='dropdownDonador'>Donador</a></li>
+        <li> <a class='dropdown-trigger' href='#' data-target='dropdownDonacion'>Donacion</a></li>
+        <li> <a class='dropdown-trigger' href='#' data-target='dropdownTransfuciones'>Transfuciones</a></li>
+        <li>  <a [routerLink]="['/main']">Inicio</a></li>
+      
+      </ul>
+    </div>
+</nav>
+    <!--Declaracion de los dropdown-->
+    <ul id="dropdownSolicitud" class="dropdown-content">
+      <li><a [routerLink]="['/solicitud']">Solicitud</a></li>
+      <li><a (click)="prepararSolicitud();">Agregar solicitud</a></li>
+    </ul>
+    <ul id="dropdownPaciente" class="dropdown-content">
+      <li><a [routerLink]="['/paciente']">Pacientes</a></li>
+      <li><a (click)="prepararPaciente();">Agregar paciente</a></li>
+    </ul>
+    <ul id="dropdownDonador" class="dropdown-content">
+      <li><a [routerLink]="['/donadores']">Donadores</a></li>
+      <li><a (click)="prepararDonador();">Agregar donador</a></li>
+    </ul>
+    <ul id="dropdownDonacion" class="dropdown-content">
+      <li><a [routerLink]="['/donacion']">Donacion</a></li>
+      <li><a (click)="prepararDonacion();">Agregar donacion</a></li>
+    </ul>
+    <ul id="dropdownTransfuciones" class="dropdown-content">
+      <li><a [routerLink]="['/transfuciones']">Transfuciones</a></li>
+      <li><a (click)="prepararTransfucion()">Agregar Transfucion</a></li>
+    </ul>
+    <!--fin de las declaraciones -->
+    <!--Inicio de  modales-->
+  <div id="mymodalSolicitud" class="modal" >
+      <div class="modal-dialog">
+         <div class="modal-content">
+         <div class="modal-header">
+           <h4 class="modal-title">Agregar Solicitud</h4>
+         </div>
+         <div class="modal-body">
+          <div class="container" id="formulario">
+            <div class="col-12">
+              <label for="idbanco" class="form-label">Id del banco</label>
+              <input  type="number" class="validate" id="idbanco" [(ngModel)]="solicitudes.idbanco" name="idbanco" >
+            </div>
+             <div class="col-6">
+                <label for="fechasolicitud" class="form-label">Fecha de la solicitud</label>
+                <input type="date"  class="validate" id="fechasolicitud" [(ngModel)]="solicitudes.fecha" name="fecha">
+             </div>
+              <div class=" col-6">
+                  <label for="estadosolicitud" class="activate" >Estado de la solicitud</label>
+                  <input  type="number" class="validate" id="estadosolicitud" [(ngModel)]="solicitudes.estado" name="estadosolicitud" >
+              </div>
+              <div class=" col s6">
+                  <label for="idhospital" class="form-label">Id del hospital</label>
+                  <input type="number" class="validate" id="idhospital" [(ngModel)]="solicitudes.idhospital" name="idhospital" >
+              </div>
+              <div class=" col s6">
+                  <label for="trabajador" class="activate">Numero de trabajador</label>
+                  <input  type="number" class="validate" id="trabajador" [(ngModel)]="solicitudes.numero_trabajador" name="trabajador" >
+              </div>
+          </div>
+            <div class="buttonSelect">
+              <a  class=" modal-action modal-close waves-effect waves-green btn-flat">Cerrar</a>  
+              <input type="button" name="next" class=" modal-action modal-close waves-effect waves-green btn-flat" (click)="agregarSolicitud()" value="Agregar" />
+             </div>
+         </div>
+         </div>
+      </div>
+     </div>
+     
+     <div id="mymodalPaciente" class="modal" >
+      <div class="modal-dialog">
+         <div class="modal-content">
+         <div class="modal-header">
+           <h4 class="modal-title">Agregar Pacientes</h4>
+         </div>
+         <div class="modal-body">
+          <div class="container" id="formulario">
+              
+                <div class="col-3">
+                  <label for="idpaciente" class="form-label">Id paciente</label>
+                  <input disabled  type="text" id="idpaciente" class="email" [(ngModel)]="pacienteVar.idpaciente"  name="idpersona" placeholder="Id del paciente">
+              </div>
+                <div class="col-3">
+                    <label for="tipodesangre" class="form-label">Tipo de sangre</label>
+                    <input  type="text" id="tipodesangre" class="email" [(ngModel)]="pacienteVar.tipodesangre" name="nombrepaciente" placeholder="tipo de sangre del paicente">
+                </div>
+                <div class="col-2">
+                  <label for="nombrepersona" class="form-label">Nombre del paciente</label>
+                  <input  type="text" id="nombrepersona" class="email"  name="tipodesangre" [(ngModel)]="pacienteVar.nombre" placeholder="Nombre del paciente" />
+              </div>
+                <div  class="col-3">
+                    <label for="genero">Genero de la persona</label>
+                    <input  type="text" id="genero" class="email" name="edad" [(ngModel)]="pacienteVar.genero"  placeholder="Genero del paciente">
+                </div>
+                <div class="col-2">
+                  <label for="edad">Edad del paciente</label>
+                  <input  type="text" id="edad" class="email" [(ngModel)]="pacienteVar.edad" name="genero" placeholder="Edad del paciente">
+                </div>
+          </div>
+            <div class="buttonSelect">
+              <a  class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+              <a  class=" modal-action modal-close waves-effect waves-green btn-flat" (click)="agregarPaciente();">Agregar</a>
+           </div>
+         </div>
+         </div>
+      </div>
+     </div>
+
+     <div id="mymodalDonador" class="modal" >
+      <div class="modal-dialog">
+         <div class="modal-content">
+         <div class="modal-header">
+           <h4 class="modal-title">Informacion Donadores</h4>
+         </div>
+         <div class="modal-body">
+          <div class="container" id="formulario">
+              
+                <div class="col-3">
+                  <label for="idpersona" class="form-label">ID persona</label>
+                  <input disabled type="text" id="idpersona" class="email" [(ngModel)]="donadores.idpersona" name="idpersona" placeholder="Id del donador">
+              </div>
+                <div class="col-3">
+                    <label for="nombredonador" class="form-label"> Nombre del donador</label>
+                    <input type="text" id="nombredonador" class="email" [(ngModel)]="donadores.nombre" name="nombrepaciente" placeholder="nombre del donador">
+                </div>
+                <div class="col-2">
+                  <label for="tipodesangre" class="form-label">Tipo De sangre del paciente</label>
+                  <input type="text" id="tipodesangre" class="email" [(ngModel)]="donadores.tipodesangre"  name="tipodesangre" placeholder="tipo de sangre" />
+              </div>
+                <div  class="col-3">
+                    <label for="edadpersona">Edad del donador:</label>
+                    <input type="text" id="edadpersona" class="email" [(ngModel)]="donadores.edad" name="edad" placeholder="Edad del donador">
+                </div>
+                <div class="col-2">
+                  <label for="generopersona">Genero</label>
+                  <input type="text" id="generopersona" class="email" [(ngModel)]="donadores.genero" name="genero" placeholder="Genero del donador">
+                </div>
+          </div>
+            <div class="buttonSelect">
+              <a  class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+              <a (click)="agregarDonador()" class=" modal-action modal-close waves-effect waves-grey btn-flat">Agregar</a>
+           </div>
+         </div>
+         </div>
+      </div>
+     </div>
+
+     <div id="mymodalDonacion" class="modal" >
+      <div class="modal-dialog">
+         <div class="modal-content">
+         <div class="modal-header">
+           <h4 class="modal-title">Agregar donacion</h4>
+         </div>
+         <div class="modal-body">
+          <div class="container" id="formulario">
+              
+                <div class="col-3">
+                  <label for="idpersona" class="form-label">ID persona</label>
+                  <input disabled type="text" id="idpersona" class="email" [(ngModel)]="donacion.iddonacion" name="idpersona" placeholder="Id dela donacion ">
+              </div>
+                <div class="col-3">
+                    <label for="nombredonador" class="form-label"> Id del donador</label>
+                    <input  type="text" id="nombredonador" class="email" [(ngModel)]="donacion.iddonador" name="nombrepaciente" placeholder="Id del donador">
+                </div>
+                <div class="col-2">
+                  <label for="tipodesangre" class="form-label">Id del banco</label>
+                  <input  type="text" id="tipodesangre" class="email" [(ngModel)]="donacion.banco"  name="tipodesangre" placeholder="Banco al que se registro" />
+              </div>
+               
+          </div>
+            <div class="buttonSelect">
+              <a class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+              <a class=" modal-action modal-close waves-effect waves-green btn-flat" (click) ="agregarDonacion();">Agregar</a>
+              </div>
+         </div>
+         </div>
+      </div>
+     </div>
+      
+     <div id="mymodalTransfucion" class="modal" >
+      <div class="modal-dialog">
+         <div class="modal-content">
+         <div class="modal-header">
+           <h4 class="modal-title">agregar  Transfuciones</h4>
+         </div>
+         <div class="modal-body">
+          <div class="container" id="formulario">
+              
+                <div class="col-3">
+                  <label for="idpaciente" class="form-label">Id solicitud</label>
+                  <input  type="text" id="idpaciente" class="email" [(ngModel)]="transfuciones.idsolicitud"  name="idpersona" placeholder="Id de la solicitud a la que se liga">
+              </div>
+                <div  class="col-3">
+                    <label for="genero">Id paciente </label>
+                    <input  type="text" id="genero" class="email" name="edad" [(ngModel)]="transfuciones.idpaciente"  placeholder="Identificacion del paciente">
+                </div>
+                <div class="col-2">
+                  <label for="edad">Fecha</label>
+                  <input  type="date" id="edad" class="email" [(ngModel)]="transfuciones.fecha" name="genero" placeholder="Fecha programada para la transfucion">
+                </div>
+          </div>
+            <div class="buttonSelect">
+              <a  class=" modal-action modal-close waves-effect waves-green btn-flat">Cerrar</a>
+              <input type="button" name="next" class=" modal-action modal-close waves-effect waves-green btn-flat" (click)="agregarTransfucion()" value="Agregar" />
+             
+           </div>
+         </div>
+         </div>
+      </div>
+     </div>
+</body>
+</html>

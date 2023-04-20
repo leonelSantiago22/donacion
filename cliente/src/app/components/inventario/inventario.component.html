@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventario</title>
+</head>
+<body>
+    <app-navegacionencargado></app-navegacionencargado>
+
+    <div class="container">
+        <main class="table mt-4">
+          <section class="table__header" aling="center">
+              <h1>Inventario global</h1>
+          </section>
+    
+          <section class="table__body">
+              <table>
+                  <thead>
+                      <tr>
+                          <th>Idbanco</th>
+                          <th>idbolsa</th>
+                          <th>tipodesangre</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="active-row" *ngFor = "let inventario of inventario">
+                      <td>{{inventario.idbanco}}</td>
+                      <td>{{inventario.idbolsa}}</td>
+                      <td>{{inventario.tipodesangre}}</td>
+                  </tr>
+                  </tbody>
+              </table>
+          </section>
+      </main>
+    </div>
+  
+</body>
+</html>

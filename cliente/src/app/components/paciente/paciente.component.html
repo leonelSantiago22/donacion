@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>Pacientes</title>
+</head>
+<body>
+  <app-navegacionempleado></app-navegacionempleado>
+<div class="container">
+    <table class="styled-table mt-3" align="center" style="margin: 0px auto;" id="tablapacientes">
+        <thead>
+            <h2>Pacientes</h2>
+        </thead>
+        <tbody>
+            <tr>
+                <th>id paciente</th>
+                <th>id persona </th>
+                <th>tipo de sangre</th>
+                <th>Acciones </th>
+            </tr>
+            <tr class="active-row" *ngFor="let paciente of paciente">
+                <td>{{paciente.idpaciente}}</td>
+                <td>{{paciente.idpersona}}</td>
+                <td>{{paciente.tipodesangre}}</td>
+                <td><a (click)="eliminarPaciente(paciente.idpaciente)"><i class="material-icons prefix">delete_forever</i></a>
+                    <a (click)="visualizarPaciente(paciente.idpaciente, paciente.idpersona); preparar();"><i class="material-icons prefix">remove_red_eye</i></a>
+                    <a><i class="material-icons prefix">edit</i></a></td>  
+        </tbody>
+        <a (click)="preparar2()"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16" style="color: black;">
+          <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+          <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+        </svg></a>
+        <a (click)="exportAsXLSX()"><img src="{{liga}}/excel.png" style="height: 40px; width: 40px;"
+          style="width:64px;height:32px;"></a>
+        <label for="imputfile"> Entrada </label>
+        <input (change)="cargarExcelProfesor($event)" type="file" id="imputfile" style="display: inline-block;">
+    </table>
+  </div>
+
+    <div id="mymodal" class="modal" >
+      <div class="modal-dialog">
+         <div class="modal-content">
+         <div class="modal-header">
+           <h4 class="modal-title">Informacion Donadores</h4>
+         </div>
+         <div class="modal-body">
+          <div class="container" id="formulario">
+              
+                <div class="col-3">
+                  <label for="idpaciente" class="form-label">Id paciente</label>
+                  <input disabled  type="text" id="idpaciente" class="email" [(ngModel)]="pacienteVar.idpaciente"  name="idpersona" placeholder="nombre del paicente">
+              </div>
+                <div class="col-3">
+                    <label for="tipodesangre" class="form-label">Tipo de sangre</label>
+                    <input  type="text" id="tipodesangre" class="email" [(ngModel)]="pacienteVar.tipodesangre" name="nombrepaciente" placeholder="tipo de sangre del paicente">
+                </div>
+                <div class="col-2">
+                  <label for="nombrepersona" class="form-label">Nombre del paciente</label>
+                  <input  type="text" id="nombrepersona" class="email"  name="tipodesangre" [(ngModel)]="pacienteVar.nombre" placeholder="Nombre del paciente" />
+              </div>
+                <div  class="col-3">
+                    <label for="genero">Genero de la persona</label>
+                    <input  type="text" id="genero" class="email" name="edad" [(ngModel)]="pacienteVar.genero"  placeholder="Genero del paciente">
+                </div>
+                <div class="col-2">
+                  <label for="edad">Edad del paciente</label>
+                  <input  type="text" id="edad" class="email" [(ngModel)]="pacienteVar.edad" name="genero" placeholder="Genero del paciente">
+                </div>
+          </div>
+            <div class="buttonSelect">
+              <a  class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+              <a  class=" modal-action modal-close waves-effect waves-green btn-flat"(click)="actualizarPaciente();">Actualizar</a>
+           </div>
+         </div>
+         </div>
+      </div>
+     </div>
+
+    <div id="mymodal2" class="modal" >
+      <div class="modal-dialog">
+         <div class="modal-content">
+         <div class="modal-header">
+           <h4 class="modal-title">Informacion Pacientes</h4>
+         </div>
+         <div class="modal-body">
+          <div class="container" id="formulario">
+              
+                <div class="col-3">
+                  <label for="idpaciente" class="form-label">Id paciente</label>
+                  <input disabled  type="text" id="idpaciente" class="email" [(ngModel)]="pacienteVar.idpaciente"  name="idpersona" placeholder="Id del paciente">
+              </div>
+                <div class="col-3">
+                    <label for="tipodesangre" class="form-label">Tipo de sangre</label>
+                    <input  type="text" id="tipodesangre" class="email" [(ngModel)]="pacienteVar.tipodesangre" name="nombrepaciente" placeholder="tipo de sangre del paicente">
+                </div>
+                <div class="col-2">
+                  <label for="nombrepersona" class="form-label">Nombre del paciente</label>
+                  <input  type="text" id="nombrepersona" class="email"  name="tipodesangre" [(ngModel)]="pacienteVar.nombre" placeholder="Nombre del paciente" />
+              </div>
+                <div  class="col-3">
+                    <label for="genero">Genero de la persona</label>
+                    <input  type="text" id="genero" class="email" name="edad" [(ngModel)]="pacienteVar.genero"  placeholder="Genero del paciente">
+                </div>
+                <div class="col-2">
+                  <label for="edad">Edad del paciente</label>
+                  <input  type="text" id="edad" class="email" [(ngModel)]="pacienteVar.edad" name="genero" placeholder="Edad del paciente">
+                </div>
+          </div>
+            <div class="buttonSelect">
+              <a  class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+              <a  class=" modal-action modal-close waves-effect waves-green btn-flat" (click)="agregarPaciente();">Agregar</a>
+           </div>
+         </div>
+         </div>
+      </div>
+     </div>
+
+</body>
+</html>

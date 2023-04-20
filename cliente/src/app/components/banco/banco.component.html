@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banco</title>
+</head>
+<body>
+    
+  <app-navegacionencargado></app-navegacionencargado>
+    <div class="container">
+    <table class="mt-3">
+        <thead>
+          <tr>
+              <th>Idbanco</th>
+              <th>Nombre</th>
+              <th>Direccion</th>
+              <th>Contacto</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr class="active-row" *ngFor="let banco of banco">
+                <td>{{banco.idbanco}}</td>
+                <td>{{banco.nombre}}</td>
+                <td>{{banco.direccion}}</td>  
+                <td>{{banco.numTelefonico}}</td>
+                <a (click)="listarInventarioBanco(banco.idbanco);preparar();"><i class="material-icons prefix" style="color: black; width: 30px; height: 30px; ">remove_red_eye</i></a>
+                <a (click)="visualizarBanco(banco.idbanco);prepararModificar();"><i class="material-icons prefix" style="color: black; width: 30px; height: 30px; ">remove_red_eye</i></a>
+                <a><i (click)="eliminarBanco(banco.idbanco);" class="material-icons">delete_forever</i></a>
+            </tr>
+        </tbody>
+        <a (click)="prepararAgregar();"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" style="color: black;" fill="currentColor" class="bi bi-bank2" viewBox="0 0 16 16">
+          <path d="M8.277.084a.5.5 0 0 0-.554 0l-7.5 5A.5.5 0 0 0 .5 6h1.875v7H1.5a.5.5 0 0 0 0 1h13a.5.5 0 1 0 0-1h-.875V6H15.5a.5.5 0 0 0 .277-.916l-7.5-5zM12.375 6v7h-1.25V6h1.25zm-2.5 0v7h-1.25V6h1.25zm-2.5 0v7h-1.25V6h1.25zm-2.5 0v7h-1.25V6h1.25zM8 4a1 1 0 1 1 0-2 1 1 0 0 1 0 2zM.5 15a.5.5 0 0 0 0 1h15a.5.5 0 1 0 0-1H.5z"/>
+        </svg></a>
+      </table>
+    </div>
+    <div id="mymodal" class="modal" >
+      <div class="modal-dialog">
+         <div class="modal-content">
+         <div class="modal-header">
+           <h4 class="modal-title">Almacenes</h4>
+
+         </div>
+         <div class="modal-body">
+          <div class="container" id="formulario">
+            <table class="mt-3">
+              <thead>
+                <tr>
+                    <th>Idbanco</th>
+                    <th>Nombre</th>
+                    <th>Direccion</th>
+                    <th>Fecha de donacion</th>
+                    <th>IDregistro</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <tr class="active-row" *ngFor="let bancos of bancos2">
+                      <td>{{bancos.idbanco}}</td>
+                      <td>{{bancos.nombre}}</td>
+                      <td>{{bancos.iddonacion}}</td>
+                      <td>{{bancos.fecha_donacion}}</td>  
+                      <td>{{bancos.idregistro}}</td>
+                    </tr>
+              </tbody>
+            </table>
+          </div>
+            <div class="buttonSelect">
+              <a class=" modal-action modal-close waves-effect waves-green btn-flat">Cerrar</a>  
+             </div>
+         </div>
+         </div>
+      </div>
+     </div>
+
+     
+     <div id="mymodalModificar" class="modal" >
+      <div class="modal-dialog">
+         <div class="modal-content">
+         <div class="modal-header">
+           <h4 class="modal-title">Modificar Informacion de los bancos</h4>
+         </div>
+         <div class="modal-body">
+          <div class="container" id="formulario">
+              
+                <div class="col-3">
+                  <label for="idbanco" class="form-label">Id de indentificacion del banco</label>
+                  <input disabled  type="text" id="idbanco" [(ngModel)]="bancosModificar.idbanco"  class="email" name="idbanco">
+              </div>
+                <div class="col-3">
+                    <label for="nombre_banco" class="form-label">Nombre del banco de sangre</label>
+                    <input  type="text" id="nombre_banco" class="email" [(ngModel)]="bancosModificar.nombre"   name="nombrepaciente" placeholder="Nombre del banco que se modificara">
+                </div>
+                <div class="col-2">
+                  <label for="edad" class="form-label">Direccion del banco</label>
+                  <input  type="text" id="edad" class="email"  [(ngModel)]="bancosModificar.direccion"  name="direccion" placeholder="Direccion de donde se encuentra el banco" />
+              </div>
+                <div  class="col-3">
+                    <label for="nombre">Numero telefonico de contacto</label>
+                    <input  type="text" id="nombre" class="email" name="nombre" [(ngModel)]="bancosModificar.numTelefonico"  placeholder="numero telefonico de contacto">
+                </div>
+               
+              
+          </div>
+            <div class="buttonSelect">
+              <a  class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+              <a  class=" modal-action modal-close waves-effect waves-green btn-flat" (click)="actualizarBanco();">Actualizar</a>
+           </div>
+         </div>
+         </div>
+      </div>
+     </div>
+
+
+     <div id="mymodalAgregarBanco" class="modal" >
+      <div class="modal-dialog">
+         <div class="modal-content">
+         <div class="modal-header">
+           <h4 class="modal-title">Modificar Informacion de los bancos</h4>
+         </div>
+         <div class="modal-body">
+          <div class="container" id="formulario">
+              
+                <div class="col-3">
+                  <label for="idbanco" class="form-label">Id de indentificacion del banco</label>
+                  <input disabled  type="text" id="idbanco" [(ngModel)]="bancosAgregar.idbanco"  class="email" name="idbanco">
+              </div>
+                <div class="col-3">
+                    <label for="nombre_banco" class="form-label">Nombre del banco de sangre</label>
+                    <input  type="text" id="nombre_banco" class="email" [(ngModel)]="bancosAgregar.nombre"   name="nombrepaciente" placeholder="Nombre del banco que se modificara">
+                </div>
+                <div class="col-2">
+                  <label for="edad" class="form-label">Direccion del banco</label>
+                  <input  type="text" id="edad" class="email"  [(ngModel)]="bancosAgregar.direccion"  name="direccion" placeholder="Direccion de donde se encuentra el banco" />
+              </div>
+                <div  class="col-3">
+                    <label for="nombre">Numero telefonico de contacto</label>
+                    <input  type="text" id="nombre" class="email" name="nombre" [(ngModel)]="bancosAgregar.numTelefonico"  placeholder="numero telefonico de contacto">
+                </div>
+               
+              
+          </div>
+            <div class="buttonSelect">
+              <a  class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+              <a  class=" modal-action modal-close waves-effect waves-green btn-flat" (click)="agregarBanco();">Agregar</a>
+           </div>
+         </div>
+         </div>
+      </div>
+     </div>
+
+</body>
+</html>

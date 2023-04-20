@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Solicitud</title>
+</head>
+<body>
+  <app-navegacionempleado></app-navegacionempleado>
+
+    <main>
+      
+      <div class="container">
+        <span>Donde 1 = solicitud en proceso y 2 es procesada</span>
+      </div>
+    <section class="table__body">
+      <section class="table__header">
+        <h1>Solicitudes</h1>
+      </section>
+        <table>
+            <thead>
+              <th>Idsolicitud</th>
+              <th>Idbanco</th>
+              <th>Fecha</th>
+              <th>Estado</th>
+              <th>Idhospital</th>
+              <th>Numero de trabajador</th>
+              <th>Acciones</th>
+            </thead>
+            <tbody>
+              <tr class="active-row" *ngFor="let solicitud of solicitud">
+                <td >{{solicitud.idsolicitud}}</td>
+                <td >{{solicitud.idbanco}}</td>
+                <td >{{solicitud.fecha}}</td>
+                <td >{{solicitud.estado}}</td>
+                <td >{{solicitud.idhospital}}</td>
+                <td >{{solicitud.numero_trabajador}}</td>
+                <td ><a (click)="eliminarSolicitud(solicitud.idsolicitud)"><i class="material-icons prefix">delete_forever</i></a>
+                  <a (click)="visualizarSolicitud(solicitud.idsolicitud); preparar();"><i class="material-icons prefix">remove_red_eye</i></a>
+                  <a (click)="preparar();"><i class="material-icons prefix">edit</i></a></td>
+            </tr>
+            </tbody>
+            <a (click)="preparar()"><svg xmlns="http://www.w3.org/2000/svg" style="color: black;" width="36" height="36" fill="currentColor" class="bi bi-clipboard-plus-fill" viewBox="0 0 16 16">
+              <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z"/>
+              <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5v-1Zm4.5 6V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5a.5.5 0 0 1 1 0Z"/>
+            </svg></a>
+        </table>
+    </section>
+    </main>
+    <div id="mymodal" class="modal" >
+      <div class="modal-dialog">
+         <div class="modal-content">
+         <div class="modal-header">
+           <h4 class="modal-title">Informacion Solicitudes</h4>
+           <a (click)="static()" class=" modal-action modal-close waves-effect waves-green btn-flat">Cerrar</a> 
+         </div>
+         <div class="modal-body">
+          <div class="container" id="formulario">
+            <div class="col-12">
+              <label for="idbanco" class="form-label">Id del banco</label>
+              <input  type="number" class="validate" id="idbanco" [(ngModel)]="solicitudes.idbanco" name="idbanco" >
+            </div>
+             <div class="col-6">
+                <label for="fechasolicitud" class="form-label">Fecha de la solicitud</label>
+                <input type="date"  class="validate" id="fechasolicitud" [(ngModel)]="solicitudes.fecha" name="fecha">
+             </div>
+              <div class=" col-6">
+                  <label for="estadosolicitud" class="activate" >Estado de la solicitud</label>
+                  <input  type="number" class="validate" id="estadosolicitud" [(ngModel)]="solicitudes.estado" name="estadosolicitud" >
+              </div>
+              <div class=" col s6">
+                  <label for="idhospital" class="form-label">Id del hospital</label>
+                  <input type="number" class="validate" id="idhospital" [(ngModel)]="solicitudes.idhospital" name="idhospital" >
+              </div>
+              <div class=" col s6">
+                  <label for="trabajador" class="activate">Numero de trabajador</label>
+                  <input  type="number" class="validate" id="trabajador" [(ngModel)]="solicitudes.numero_trabajador" name="trabajador" >
+              </div>
+          </div>
+            <div class="buttonSelect">
+              <a (click)="static()" class=" modal-action modal-close waves-effect waves-green btn-flat">Cerrar</a>  
+             <input type="button" name="next" class=" modal-action modal-close waves-effect waves-green btn-flat" (click)="agregarSolicitud()" value="Agregar" />
+             <input type="button" name="next" class=" modal-action modal-close waves-effect waves-green btn-flat" (click)="updateSolicitud()" value="Actualizar" />
+            </div>
+         </div>
+         </div>
+      </div>
+     </div>
+    
+</body>
+</html>

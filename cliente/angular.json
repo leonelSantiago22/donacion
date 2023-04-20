@@ -1,0 +1,123 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "cliente": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/cliente",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "tsconfig.app.json",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.css",
+              "node_modules/materialize-css/dist/css/materialize.css",
+              "src/assets/materialize/css/materialize.css",
+              "src/assets/materialize/css/materialize.min.css"
+            ],
+            "scripts": ["src/assets/materialize/js/materialize.js",
+            "node_modules/jquery/dist/jquery.min.js",
+            "node_modules/jquery/dist/jquery.js",
+            "node_modules/materialize-css/dist/js/materialize.js",
+            "src/assets/materialize/js/materialize.js",
+            "src/assets/materialize/js/materialize.min.js"]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "cliente:build:production"
+            },
+            "development": {
+              "browserTarget": "cliente:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "cliente:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "tsconfig.spec.json",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.css",
+              "./node_modules/materialize-css/dist/css/materialize.css",
+              "./src/assets/materialize/css/materialize.css",
+              "./src/assets/materialize/css/materialize.min.css"
+            ],
+            "scripts": ["node_modules/bootstrap/dist/boostrap.min.js",
+                        "node_modules/jquery/dist/jquery.min.js",
+                        "node_modules/jquery-easing/dist/jquery.easing.min.js",
+                        "js/sb-admin2.min.js",
+                        "vendor/chart.js/Chart.min.js",
+                        "js/demo/chart-area-demo.js",
+                        "js/demo/char-pie-demo.js",
+                        "node_modules/bootstrap/dist/js/bootstrap.bundle.js",
+                        "src/assets/materialize/js/materialize.js",
+                        "src/assets/materialize/js/materialize.min.js",
+                        "node_modules/materialize-css/dist/js/materialize.js"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "analytics": "68e4e877-0643-4267-96e4-09bfc23e954d"
+  }
+}

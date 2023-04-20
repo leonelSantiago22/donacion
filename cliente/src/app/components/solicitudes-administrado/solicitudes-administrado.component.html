@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Solicitud</title>
+</head>
+<body>
+  <app-navegacionencargado></app-navegacionencargado>
+    <main>
+      
+      <div class="container">
+        <span>Donde 1 = solicitud en proceso y 2 es procesada</span>
+      </div>
+    <section class="table__body">
+      <section class="table__header">
+        <h1>Aceptacion de solicitudes</h1>
+      </section>
+        <table>
+            <thead>
+              <th>Idsolicitud</th>
+              <th>Idbanco</th>
+              <th>Fecha</th>
+              <th>Estado</th>
+              <th>Idhospital</th>
+              <th>Numero de trabajador</th>
+              <th>Acciones</th>
+            </thead>
+            <tbody>
+              <tr class="active-row" *ngFor="let solicitud of solicitud">
+                <td *ngIf="(solicitud.estado ==1)">{{solicitud.idsolicitud}}</td>
+                <td *ngIf="(solicitud.estado ==1)">{{solicitud.idbanco}}</td>
+                <td *ngIf="(solicitud.estado ==1)">{{solicitud.fecha}}</td>
+                <td *ngIf="(solicitud.estado ==1)">{{solicitud.estado}}</td>
+                <td *ngIf="(solicitud.estado ==1)">{{solicitud.idhospital}}</td>
+                <td *ngIf="(solicitud.estado ==1)">{{solicitud.numero_trabajador}}</td>
+                <td *ngIf="(solicitud.estado ==1)"> <a  class=" modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+    </main>
+    <div id="mymodal" class="modal" >
+      <div class="modal-dialog">
+         <div class="modal-content">
+         <div class="modal-header">
+           <h4 class="modal-title">Informacion Donadores</h4>
+           <a (click)="static()" class=" modal-action modal-close waves-effect waves-green btn-flat">Cerrar</a> 
+         </div>
+         <div class="modal-body">
+          <div class="container" id="formulario">
+            <div class="col-12">
+              <label for="idbanco" class="form-label">Id del banco</label>
+              <input  type="number" class="validate" id="idbanco" [(ngModel)]="solicitudes.idbanco" name="idbanco" >
+            </div>
+             <div class="col-6">
+                <label for="fechasolicitud" class="form-label">Fecha de la solicitud</label>
+                <input type="date"  class="validate" id="fechasolicitud" [(ngModel)]="solicitudes.fecha" name="fecha">
+             </div>
+              <div class=" col-6">
+                  <label for="estadosolicitud" class="activate" >Estado de la solicitud</label>
+                  <input  type="number" class="validate" id="estadosolicitud" [(ngModel)]="solicitudes.estado" name="estadosolicitud" >
+              </div>
+              <div class=" col s6">
+                  <label for="idhospital" class="form-label">Id del hospital</label>
+                  <input type="number" class="validate" id="idhospital" [(ngModel)]="solicitudes.idhospital" name="idhospital" >
+              </div>
+              <div class=" col s6">
+                  <label for="trabajador" class="activate">Numero de trabajador</label>
+                  <input  type="number" class="validate" id="trabajador" [(ngModel)]="solicitudes.numero_trabajador" name="trabajador" >
+              </div>
+          </div>
+            <div class="buttonSelect">
+              <a (click)="static()" class=" modal-action modal-close waves-effect waves-green btn-flat">Cerrar</a>  
+             <input type="button" name="next" class=" modal-action modal-close waves-effect waves-green btn-flat" (click)="agregarSolicitud()" value="Agregar" />
+             <input type="button" name="next" class=" modal-action modal-close waves-effect waves-green btn-flat" (click)="updateSolicitud()" value="Actualizar" />
+            </div>
+         </div>
+         </div>
+      </div>
+     </div>
+    
+</body>
+</html>
