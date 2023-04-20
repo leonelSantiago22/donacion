@@ -30,6 +30,8 @@ export class EnfermeraComponent {
   file: any;
   arrayBuffer: any
   exceljsondata: any;
+  pageSize = 3;
+  p = 1;
   ngOnInit() {
     this.personas = new Persona();
     this.enfermeras = new Enfermera();

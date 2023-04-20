@@ -14,6 +14,8 @@ declare var $ :any;
 })
 export class LoginComponent {
   //creamos la varible
+  pageSize = 10;
+  p = 1;
   enfermera = new Enfermera();
   constructor(private usuarioService: UsuarioService, private router: Router, private correoService : CorreoServiceService) {
 

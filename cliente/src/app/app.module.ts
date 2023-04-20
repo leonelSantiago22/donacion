@@ -22,6 +22,7 @@ import { SolicitudesAdministradoComponent } from './components/solicitudes-admin
 import { NavegacionencargadoComponent } from './components/navegacionencargado/navegacionencargado.component';
 import { NavegacionempleadoComponent } from './components/navegacionempleado/navegacionempleado.component';
 import { RecuperacionComponent } from './components/recuperacion/recuperacion.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,7 +49,8 @@ import { RecuperacionComponent } from './components/recuperacion/recuperacion.co
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

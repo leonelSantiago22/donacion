@@ -305,3 +305,6 @@ img{
   width: 2rem;
   height: auto;
 }
+[id="paginationcontrols"] {
+  background-color: #c7ecc7;
+}

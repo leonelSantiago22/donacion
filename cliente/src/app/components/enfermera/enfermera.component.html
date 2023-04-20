@@ -27,7 +27,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="active-row" *ngFor="let enfermera of enfermera">
+        <ng-container *ngFor="let enfermera of enfermera|
+        paginate: {
+        itemsPerPage: pageSize,
+        currentPage: p
+        };let i=index">
+        <tr class="active-row" >
           <td><img [src]="dameNombre(enfermera.numero_trabajador)" (error)="noFoundImage($event)" alt=""></td>
           <td>{{enfermera.numero_trabajador}}</td>
           <td>{{enfermera.idpersona}} </td>
@@ -41,6 +46,7 @@
                 class="material-icons">delete_forever</i></a>
           </td>
         </tr>
+      </ng-container>
         <a (click)="prepararAgregar();"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36"
             style="color: black;" fill="currentColor" class="bi bi-person-fill-add" viewBox="0 0 16 16">
             <path
@@ -51,8 +57,14 @@
         <a (click)="exportAsXLSX()"><img src="{{liga}}/excel.png" style="height: 40px; width: 40px;"
             style="width:64px;height:32px;"></a>
         <input (change)="cargarExcelProfesor($event)" type="file" id="imputfile" style="display: inline-block;">
+      
       </tbody>
     </table>
+    <div class="row center-align">
+      <pagination-controls class="my-pagination" (pageChange)="p = ($event)"
+      previousLabel="Anterior" nextLabel="Siguiente">
+      </pagination-controls>
+      </div>
   </div>
 
   <div id="mymodalModificar" class="modal">

@@ -12,8 +12,8 @@ a{color:inherit;text-decoration:none}
 .login-wrap{
 	width:100%;
 	margin:auto;
-	max-width:525px;
-	min-height:670px;
+	max-width:625px;
+	min-height:970px;
 	position:relative;
 	background:url(https://i.pinimg.com/564x/bd/b5/c9/bdb5c9be2cc7e64588e865361b3999dd.jpg) no-repeat center;
 	box-shadow:0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
@@ -60,7 +60,7 @@ a{color:inherit;text-decoration:none}
 	border-color:#1161ee;
 }
 .login-form{
-	min-height:345px;
+	min-height:500px;
 	position:relative;
 	perspective:1000px;
 	transform-style:preserve-3d;
@@ -71,6 +71,7 @@ a{color:inherit;text-decoration:none}
 .login-form .group .label,
 .login-form .group .input,
 .login-form .group .button{
+	margin-top: 50px;
 	width:100%;
 	color:#fff;
 	display:block;
@@ -146,5 +147,6 @@ a{color:inherit;text-decoration:none}
 	background:rgba(255,255,255,.2);
 }
 .foot-lnk{
+	margin-top: 90px;
 	text-align:center;
 }
