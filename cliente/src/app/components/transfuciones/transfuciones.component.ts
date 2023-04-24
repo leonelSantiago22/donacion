@@ -5,6 +5,9 @@ import { PacienteService } from 'src/app/services/paciente.service';
 import { Persona } from 'src/app/models/persona';
 import { Paciente } from 'src/app/models/paciente';
 import { ComunicacionService } from 'src/app/services/comunicacion.service';
+import { ExcelService } from 'src/app/services/excel.service';
+import { environment } from 'src/app/environments/environment';
+
 declare var  $:any;
 @Component({
   selector: 'app-transfuciones',
@@ -15,9 +18,11 @@ export class TransfucionesComponent {
   tranfucion: any;
   transfuciones:any;
   pacienteVar:any;
+  
+  liga: string = environment.API_URI_IMAGENES;
   personas :any;
   constructor (private tranfucionService : TransfucinesService, private pacienteService : PacienteService,
-    private comunicacionService : ComunicacionService) 
+    private comunicacionService : ComunicacionService, private excelService: ExcelService) 
   {
     this.listarTransfuciones();
     this.comunicacionService.observador$.subscribe(
@@ -30,6 +35,10 @@ export class TransfucionesComponent {
       }
       );
   }
+  exportAsXLSX() {
+    let element = document.getElementById('tablaTrans');
+    this.excelService.exportAsExcelFile(element, 'sample');
+  }
   ngOnInit()
   {
     this.transfuciones = new Transfucion();
@@ -39,7 +48,7 @@ export class TransfucionesComponent {
   listarTransfuciones()
   {
     this.tranfucionService.listSolicitudes().subscribe((resTransfucion: any) => {
-      console.log(resTransfucion);
+      //console.logresTransfucion);
       this.tranfucion=resTransfucion;
   },
       (err: any) => console.error(err)
@@ -48,7 +57,7 @@ export class TransfucionesComponent {
   agregarTransfucion()
   {
     this.tranfucionService.agregarTransfucion(this.transfuciones).subscribe((resTransfucion: any) => {
-      console.log(resTransfucion);
+      //console.logresTransfucion);
       this.transfuciones=resTransfucion;
   },
       (err: any) => console.error(err)
@@ -58,7 +67,7 @@ export class TransfucionesComponent {
   visualizarPaciente(idpaciente:any)
   {
     this.pacienteService.listOnepaciente(idpaciente).subscribe((resClientes: any) => {
-      console.log(resClientes);
+      //console.logresClientes);
       this.personas = resClientes;
   },
       (err: any) => console.error(err)

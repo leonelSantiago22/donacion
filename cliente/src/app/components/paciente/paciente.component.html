@@ -9,8 +9,8 @@
 </head>
 <body>
   <app-navegacionempleado></app-navegacionempleado>
-<div class="container">
-    <table class="styled-table mt-3" align="center" style="margin: 0px auto;">
+<div class="container" id="tablaPacientes">
+    <table class="styled-table mt-3" align="center" style="margin: 0px auto;" id="tablapacientes">
         <thead>
             <h2>Pacientes</h2>
         </thead>
@@ -28,13 +28,15 @@
                 <td><a (click)="eliminarPaciente(paciente.idpaciente)"><i class="material-icons prefix">delete_forever</i></a>
                     <a (click)="visualizarPaciente(paciente.idpaciente, paciente.idpersona); preparar();"><i class="material-icons prefix">remove_red_eye</i></a>
                     <a><i class="material-icons prefix">edit</i></a></td>  
-            </tr>
-            <a (click)="preparar2()"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16" style="color: black;">
+        </tbody>
+        <a (click)="preparar2()"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16" style="color: black;">
           <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
           <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
         </svg></a>
-        </tbody>
-        
+        <a (click)="exportAsXLSX()"><img src="{{liga}}/excel.png" style="height: 40px; width: 40px;"
+          style="width:64px;height:32px;"></a>
+        <label for="imputfile"> Entrada </label>
+        <input (change)="cargarExcelProfesor($event)" type="file" id="imputfile" style="display: inline-block;">
     </table>
   </div>
 

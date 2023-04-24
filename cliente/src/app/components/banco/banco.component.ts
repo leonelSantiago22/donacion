@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { Bancos } from 'src/app/models/banco';
 import { Bancos2 } from 'src/app/models/banco2';
 import { BancoService } from 'src/app/services/banco.service';
+import { ExcelService } from 'src/app/services/excel.service';
+import { environment } from 'src/app/environments/environment';
+
 declare var  $:any;
 @Component({
   selector: 'app-banco',
@@ -13,8 +16,10 @@ export class BancoComponent {
   bancosModificar: any;
   bancos2 : any;
   banco:any;
+  liga: string = environment.API_URI_IMAGENES;
   bancos:any;
-  constructor(private bancoService :BancoService) {
+  constructor(private bancoService :BancoService,
+    private excelService: ExcelService) {
     this.listarBancos();
   }
   ngOnInit() 
@@ -25,17 +30,22 @@ export class BancoComponent {
   listarBancos()
   {
     this.bancoService.listBancos().subscribe((resBanco: any) => {
-      console.log(resBanco);
+      //console.log(resBanco);
       this.banco  = resBanco;
   },
       (err: any) => console.error(err)
     );
   }
+  
+  exportAsXLSX() {
+    let element = document.getElementById('tablaBanco');
+    this.excelService.exportAsExcelFile(element, 'sample');
+  }
 
   listarInventarioBanco(idbanco:any)
   {
     this.bancoService.listarInventario(idbanco).subscribe((resBanco: any) => {
-      console.log(resBanco);
+      ////console.log(resBanco);
       this.bancos2  = resBanco;
   },
       (err: any) => console.error(err)
@@ -45,7 +55,7 @@ export class BancoComponent {
   visualizarBanco(idbanco:any)
   {
     this.bancoService.listOneBanco(idbanco).subscribe((resBanco: any) => {
-      console.log(resBanco);
+      //console.log(resBanco);
       this.bancosModificar  = resBanco;
   },
       (err: any) => console.error(err)
@@ -54,7 +64,7 @@ export class BancoComponent {
   eliminarBanco(idbanco:any)
   {
     this.bancoService.eliminarBanco(idbanco).subscribe((resBanco: any) => {
-      console.log(resBanco);
+      //console.log(resBanco);
       this.banco  = resBanco;
       this.listarBancos();
   },
@@ -64,7 +74,7 @@ export class BancoComponent {
   agregarBanco()
   {
     this.bancoService.agregarBanco(this.bancosAgregar).subscribe((resBanco: any) => {
-      console.log(resBanco);
+      //console.log(resBanco);
       this.bancosAgregar  = resBanco;
       this.listarBancos();
   },
@@ -74,7 +84,7 @@ export class BancoComponent {
   actualizarBanco()
   {
     this.bancoService.actulizarBanco(this.bancosModificar).subscribe((resBanco: any) => {
-      console.log(resBanco);
+      //console.log(resBanco);
       this.bancosModificar  = resBanco;
       this.listarBancos();
   },

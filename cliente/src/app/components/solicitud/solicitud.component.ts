@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { Solicitud } from 'src/app/models/solicitud';
 import { ComunicacionService } from 'src/app/services/comunicacion.service';
 declare var  $:any;
+import { ExcelService } from 'src/app/services/excel.service';
+import { environment } from 'src/app/environments/environment';
 @Component({
   selector: 'app-solicitud',
   templateUrl: './solicitud.component.html',
@@ -12,8 +14,10 @@ declare var  $:any;
 export class SolicitudComponent {
   solicitud:any;
   solicitudes:any;
+  liga: string = environment.API_URI_IMAGENES;
   constructor(private solicitudService :SolicitudService,private router: Router,
-    private comunicacionService : ComunicacionService)
+    private comunicacionService : ComunicacionService, private excelService: ExcelService
+    )
   {
     this.comunicacionService.observador$.subscribe(
       (msg) =>
@@ -30,10 +34,15 @@ export class SolicitudComponent {
   {
     this.solicitudes = new Solicitud();
   }
+  exportAsXLSX() {
+    let element = document.getElementById('tablaSolicitud');
+    this.excelService.exportAsExcelFile(element, 'sample');
+  }
+
   listarSolicitudes()
   {
     this.solicitudService.listSolicitudes().subscribe((resCategorias: any) => {
-      console.log(resCategorias);
+      //console.logresCategorias);
       this.solicitud=resCategorias;
   },
       (err: any) => console.error(err)
@@ -42,8 +51,8 @@ export class SolicitudComponent {
 
   eliminarSolicitud(idsolicitud:any){
     this.solicitudService.deleteSolicitud(idsolicitud).subscribe((resCategorias: any) => {
-      console.log(resCategorias);
-      console.log(this.solicitud);
+      //console.logresCategorias);
+      //console.logthis.solicitud);
       this.listarSolicitudes();
   },
       (err: any) => console.error(err)
@@ -61,7 +70,7 @@ export class SolicitudComponent {
   agregarSolicitud()
   {
     this.solicitudService.agregarSolicitud(this.solicitudes).subscribe((resSolcitud: any) => {
-      console.log(resSolcitud);
+      //console.logresSolcitud);
       this.solicitud = resSolcitud;
       this.listarSolicitudes();
   },
@@ -70,10 +79,10 @@ export class SolicitudComponent {
   }
   visualizarSolicitud(idsolicitud:any)
   {
-    console.log(idsolicitud);
+    //console.logidsolicitud);
     
     this.solicitudService.listOne(idsolicitud).subscribe((resClientes: any) => {
-      console.log(resClientes);
+      //console.logresClientes);
       this.solicitudes=resClientes;
   },
       (err: any) => console.error(err)
@@ -92,7 +101,7 @@ export class SolicitudComponent {
   updateSolicitud()
   {
     this.solicitudService.updateSolicitud(this.solicitudes).subscribe((resClientes: any) => {
-      console.log(resClientes);
+      //console.logresClientes);
       this.solicitudes=resClientes;
       this.listarSolicitudes(); 
   },

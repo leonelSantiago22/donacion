@@ -19,17 +19,17 @@ export class LoginComponent {
 
   }
   verificarEnfermera() {
-    console.log(this.enfermera.numero_trabajador);
-    console.log(this.enfermera.password);
+    //console.logthis.enfermera.numero_trabajador);
+    //console.logthis.enfermera.password);
     
     this.usuarioService.VerificarEnfermera(this.enfermera.numero_trabajador, this.enfermera.password).subscribe((resUsuario: any) => {
-      console.log(resUsuario);
+      //console.logresUsuario);
     if (resUsuario == null){
-      console.log("el trabajador no existe")
+      //console.log"el trabajador no existe")
       this.usuarioService.VerificarAdministrador(this.enfermera.numero_trabajador, this.enfermera.password).subscribe((resUsuario: any) => {
-        console.log(resUsuario);
+        //console.logresUsuario);
       if (resUsuario == null){
-        console.log("el trabajador no existe")
+        //console.log"el trabajador no existe")
         
         Swal.fire({
           position:"center",
@@ -38,14 +38,14 @@ export class LoginComponent {
           showConfirmButton:true
         })
       }else{
-        console.log("el usuario existe");
+        //console.log"el usuario existe");
         this.router.navigate(['enfermera']);
       }
         },
         (err: any) => console.error(err)
       );
     }else{
-      console.log("el usuario existe");
+      //console.log"el usuario existe");
       this.router.navigate(['main']);
     }
 },
@@ -59,9 +59,9 @@ export class LoginComponent {
     $('#modalCambiarContrasenya').modal('open');
   }
   cambiarContrasenya() {
-    console.log(this.enfermera);
+    //console.logthis.enfermera);
     this.correoService.enviarCorreoRecuperarContrasenya(this.enfermera).subscribe((resUsuario: any) => {
-      console.log(resUsuario);
+      //console.logresUsuario);
     }, (err: any) => console.error(err));
   }
 

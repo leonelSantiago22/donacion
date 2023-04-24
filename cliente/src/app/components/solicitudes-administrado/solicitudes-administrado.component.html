@@ -18,6 +18,7 @@
       <section class="table__header">
         <h1>Aceptacion de solicitudes</h1>
       </section>
+      <div id="tablaSolicitudA">
         <table>
             <thead>
               <th>Idsolicitud</th>
@@ -39,7 +40,10 @@
                 <td *ngIf="(solicitud.estado ==1)"> <a  class=" modal-action modal-close waves-effect waves-green btn-flat">Aceptar</a></td>
             </tr>
             </tbody>
+            <a (click)="exportAsXLSX()"><img src="{{liga}}/excel.png" style="height: 40px; width: 40px;"
+              style="width:64px;height:32px;"></a>
         </table>
+      </div>
     </section>
     </main>
     <div id="mymodal" class="modal" >

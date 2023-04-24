@@ -27,7 +27,7 @@ export class NavegacionencargadoComponent {
       agregarHospital()
       {
         this.hospitalService.agregarHospital(this.agregarHospitales).subscribe((resHospital: any) => {
-          console.log(resHospital);
+          //console.logresHospital);
           this.opcionActual = 0 ;
       },
           (err: any) => console.error(err)
@@ -53,7 +53,7 @@ export class NavegacionencargadoComponent {
       agregarEnfermera()
       {
         this.enfermeraService.agregarEnfermera(this.enfermerasAgregar).subscribe((resEnfermera: any) => {
-          console.log(resEnfermera);
+          //console.logresEnfermera);
           this.enfermerasAgregar = resEnfermera;
           },
           (err: any) => console.error(err)
@@ -68,7 +68,7 @@ export class NavegacionencargadoComponent {
       agregarBanco()
         {
           this.bancoService.agregarBanco(this.bancosAgregar).subscribe((resBanco: any) => {
-            console.log(resBanco);
+            //console.logresBanco);
             this.bancosAgregar  = resBanco;
         },
             (err: any) => console.error(err)

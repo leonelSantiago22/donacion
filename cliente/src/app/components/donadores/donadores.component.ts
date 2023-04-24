@@ -46,9 +46,9 @@ export class DonadoresComponent {
     this.personas = new Persona();
   }
   eliminarDonador(iddonador:any){
-    console.log("eliminar categoria "+iddonador)
+    //console.log"eliminar categoria "+iddonador)
     this.donadorService.deleteDonadores(iddonador).subscribe((resCategorias: any) => {
-      console.log(resCategorias);
+      //console.logresCategorias);
       this.listarDonadores();
   },
       (err: any) => console.error(err)
@@ -57,7 +57,7 @@ export class DonadoresComponent {
   listarDonadores()
   {
     this.donadorService.listarDonadores().subscribe((resCategorias: any) => {
-      console.log(resCategorias);
+      //console.logresCategorias);
       this.donador=resCategorias
   },
       (err: any) => console.error(err)
@@ -66,7 +66,7 @@ export class DonadoresComponent {
   visualizarDonador(iddonador:any, idpaciente:any)
   {
     this.donadorService.listOne(iddonador, idpaciente).subscribe((resClientes: any) => {
-      console.log(resClientes);
+      //console.logresClientes);
       this.donadores=resClientes;
   },
       (err: any) => console.error(err)
@@ -75,9 +75,9 @@ export class DonadoresComponent {
   agregarDonador()
   {
       //primero insertamos a la persona
-      console.log(this.donadores);
+      //console.logthis.donadores);
       this.donadorService.insertarDonador(this.donadores).subscribe((resClientes: any) => {
-        console.log(resClientes);
+        //console.logresClientes);
         this.donadores=resClientes;
     },
         (err: any) => console.error(err)
@@ -88,7 +88,7 @@ export class DonadoresComponent {
   listOnePaciente(idpaciente:any, idpersona:any)
   {
     this.donadorService.listOne(idpaciente,idpersona).subscribe((resClientes: any) => {
-      console.log(resClientes);
+      //console.logresClientes);
       this.donador=resClientes;
 
   },
@@ -99,7 +99,7 @@ export class DonadoresComponent {
   {
     
     this.donadorService.updateDonadores(this.donadores).subscribe((resClientes: any) => {
-      console.log(resClientes);
+      //console.logresClientes);
       this.donadores=resClientes;
 
   },
@@ -110,7 +110,7 @@ export class DonadoresComponent {
   }
   clear()
   {
-    console.log("clear");
+    //console.log"clear");
     this.donadores.nombre = "";
     this.donadores.idpersona = "";
     this.donadores.tipodesangre = "";
@@ -143,7 +143,7 @@ export class DonadoresComponent {
     }
     exportAsXLSX()
     {
-      let element = document.getElementById("tabla");
+      let element = document.getElementById("tabladonadores");
       this.excelService.exportAsExcelFile(element, 'sample');
     }
   

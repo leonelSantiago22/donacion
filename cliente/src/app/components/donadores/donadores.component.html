@@ -15,7 +15,8 @@
       </section>
 
       <section class="table__body">
-          <table>
+      <div id="tabladonadores">
+        <table>
               <thead>
                   <tr>
                       <th>Id</th>
@@ -37,6 +38,7 @@
               <a (click)="clear();preparar();"><i class="material-icons">person_add</i></a>
               <a (click)="exportAsXLSX()"><img src="{{liga}}/excel.png" style="height: 30px; widith: 30px; display:inline;" alt=""></a>
           </table>
+        </div>
       </section>
   </main>
 

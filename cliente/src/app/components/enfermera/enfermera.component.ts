@@ -9,6 +9,8 @@ import { environment } from 'src/app/environments/environment';
 import { CorreoServiceService } from 'src/app/services/correo-service.service';
 import { ImagenesService } from 'src/app/services/imagenes.service';
 import { ExcelService } from 'src/app/services/excel.service';
+import * as XLSX from 'xlsx';
+import Swal from 'sweetalert2';
 declare var $: any;
 @Component({
   selector: 'app-enfermera',
@@ -18,12 +20,18 @@ declare var $: any;
 export class EnfermeraComponent {
   enfermera: any;
   enfermeras: any;
-  liga:string = environment.API_URI_IMAGENES;
+  liga: string = environment.API_URI_IMAGENES;
   personas: any;
   enfermerasAgregar: any;
   imgPrincipal: any;
   fileToUpload: any;
-  numero_trabajador : any;
+  numero_trabajador: any;
+  uploadEvent: any;
+  file: any;
+  arrayBuffer: any
+  exceljsondata: any;
+  pageSize = 3;
+  p = 1;
   ngOnInit() {
     this.personas = new Persona();
     this.enfermeras = new Enfermera();
@@ -35,7 +43,7 @@ export class EnfermeraComponent {
     private personaServices: PersonaService,
     private imagenesService: ImagenesService,
     private correoService: CorreoServiceService,
-    private excelService : ExcelService
+    private excelService: ExcelService
   ) {
     this.listarEnfermeras();
     this.maxima();
@@ -44,7 +52,7 @@ export class EnfermeraComponent {
     this.maxima();
     this.enfermeraService.listEnfermera().subscribe(
       (resEnfermera: any) => {
-        console.log(resEnfermera);
+        ////console.logresEnfermera);
         this.enfermera = resEnfermera;
       },
       (err: any) => console.error(err)
@@ -53,7 +61,7 @@ export class EnfermeraComponent {
   eliminarEnfermera(numero_trabajador: any) {
     this.enfermeraService.deleteEnfermera(numero_trabajador).subscribe(
       (resEnfermera: any) => {
-        console.log(resEnfermera);
+        ////console.logresEnfermera);
         this.enfermeras = resEnfermera;
         this.listarEnfermeras();
       },
@@ -65,7 +73,7 @@ export class EnfermeraComponent {
       .listOneEnfermera(numero_trabajador, idpersona)
       .subscribe(
         (resEnfermera: any) => {
-          console.log(resEnfermera);
+          ////console.logresEnfermera);
           this.enfermeras = resEnfermera;
         },
         (err: any) => console.error(err)
@@ -74,7 +82,7 @@ export class EnfermeraComponent {
   actualizarEnfermera() {
     this.enfermeraService.updateEnfermera(this.enfermeras).subscribe(
       (resEnfermera: any) => {
-        console.log(resEnfermera);
+        ////console.logresEnfermera);
         this.enfermeras = resEnfermera;
         this.listarEnfermeras();
       },
@@ -84,8 +92,8 @@ export class EnfermeraComponent {
   agregarEnfermera() {
     this.enfermeraService.agregarEnfermera(this.enfermerasAgregar).subscribe(
       (resEnfermera: any) => {
-        console.log(resEnfermera.getIdPersona[0].idp);
-        console.log(resEnfermera);
+        ////console.logresEnfermera.getIdPersona[0].idp);
+        ////console.logresEnfermera);
         this.enfermeras = resEnfermera;
         this.listarEnfermeras();
       },
@@ -95,7 +103,7 @@ export class EnfermeraComponent {
   visualizarPersona(idpersona: any) {
     this.personaServices.listOnePersona(idpersona).subscribe(
       (resPersona: any) => {
-        console.log(resPersona);
+        ////console.logresPersona);
         this.enfermeras = resPersona;
       },
       (err: any) => console.error(err)
@@ -104,7 +112,7 @@ export class EnfermeraComponent {
   maxima() {
     this.enfermeraService.maxima().subscribe(
       (resEnfermera: any) => {
-        console.log(resEnfermera.validar);
+        ////console.logresEnfermera.validar);
         this.numero_trabajador = resEnfermera.validar;
       },
       (err: any) => console.error(err)
@@ -125,16 +133,16 @@ export class EnfermeraComponent {
   static() {
     this.router.navigate(['enfermera']);
   }
-  
+
   cargandoImagen(files: any, carpeta: any) {
-    console.log(files.files[0]);
+    ////console.logfiles.files[0]);
     this.imgPrincipal = null;
     this.fileToUpload = files.files[0];
     let imgPromise = this.getFileBlob(this.fileToUpload);
     imgPromise.then((blob) => {
-      console.log(blob);
+      ////console.logblob);
 
-      this.imagenesService.guardarImagen(this.numero_trabajador+1, blob, carpeta).subscribe(
+      this.imagenesService.guardarImagen(this.numero_trabajador + 1, blob, carpeta).subscribe(
         (res: any) => {
           this.imgPrincipal = blob;
         },
@@ -158,13 +166,61 @@ export class EnfermeraComponent {
     event.target.src = this.liga + '/perfil/345.jpg';
   }
   dameNombre(id: any) {
-    console.log('hola');
+    ////////console.log'hola');
     return this.liga + '/perfil/' + id + '.jpg';
   }
-  exportAsXLSX()
-  {
-    let element = document.getElementById("tabla");
+  exportAsXLSX() {
+    let element = document.getElementById('tabla');
     this.excelService.exportAsExcelFile(element, 'sample');
   }
+  cargarExcelProfesor(event: any) {
+    if (event.target.files.length > 0) {
+      this.file = event.target.files[0];
+      this.uploadEvent = event;
+    }
+    this.file = event.target.files[0];
+    let fileReader = new FileReader();
+    fileReader.readAsArrayBuffer(this.file);
+    fileReader.onload = (e) => {
+      this.arrayBuffer = fileReader.result;
+      var data = new Uint8Array(this.arrayBuffer);
+      var arr = new Array(); 
+      for (var i = 0; i != data.length; ++i) {
+        arr[i] = String.fromCharCode(data[i]);
+      }
+      var bstr = arr.join("");
+      var workbook = XLSX.read(bstr, { type: "binary" });
+      var first_sheet_name = workbook.SheetNames[0];
+      var worksheet = workbook.Sheets[first_sheet_name];
+      this.exceljsondata = XLSX.utils.sheet_to_json(worksheet, { raw: true });
+      this.migrarProfesor2DB();
+    }
+  }
+  
+  
+  migrarProfesor2DB() {
+    let i = 0;
+    this.exceljsondata.map((profesor: any) => {
+      //////console.log"datos", this.exceljsondata[i]);
+      this.enfermerasAgregar = this.exceljsondata[i]
+      this.agregarEnfermera();
+      i++;
+      // this.profesorService.guardarProfesor(profesor).subscribe((resProfesor) =>{},err =>{////console.logerr);})
+    })
+    
 
+    $('#migrarProfesor').modal({ dismissible: false });
+    $('#migrarProfesor').modal('close');
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Profesores Migrados',
+      confirmButtonAriaLabel: 'Thumbs up, great!'
+    })
+  }
+  
+  migrarProfesor() {
+    $('#migrarProfesor').modal({ dismissible: false });
+    $('#migrarProfesor').modal('open');
+  }
 }

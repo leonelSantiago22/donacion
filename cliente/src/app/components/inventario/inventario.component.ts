@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+
+import { ExcelService } from 'src/app/services/excel.service';
+import { environment } from 'src/app/environments/environment';
+
 import { InventarioService } from 'src/app/services/inventario.service';
 @Component({
   selector: 'app-inventario',
@@ -7,14 +11,22 @@ import { InventarioService } from 'src/app/services/inventario.service';
 })
 export class InventarioComponent {
   inventario : any;
-  constructor(private inventarioService : InventarioService)
+  liga: string = environment.API_URI_IMAGENES;
+  constructor(private inventarioService : InventarioService,
+    private excelService: ExcelService
+    )
   {
     this.listarInventario();
   }
+  exportAsXLSX() {
+    let element = document.getElementById('tablaInventario');
+    this.excelService.exportAsExcelFile(element, 'sample');
+  }
+
   listarInventario()
   {
     this.inventarioService.listInventario().subscribe((resInventario: any) => {
-      console.log(resInventario);
+      //console.logresInventario);
       this.inventario=resInventario;
   },
       (err: any) => console.error(err)

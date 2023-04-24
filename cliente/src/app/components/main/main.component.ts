@@ -37,7 +37,7 @@ export class MainComponent {
     listarSolicitudes()
     {
       this.solicitudService.listSolicitudes().subscribe((resCategorias: any) => {
-        console.log(resCategorias);
+        //console.logresCategorias);
         this.solicitud=resCategorias;
     },
         (err: any) => console.error(err)

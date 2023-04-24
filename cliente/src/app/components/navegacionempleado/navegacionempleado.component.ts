@@ -53,7 +53,7 @@ export class NavegacionempleadoComponent {
   agregarSolicitud()
   {
     this.solicitudService.agregarSolicitud(this.solicitudes).subscribe((resSolcitud: any) => {
-      console.log(resSolcitud);
+      //console.logresSolcitud);
       this.solicitudes = resSolcitud;
       this.enviarMensaje(0);
   },
@@ -71,7 +71,7 @@ export class NavegacionempleadoComponent {
   agregarPaciente()
   {
     this.pacienteService.insertPaciente(this.pacienteVar).subscribe((resPaciente: any) => {
-      console.log(resPaciente);
+      //console.logresPaciente);
       this.pacienteVar=resPaciente;
       this.enviarMensaje(1);
   },
@@ -90,7 +90,7 @@ export class NavegacionempleadoComponent {
   {
       //primero insertamos a la persona
       this.donadorService.insertarDonador(this.donadores).subscribe((resClientes: any) => {
-        console.log(resClientes);
+        //console.logresClientes);
         this.donadores=resClientes;
         this.enviarMensaje(2);
     },
@@ -109,7 +109,7 @@ export class NavegacionempleadoComponent {
   agregarDonacion()
   {
     this.donacionService.agregarDonacion(this.donacion).subscribe((resDonacion: any) => {
-      console.log(resDonacion);
+      //console.logresDonacion);
       this.donacion=resDonacion;
       this.enviarMensaje(3);
   },
@@ -126,7 +126,7 @@ export class NavegacionempleadoComponent {
   agregarTransfucion()
   {
     this.transfucionService.agregarTransfucion(this.transfuciones).subscribe((resTransfucion: any) => {
-      console.log(resTransfucion);
+      //console.logresTransfucion);
       this.transfuciones=resTransfucion;
      this.enviarMensaje(4);
   },

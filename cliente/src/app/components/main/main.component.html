@@ -80,8 +80,8 @@
                     <td *ngIf="(solicitud.estado ==1)">{{solicitud.idhospital}}</td>
                     <td *ngIf="(solicitud.estado ==1)">{{solicitud.numero_trabajador}}</td>
                 </tr>
-                <a (click)="exportAsXLSX()"><img src="{{liga}}/excel.png" style="width: 64px; height: 32px; display:inline;"></a>
-          
+                <a (click)="exportAsXLSX()"><img src="{{liga}}/excel.png" style="height: 40px; width: 40px;"
+                  style="width:64px;height:32px;"></a>
                 </tbody>
             </table>
         </section>

@@ -16,6 +16,7 @@
           </section>
     
           <section class="table__body">
+            <div id="tablaInventario">
               <table>
                   <thead>
                       <tr>
@@ -31,7 +32,10 @@
                       <td>{{inventario.tipodesangre}}</td>
                   </tr>
                   </tbody>
+                  <a (click)="exportAsXLSX()"><img src="{{liga}}/excel.png" style="height: 40px; width: 40px;"
+                    style="width:64px;height:32px;"></a>
               </table>
+            </div>
           </section>
       </main>
     </div>

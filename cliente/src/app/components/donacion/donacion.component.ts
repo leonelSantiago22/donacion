@@ -44,7 +44,7 @@ export class DonacionComponent {
   listarDonaciones()
   {
     this.donacionService.listarDonaciones().subscribe((resDonaciones: any) => {
-      console.log(resDonaciones);
+      //console.logresDonaciones);
       this.donacion=resDonaciones
   },
       (err: any) => console.error(err)
@@ -58,7 +58,7 @@ export class DonacionComponent {
   listBanco(idbanco:any)
   {
     this.bancoService.listOneBanco(idbanco).subscribe((resBanco: any) => {
-      console.log(resBanco);
+      //console.logresBanco);
       this.bancos=resBanco;
   },
       (err: any) => console.error(err)

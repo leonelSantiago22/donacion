@@ -9,6 +9,7 @@ import { PacienteComponent } from './components/paciente/paciente.component';
 import { SolicitudComponent } from './components/solicitud/solicitud.component';
 import { DonadoresComponent } from './components/donadores/donadores.component';
 import { BolsaComponent } from './components/bolsa/bolsa.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { MainComponent } from './components/main/main.component';
 import { InventarioComponent } from './components/inventario/inventario.component';
 import { EnfermeraComponent } from './components/enfermera/enfermera.component';
@@ -48,7 +49,8 @@ import { RecuperacionComponent } from './components/recuperacion/recuperacion.co
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]
